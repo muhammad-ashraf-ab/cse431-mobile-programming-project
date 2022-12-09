@@ -55,8 +55,7 @@
             app:iconifiedByDefault="false"
             app:searchIcon="@null"
             android:background="?attr/colorSecondary"
-            app:queryBackground="@color/transparent"
-            />
+            app:queryBackground="@color/transparent" />
 
     </androidx.appcompat.widget.Toolbar>
 
