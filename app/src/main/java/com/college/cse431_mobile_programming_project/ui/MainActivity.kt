@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.widget.SearchView
 import com.college.cse431_mobile_programming_project.R
 import com.college.cse431_mobile_programming_project.databinding.ActivityMainBinding
 
@@ -25,6 +26,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_toolbar, menu)
+
+//        val searchView = menu?.findItem(R.id.search_bar)?.actionView as SearchView
+//        searchView.setIconifiedByDefault(false)
+//        searchView.queryHint = "Search restaurants..."
+//        searchView.maxWidth = Int.MAX_VALUE
 
         return super.onCreateOptionsMenu(menu)
     }

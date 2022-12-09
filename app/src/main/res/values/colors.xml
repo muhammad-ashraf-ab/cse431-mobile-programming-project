@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="transparent">#00000000</color>
     <color name="black">#FF000000</color>
     <color name="smoky_black">#FF121212</color>
     <color name="jet">#FF333333</color>
     <color name="dark_red">#FF8F0000</color>
+    <color name="platinum">#FFEAEAEA</color>
     <color name="tart_orange">#FFFF4C4C</color>
     <color name="cultured">#FFF9F9F9</color>
     <color name="white">#FFFFFFFF</color>
