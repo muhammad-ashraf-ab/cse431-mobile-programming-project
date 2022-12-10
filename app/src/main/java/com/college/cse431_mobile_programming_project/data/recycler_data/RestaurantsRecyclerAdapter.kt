@@ -2,9 +2,11 @@ package com.college.cse431_mobile_programming_project.data.recycler_data
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.college.cse431_mobile_programming_project.data.model.Restaurant
 import com.college.cse431_mobile_programming_project.databinding.RestaurantsCardviewBinding
+import com.college.cse431_mobile_programming_project.ui.fragments.MainFragmentDirections
 import com.squareup.picasso.Picasso
 import java.text.DecimalFormat
 import kotlin.math.floor
@@ -32,6 +34,12 @@ class RestaurantsRecyclerAdapter(private val restaurantsList: ArrayList<Restaura
     }
 
     class ViewHolder(private val binding: RestaurantsCardviewBinding): RecyclerView.ViewHolder(binding.root) {
+
+        init {
+            itemView.setOnClickListener {
+                it.findNavController().navigate(MainFragmentDirections.actionMainFragmentToProfileFragment())
+            }
+        }
 
         fun bind(name: String, rating: Float, reviewers: Int, img_path: String, tags: ArrayList<String>) {
             val reviewsText = "$rating (${prettyCount(reviewers)})"
