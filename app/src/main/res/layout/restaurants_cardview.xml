@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="212dp"
+    android:layout_margin="16dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp"
+    app:cardBackgroundColor="?attr/colorSecondary">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/restaurant_card_image"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintVertical_weight="9"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/restaurant_card_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:contentDescription="@string/restaurant_image"
+            tools:src="@drawable/fool"
+            android:scaleType="centerCrop"
+            android:adjustViewBounds="true"/>
+        
+        <TextView
+            android:id="@+id/restaurant_card_name"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintHorizontal_weight="9"
+            app:layout_constraintVertical_weight="2"
+            app:layout_constraintTop_toBottomOf="@id/restaurant_card_image"
+            app:layout_constraintBottom_toTopOf="@id/restaurant_card_tags"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/rating_box"
+            android:layout_marginStart="8dp"
+            android:gravity="bottom"
+            tools:text="Fool &amp; Falafel Restaurant"
+            android:textSize="20sp"
+            android:textColor="?attr/colorOnPrimary"
+            android:ellipsize="end"
+            android:maxLines="1"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/rating_box"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintHorizontal_weight="4"
+            app:layout_constraintTop_toBottomOf="@id/restaurant_card_image"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/restaurant_card_name"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <RatingBar
+                android:id="@+id/restaurant_card_rating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/restaurant_card_rating_value"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintVertical_chainStyle="packed"
+                style="@style/RatingBar"
+                android:numStars="5"
+                android:stepSize="0.1"
+                tools:progress="90"/>
+
+            <TextView
+                android:id="@+id/restaurant_card_rating_value"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintHorizontal_weight="3"
+                app:layout_constraintTop_toBottomOf="@id/restaurant_card_rating"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:gravity="center"
+                tools:text="4.5 (1.2k)"
+                android:textColor="?attr/colorOnSecondary"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/restaurant_card_tags"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintHorizontal_weight="6"
+            app:layout_constraintVertical_weight="2"
+            app:layout_constraintTop_toBottomOf="@id/restaurant_card_name"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/rating_box"
+            android:layout_marginStart="8dp"
+            tools:text="Breakfast, Fool, Falafel"
+            android:textColor="?attr/colorOnSecondary"
+            android:alpha="0.5"
+            android:gravity="center_vertical"
+            android:ellipsize="end"
+            android:maxLines="1" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

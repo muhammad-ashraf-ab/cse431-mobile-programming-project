@@ -3,4 +3,5 @@
     <string name="profile_button">Profile Button</string>
     <string name="cart">Cart</string>
     <string name="search">Search</string>
+    <string name="restaurant_image">Restaurant Image</string>
 </resources>
