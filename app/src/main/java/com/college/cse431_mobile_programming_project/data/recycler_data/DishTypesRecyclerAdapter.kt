@@ -3,12 +3,12 @@ package com.college.cse431_mobile_programming_project.data.recycler_data
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.college.cse431_mobile_programming_project.data.model.Dish
+import com.college.cse431_mobile_programming_project.data.model.DishType
 import com.college.cse431_mobile_programming_project.databinding.DishesCardviewBinding
 import com.squareup.picasso.Picasso
 
-class DishesRecyclerAdapter(private val dishesList: ArrayList<Dish>)
-    : RecyclerView.Adapter<DishesRecyclerAdapter.ViewHolder>(){
+class DishTypesRecyclerAdapter(private val dishesList: ArrayList<DishType>)
+    : RecyclerView.Adapter<DishTypesRecyclerAdapter.ViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.create(parent)

@@ -6,5 +6,6 @@ data class Restaurant(
     val rating: Float,
     val reviewers: Int,
     val img_path: String,
-    val tags: ArrayList<String>
+    val tags: ArrayList<String>,
+    val dishes: ArrayList<Dish>
 )

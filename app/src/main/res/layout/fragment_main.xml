@@ -20,13 +20,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/dishes_recyclerview"
+                app:layout_constraintBottom_toTopOf="@id/dish_types_recyclerview"
                 app:layout_constraintStart_toStartOf="parent"
                 android:text="@string/dishes"
                 style="@style/Label"/>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/dishes_recyclerview"
+                android:id="@+id/dish_types_recyclerview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="16dp"
@@ -38,7 +38,7 @@
                 android:id="@+id/restaurants_text_scrollview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/dishes_recyclerview"
+                app:layout_constraintTop_toBottomOf="@id/dish_types_recyclerview"
                 app:layout_constraintBottom_toTopOf="@id/restaurants_recyclerview"
                 app:layout_constraintStart_toStartOf="parent"
                 android:text="@string/restaurants"
