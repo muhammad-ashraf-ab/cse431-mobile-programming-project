@@ -15,11 +15,29 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/search_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/dishes_text_scrollview"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="8dp"
+                android:padding="8dp"
+                app:queryHint="Search restaurants..."
+                app:iconifiedByDefault="false"
+                app:searchIcon="@null"
+                android:background="?attr/colorSecondary"
+                app:queryBackground="@color/transparent" />
+
             <TextView
                 android:id="@+id/dishes_text_scrollview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/search_bar"
                 app:layout_constraintBottom_toTopOf="@id/dish_types_recyclerview"
                 app:layout_constraintStart_toStartOf="parent"
                 android:text="@string/dishes"

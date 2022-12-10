@@ -18,8 +18,8 @@ class MainFragment : Fragment() {
     private val restaurantsList = ArrayList<Restaurant>()
     private val dishTypesList = ArrayList<DishType>()
     private val foodDishList = ArrayList<Dish>()
-    private lateinit var _binding : FragmentMainBinding
-    private val binding get() = _binding
+    private var _binding: FragmentMainBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -214,5 +214,16 @@ class MainFragment : Fragment() {
         dishesRecyclerView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
         dishesRecyclerView.adapter = dishTypesRecyclerAdapter
         return view
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        activity?.title = "Home"
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
