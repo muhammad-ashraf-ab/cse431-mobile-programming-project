@@ -1,4 +1,4 @@
-package com.college.cse431_mobile_programming_project.ui
+package com.college.cse431_mobile_programming_project.ui.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.college.cse431_mobile_programming_project.R
 
-class MainFragment : Fragment() {
+class CartFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,7 +18,8 @@ class MainFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        return inflater.inflate(R.layout.fragment_main, container, false)
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_cart, container, false)
     }
+
 }

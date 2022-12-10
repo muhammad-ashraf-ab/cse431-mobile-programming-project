@@ -4,4 +4,6 @@
     <string name="cart">Cart</string>
     <string name="search">Search</string>
     <string name="restaurant_image">Restaurant Image</string>
+    <string name="restaurants">Restaurants</string>
+    <string name="dishes">Dishes</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.college.cse431_mobile_programming_project.ui
+package com.college.cse431_mobile_programming_project.ui.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
