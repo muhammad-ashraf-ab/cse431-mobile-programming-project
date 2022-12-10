@@ -12,6 +12,7 @@ import com.college.cse431_mobile_programming_project.data.model.Restaurant
 import com.college.cse431_mobile_programming_project.data.recycler_data.DishTypesRecyclerAdapter
 import com.college.cse431_mobile_programming_project.data.recycler_data.RestaurantsRecyclerAdapter
 import com.college.cse431_mobile_programming_project.databinding.FragmentMainBinding
+import com.college.cse431_mobile_programming_project.ui.MainActivity
 
 class MainFragment : Fragment() {
 
@@ -219,7 +220,7 @@ class MainFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 
-        activity?.title = "Home"
+        (activity as MainActivity).updateToolbar("Home")
     }
 
     override fun onDestroyView() {
