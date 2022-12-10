@@ -20,4 +20,5 @@
     <string name="new_user">New user?</string>
     <string name="sign_up">Sign Up!</string>
     <string name="or_login_through">Or login through</string>
+    <string name="username">Username</string>
 </resources>

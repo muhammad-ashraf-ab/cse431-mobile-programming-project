@@ -12,5 +12,5 @@
     <color name="tart_orange">#FFFF4C4C</color>
     <color name="cultured">#FFF9F9F9</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="mtrl_textinput_default_box_stroke_color" tools:override="true" >#FFF9F9F9</color>
+    <color name="mtrl_textinput_default_box_stroke_color" tools:override="true" >#FFFF4C4C</color>
 </resources>
