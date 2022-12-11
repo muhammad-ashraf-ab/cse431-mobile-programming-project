@@ -1,6 +1,7 @@
 package com.college.cse431_mobile_programming_project.data.recycler_data
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -22,7 +23,8 @@ class DishesRecyclerAdapter(private val dishesList: ArrayList<Dish>)
             currentItem.price,
             currentItem.currency,
             currentItem.description,
-            currentItem.img_path)
+            currentItem.img_path,
+            currentItem.available)
     }
 
     override fun getItemCount(): Int {
@@ -33,17 +35,20 @@ class DishesRecyclerAdapter(private val dishesList: ArrayList<Dish>)
 
         init {
             itemView.setOnClickListener {
-                it.findNavController().navigate(RestaurantFragmentDirections.actionRestaurantFragmentToDishFragment(binding.dishCardName.text.toString()))
+                if (binding.dishUnavailable.visibility == View.INVISIBLE)
+                    it.findNavController().navigate(RestaurantFragmentDirections.actionRestaurantFragmentToDishFragment(binding.dishCardName.text.toString()))
             }
         }
 
-        fun bind(name: String, price: Float, currency: String, description: String, img_path: String) {
+        fun bind(name: String, price: Float, currency: String, description: String, img_path: String, available: Boolean) {
             val localPrice = "$currency $price"
 
             binding.dishCardName.text = name
             binding.dishPrice.text = localPrice
             binding.dishCardDescription.text = description
             Picasso.get().load(img_path).into(binding.dishCardImage)
+
+            binding.dishUnavailable.visibility = if (available) View.INVISIBLE else View.VISIBLE
         }
 
         companion object {

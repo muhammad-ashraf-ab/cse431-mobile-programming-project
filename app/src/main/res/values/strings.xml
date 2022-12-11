@@ -27,4 +27,5 @@
     <string name="description">Description</string>
     <string name="add_to_cart">Add to Cart</string>
     <string name="zero_one">01</string>
+    <string name="dish_unavailable">Dish Unavailable</string>
 </resources>

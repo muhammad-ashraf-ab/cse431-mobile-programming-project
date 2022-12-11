@@ -96,7 +96,8 @@ class RestaurantFragment : Fragment() {
             7.5f,
             "EGP",
             "Fries sandwich.",
-            "https://scontent.fcai20-2.fna.fbcdn.net/v/t1.18169-9/27752038_1985383591684198_833922425111005850_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=730e14&_nc_eui2=AeEiBJ50FRPaJrHZP3l8d5MlYKHJsbte3mFgocmxu17eYVXNvMBBTgcPcUeZUn1r1RCmDsYUwY8EiHoZJqSKPMby&_nc_ohc=uwDzW_GbZyEAX_pa3gx&tn=zBlexu2en-P2Fj5j&_nc_ht=scontent.fcai20-2.fna&oh=00_AfAY9WlF-USCb8zGNXvVaEk4dnO-zCt9TPPSNY-5vg7FAA&oe=63BD46AC"))
+            "https://scontent.fcai20-2.fna.fbcdn.net/v/t1.18169-9/27752038_1985383591684198_833922425111005850_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=730e14&_nc_eui2=AeEiBJ50FRPaJrHZP3l8d5MlYKHJsbte3mFgocmxu17eYVXNvMBBTgcPcUeZUn1r1RCmDsYUwY8EiHoZJqSKPMby&_nc_ohc=uwDzW_GbZyEAX_pa3gx&tn=zBlexu2en-P2Fj5j&_nc_ht=scontent.fcai20-2.fna&oh=00_AfAY9WlF-USCb8zGNXvVaEk4dnO-zCt9TPPSNY-5vg7FAA&oe=63BD46AC",
+            false))
         foolList.add(Dish(4,
             "Pickles",
             3.0f,
