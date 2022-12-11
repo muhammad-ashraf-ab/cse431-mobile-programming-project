@@ -7,45 +7,43 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
-import com.college.cse431_mobile_programming_project.databinding.FragmentPaymentMethodBinding
+import com.college.cse431_mobile_programming_project.databinding.FragmentPaymentBinding
 import com.college.cse431_mobile_programming_project.ui.MainActivity
 
-class PaymentMethodFragment : Fragment() {
+class PaymentFragment : Fragment() {
 
-    private var _binding: FragmentPaymentMethodBinding? = null
+    private var _binding: FragmentPaymentBinding? = null
     private val binding get() = _binding!!
-    private val args: PaymentMethodFragmentArgs by navArgs()
+    private val args: PaymentFragmentArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentPaymentMethodBinding.inflate(inflater, container, false)
+        _binding = FragmentPaymentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.creditCardPaymentButton.setOnClickListener {
-            //TODO: Fix bug
-            it.findNavController().navigate(PaymentMethodFragmentDirections.actionPaymentMethodFragmentToPaymentFragment(args.totalPrice))
-        }
+        val totalPrice = "EGP ${args.totalPrice}"
+        binding.totalPrice.text = totalPrice
 
-        binding.cashPaymentButton.setOnClickListener {
-            //TODO: Fix bug
-            it.findNavController().navigate(PaymentMethodFragmentDirections.actionPaymentMethodFragmentToOrderCompleteFragment())
+        binding.payNowButton.setOnClickListener {
+            it.findNavController().navigate(PaymentFragmentDirections.actionPaymentFragmentToOrderCompleteFragment())
         }
     }
 
     override fun onResume() {
         super.onResume()
 
-        (activity as MainActivity).configureBars("Payment Method", true, View.VISIBLE)
+        (activity as MainActivity).configureBars("Credit Card Payment", true, View.VISIBLE)
     }
 
     override fun onDestroyView() {

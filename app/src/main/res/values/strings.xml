@@ -36,4 +36,9 @@
     <string name="order_complete">Order Complete</string>
     <string name="go_back_to_home">Go back to home</string>
     <string name="trace_order">Trace Order</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="mm_yy">MM/YY</string>
+    <string name="pay_now">Pay Now</string>
+    <string name="total">Total</string>
 </resources>

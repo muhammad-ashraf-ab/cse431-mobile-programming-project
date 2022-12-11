@@ -87,7 +87,7 @@ class CartFragment : Fragment() {
         binding.totalPrice.text = totalPrice
 
         binding.addToCartButton.setOnClickListener {
-            it.findNavController().navigate(CartFragmentDirections.actionCartFragmentToPaymentMethodFragment())
+            it.findNavController().navigate(CartFragmentDirections.actionCartFragmentToPaymentMethodFragment(cart.map { view -> view.dish.price * view.amount }.sum()))
         }
     }
 
