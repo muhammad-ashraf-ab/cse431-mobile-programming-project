@@ -37,5 +37,6 @@ class SignupFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         (activity as MainActivity).updateToolbar("")
+        (activity as MainActivity).supportActionBar!!.setDisplayHomeAsUpEnabled(false)
     }
 }

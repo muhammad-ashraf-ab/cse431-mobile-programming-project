@@ -4,11 +4,11 @@
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/tart_orange</item>
         <item name="colorPrimaryVariant">@color/smoky_black</item>
-        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorOnPrimary">@color/platinum</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/smoky_black</item>
         <item name="colorSecondaryVariant">@color/jet</item>
-        <item name="colorOnSecondary">@color/cultured</item>
+        <item name="colorOnSecondary">@color/platinum</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorSecondary</item>
         <item name="android:windowLightStatusBar">false</item>

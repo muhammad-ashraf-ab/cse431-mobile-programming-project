@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_mainFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_dishTypeFragment"
+            app:destination="@id/dishTypeFragment" />
     </fragment>
     <fragment
         android:id="@+id/cartFragment"
@@ -88,5 +91,15 @@
         <action
             android:id="@+id/action_signupFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/dishTypeFragment"
+        android:name="com.college.cse431_mobile_programming_project.ui.fragments.DishTypeFragment"
+        android:label="fragment_dish_type"
+        tools:layout="@layout/fragment_dish_type" >
+        <argument
+            android:name="tag"
+            app:argType="string"
+            android:defaultValue="Burger" />
     </fragment>
 </navigation>

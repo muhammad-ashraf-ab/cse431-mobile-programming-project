@@ -3,7 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragments.DishTypeFragment">
+    tools:context=".ui.fragments.DishTypeFragment"
+    android:background="?attr/colorSecondaryVariant">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/restaurants_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </FrameLayout>

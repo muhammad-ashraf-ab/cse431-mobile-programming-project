@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.navigation.findNavController
 import com.college.cse431_mobile_programming_project.R
 import com.college.cse431_mobile_programming_project.databinding.ActivityMainBinding
 
@@ -35,7 +36,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
-
+        android.R.id.home -> {
+            if (!this.findNavController(binding.navHostFragment.id).popBackStack())
+                finish()
+            true
+        }
 
         else -> super.onOptionsItemSelected(item)
     }

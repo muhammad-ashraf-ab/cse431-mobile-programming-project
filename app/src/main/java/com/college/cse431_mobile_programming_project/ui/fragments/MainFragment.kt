@@ -79,8 +79,7 @@ class MainFragment : Fragment() {
 
         val foolTags = ArrayList<String>()
         foolTags.add("Breakfast")
-        foolTags.add("Fool")
-        foolTags.add("Falafel")
+        foolTags.add("Fool & Falafel")
 
         val syrianTags = ArrayList<String>()
         syrianTags.add("Lunch")
@@ -233,6 +232,7 @@ class MainFragment : Fragment() {
         super.onResume()
 
         (activity as MainActivity).updateToolbar("Home")
+        (activity as MainActivity).supportActionBar!!.setDisplayHomeAsUpEnabled(false)
     }
 
     override fun onDestroyView() {
