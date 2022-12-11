@@ -24,6 +24,13 @@ class DishTypesRecyclerAdapter(private val dishesList: ArrayList<DishType>)
     }
 
     class ViewHolder(private val binding: DishesCardviewBinding): RecyclerView.ViewHolder(binding.root) {
+
+        init {
+            itemView.setOnClickListener {
+
+            }
+        }
+
         fun bind(name: String, img_path: String) {
             binding.dishCardName.text = name
             Picasso.get().load(img_path).into(binding.dishCardImage)
