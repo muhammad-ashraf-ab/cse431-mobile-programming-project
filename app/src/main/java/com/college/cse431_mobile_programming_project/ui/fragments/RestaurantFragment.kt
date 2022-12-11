@@ -77,8 +77,6 @@ class RestaurantFragment : Fragment() {
         sandwichTags.add("Meat")
         sandwichTags.add("Sandwiches")
 
-        foolList
-
         foolList.add(Dish(1,
             "Fool Sandwich",
             5.0f,

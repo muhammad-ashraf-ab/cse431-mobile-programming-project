@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.college.cse431_mobile_programming_project.data.model.Dish
-import com.college.cse431_mobile_programming_project.databinding.DishCardviewBinding
+import com.college.cse431_mobile_programming_project.databinding.DishRestaurantCardviewBinding
 import com.college.cse431_mobile_programming_project.ui.fragments.RestaurantFragmentDirections
 import com.squareup.picasso.Picasso
 
@@ -31,7 +31,7 @@ class DishesRecyclerAdapter(private val dishesList: ArrayList<Dish>)
         return dishesList.size
     }
 
-    class ViewHolder(private val binding: DishCardviewBinding): RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(private val binding: DishRestaurantCardviewBinding): RecyclerView.ViewHolder(binding.root) {
 
         init {
             itemView.setOnClickListener {
@@ -55,7 +55,7 @@ class DishesRecyclerAdapter(private val dishesList: ArrayList<Dish>)
             fun create(parent: ViewGroup): ViewHolder {
 
                 return ViewHolder(
-                    DishCardviewBinding
+                    DishRestaurantCardviewBinding
                         .inflate(LayoutInflater.from(parent.context), parent, false)
                 )
             }

@@ -28,4 +28,6 @@
     <string name="add_to_cart">Add to Cart</string>
     <string name="zero_one">01</string>
     <string name="dish_unavailable">Dish Unavailable</string>
+    <string name="confirm_order">Confirm Order</string>
+    <string name="proceed_to_checkout">Proceed to Checkout</string>
 </resources>
