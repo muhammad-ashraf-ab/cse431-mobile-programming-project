@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.college.cse431_mobile_programming_project.data.model.Dish
 import com.college.cse431_mobile_programming_project.data.model.DishesCart
@@ -16,8 +17,8 @@ import kotlin.random.Random
 class CartFragment : Fragment() {
 
     private var cart = ArrayList<DishesCart>()
-    private var _binding: FragmentCartBinding? = null
     private lateinit var randomNumberGenerator: Random
+    private var _binding: FragmentCartBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -84,6 +85,10 @@ class CartFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val totalPrice = "Total: ${cart.map { it.dish.price * it.amount }.sum()}"
         binding.totalPrice.text = totalPrice
+
+        binding.addToCartButton.setOnClickListener {
+            it.findNavController().navigate(CartFragmentDirections.actionCartFragmentToPaymentMethodFragment())
+        }
     }
 
     override fun onResume() {

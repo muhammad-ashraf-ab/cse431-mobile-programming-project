@@ -30,4 +30,6 @@
     <string name="dish_unavailable">Dish Unavailable</string>
     <string name="confirm_order">Confirm Order</string>
     <string name="proceed_to_checkout">Proceed to Checkout</string>
+    <string name="credit_card">Credit Card</string>
+    <string name="cash">Cash</string>
 </resources>

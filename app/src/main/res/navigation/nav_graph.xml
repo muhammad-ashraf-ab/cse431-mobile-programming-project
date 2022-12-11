@@ -40,6 +40,9 @@
         <action
             android:id="@+id/action_cartFragment_to_ordersFragment"
             app:destination="@id/ordersFragment" />
+        <action
+            android:id="@+id/action_cartFragment_to_paymentMethodFragment"
+            app:destination="@id/paymentMethodFragment" />
     </fragment>
     <fragment
         android:id="@+id/ordersFragment"
@@ -134,4 +137,9 @@
             app:argType="string"
             android:defaultValue="Fool Sandwich" />
     </fragment>
+    <fragment
+        android:id="@+id/paymentMethodFragment"
+        android:name="com.college.cse431_mobile_programming_project.ui.fragments.PaymentMethodFragment"
+        android:label="fragment_payment_method"
+        tools:layout="@layout/fragment_payment_method" />
 </navigation>
