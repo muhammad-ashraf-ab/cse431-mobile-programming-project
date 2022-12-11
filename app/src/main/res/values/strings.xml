@@ -32,4 +32,8 @@
     <string name="proceed_to_checkout">Proceed to Checkout</string>
     <string name="credit_card">Credit Card</string>
     <string name="cash">Cash</string>
+    <string name="thumbs_up">Thumbs Up</string>
+    <string name="order_complete">Order Complete</string>
+    <string name="go_back_to_home">Go back to home</string>
+    <string name="trace_order">Trace Order</string>
 </resources>
