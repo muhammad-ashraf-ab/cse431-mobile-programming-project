@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
 import com.college.cse431_mobile_programming_project.R
 import com.college.cse431_mobile_programming_project.databinding.ActivityMainBinding
 
@@ -22,6 +24,9 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.mainToolbar)
 //        supportActionBar!!.setDisplayShowTitleEnabled(false)
+
+        val navController = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        binding.bottomNav.setupWithNavController(navController.navController)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

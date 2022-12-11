@@ -7,7 +7,6 @@
     <string name="restaurants">Restaurants</string>
     <string name="dishes">Dishes</string>
     <string name="dish_image">Dish Image</string>
-    <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Login</string>
@@ -21,4 +20,7 @@
     <string name="sign_up">Sign Up!</string>
     <string name="or_login_through">Or login through</string>
     <string name="username">Username</string>
+    <string name="home">Home</string>
+    <string name="orders">Orders</string>
+    <string name="profile">Profile</string>
 </resources>
