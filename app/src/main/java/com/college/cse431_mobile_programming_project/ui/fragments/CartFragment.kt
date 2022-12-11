@@ -80,6 +80,12 @@ class CartFragment : Fragment() {
         return view
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val totalPrice = "Total: ${cart.map { it.dish.price * it.amount }.sum()}"
+        binding.totalPrice.text = totalPrice
+    }
+
     override fun onResume() {
         super.onResume()
 

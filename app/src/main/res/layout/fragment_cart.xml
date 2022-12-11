@@ -11,6 +11,16 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/total_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Total: EGP 90.0"
+            android:textSize="24sp"
+            android:textStyle="bold|italic"
+            android:textColor="?attr/colorOnSecondary"
+            android:layout_gravity="center_horizontal"/>
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/add_to_cart_button"
             android:layout_width="match_parent"
