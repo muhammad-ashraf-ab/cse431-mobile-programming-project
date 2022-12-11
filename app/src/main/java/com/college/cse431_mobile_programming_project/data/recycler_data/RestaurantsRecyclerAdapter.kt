@@ -6,6 +6,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.college.cse431_mobile_programming_project.data.model.Restaurant
 import com.college.cse431_mobile_programming_project.databinding.RestaurantsCardviewBinding
+import com.college.cse431_mobile_programming_project.ui.fragments.DishTypeFragmentDirections
 import com.college.cse431_mobile_programming_project.ui.fragments.MainFragmentDirections
 import com.squareup.picasso.Picasso
 import java.text.DecimalFormat
@@ -23,10 +24,10 @@ class RestaurantsRecyclerAdapter(private val restaurantsList: ArrayList<Restaura
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentItem = restaurantsList[position]
         holder.bind(currentItem.name,
-                    currentItem.rating,
-                    currentItem.reviewers,
-                    currentItem.img_path,
-                    currentItem.tags)
+            currentItem.rating,
+            currentItem.reviewers,
+            currentItem.img_path,
+            currentItem.tags)
     }
 
     override fun getItemCount(): Int {
@@ -37,7 +38,12 @@ class RestaurantsRecyclerAdapter(private val restaurantsList: ArrayList<Restaura
 
         init {
             itemView.setOnClickListener {
-                it.findNavController().navigate(MainFragmentDirections.actionMainFragmentToProfileFragment())
+                val restaurantName = binding.restaurantCardName.text.toString()
+                val navController = it.findNavController()
+                when (it.findNavController().currentDestination!!.label) {
+                    "fragment_main" -> navController.navigate(MainFragmentDirections.actionMainFragmentToRestaurantFragment(restaurantName))
+                    "fragment_dish_type" -> navController.navigate(DishTypeFragmentDirections.actionDishTypeFragmentToRestaurantFragment(restaurantName))
+                }
             }
         }
 

@@ -38,8 +38,8 @@ class MainFragment : Fragment() {
             "https://m3rfh.b-cdn.net/wp-content/uploads/2021/05/%D8%A3%D9%81%D9%83%D8%A7%D8%B1-%D9%84%D9%84%D8%BA%D8%AF%D8%A7%D8%A1.jpg"))
 
         dishTypesList.add(DishType(4,
-        "Fool & Falafel",
-        "https://menu22.com/images/57104171_1325972874233946_5601971753078226944_n.jpg"))
+            "Fool & Falafel",
+            "https://menu22.com/images/57104171_1325972874233946_5601971753078226944_n.jpg"))
 
         dishTypesList.add(DishType(5,
             "Syrian",

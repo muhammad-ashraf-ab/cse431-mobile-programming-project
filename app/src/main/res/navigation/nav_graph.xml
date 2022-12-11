@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_mainFragment_to_dishTypeFragment"
             app:destination="@id/dishTypeFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_restaurantFragment"
+            app:destination="@id/restaurantFragment" />
     </fragment>
     <fragment
         android:id="@+id/cartFragment"
@@ -104,5 +107,18 @@
             android:name="tag"
             app:argType="string"
             android:defaultValue="Burger" />
+        <action
+            android:id="@+id/action_dishTypeFragment_to_restaurantFragment"
+            app:destination="@id/restaurantFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/restaurantFragment"
+        android:name="com.college.cse431_mobile_programming_project.ui.fragments.RestaurantFragment"
+        android:label="fragment_restaurant"
+        tools:layout="@layout/fragment_restaurant" >
+        <argument
+            android:name="restaurant_name"
+            app:argType="string"
+            android:defaultValue="Burger Restaurant" />
     </fragment>
 </navigation>
