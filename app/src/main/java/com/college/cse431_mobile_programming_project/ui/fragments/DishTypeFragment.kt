@@ -203,8 +203,7 @@ class DishTypeFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 
-        (activity as MainActivity).updateToolbar(args.tag)
-        (activity as MainActivity).supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        (activity as MainActivity).configureBars(args.tag, true, View.GONE)
     }
 
     override fun onDestroyView() {

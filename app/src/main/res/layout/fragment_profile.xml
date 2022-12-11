@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/colorSecondary"
+    android:background="?attr/colorSecondaryVariant"
     tools:context=".ui.fragments.ProfileFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -12,51 +12,48 @@
         android:layout_height="match_parent">
         
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/profile_picture_profile"
+            android:id="@+id/profile_picture"
             android:layout_width="96dp"
             android:layout_height="96dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="32dp"
             app:civ_border_width="2dp"
             app:civ_border_color="?attr/colorSecondaryVariant"
             tools:src="@drawable/fool"/>
 
         <TextView
-            android:id="@+id/username_profile"
+            android:id="@+id/username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/profile_picture_profile"
+            app:layout_constraintTop_toBottomOf="@id/profile_picture"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             tools:text="Profile Name"
             style="@style/Label"
             android:textSize="16sp"/>
-        
-        <androidx.constraintlayout.widget.ConstraintLayout
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/logout"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintTop_toBottomOf="@id/username_profile"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_margin="64dp">
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/edit_profile_card"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                app:layout_constraintHorizontal_weight="1"
-                app:layout_constraintVertical_weight="1"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:cardBackgroundColor="?attr/colorPrimary">
-
-
-
-            </androidx.cardview.widget.CardView>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            style="@style/LoginScreenButtons"
+            android:elevation="4dp"
+            android:text="@string/logout"
+            android:textSize="16sp"
+            android:gravity="center"
+            app:icon="@drawable/ic_baseline_power_settings_new_32"
+            app:iconTint="?attr/colorOnPrimary"
+            app:iconSize="24dp"
+            app:iconGravity="textStart"
+            app:iconPadding="8dp"/>
         
     </androidx.constraintlayout.widget.ConstraintLayout>
 

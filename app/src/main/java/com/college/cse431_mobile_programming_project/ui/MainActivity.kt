@@ -27,6 +27,8 @@ class MainActivity : AppCompatActivity() {
 
         val navController = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         binding.bottomNav.setupWithNavController(navController.navController)
+
+        // TODO: Add image as profile icon
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -50,7 +52,11 @@ class MainActivity : AppCompatActivity() {
         else -> super.onOptionsItemSelected(item)
     }
 
-    fun updateToolbar(title: String) {
+    fun configureBars(title: String, enabled: Boolean, navVisibility: Int, toolbarVisibility: Boolean = true) {
         binding.mainToolbar.title = title
+        supportActionBar!!.setDisplayHomeAsUpEnabled(enabled)
+        binding.bottomNav.visibility = navVisibility
+
+        if (!toolbarVisibility) supportActionBar!!.hide() else supportActionBar!!.show()
     }
 }
