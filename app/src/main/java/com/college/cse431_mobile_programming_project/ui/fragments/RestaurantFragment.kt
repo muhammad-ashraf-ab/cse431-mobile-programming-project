@@ -80,13 +80,13 @@ class RestaurantFragment : Fragment() {
         foolList
 
         foolList.add(Dish(1,
-            "Fool",
+            "Fool Sandwich",
             5.0f,
             "EGP",
             "Fool sandwich.",
             "https://scontent-hbe1-1.xx.fbcdn.net/v/t1.6435-9/60127232_1012635668946457_170317722691829760_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=cdbe9c&_nc_eui2=AeFdLYgFf3GwwPiugcfP2t_xF1JFxbvQ96IXUkXFu9D3oma9HP71DkIlRy3rjf41Ssm9Z6dIKtPdki6kiCnZyw4Z&_nc_ohc=fgF6lROFYVgAX8GvVY-&_nc_ht=scontent-hbe1-1.xx&oh=00_AfDwtOOLmna3V4AHN1_u_wJRtfEdQTw1c60twtuXcBBuDA&oe=63BD4CF7"))
         foolList.add(Dish(2,
-            "Falafel",
+            "Falafel Sandwich",
             6.0f,
             "EGP",
             "Falafel sandwich.",

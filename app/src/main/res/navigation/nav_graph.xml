@@ -120,5 +120,18 @@
             android:name="restaurant_name"
             app:argType="string"
             android:defaultValue="Burger Restaurant" />
+        <action
+            android:id="@+id/action_restaurantFragment_to_dishFragment"
+            app:destination="@id/dishFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/dishFragment"
+        android:name="com.college.cse431_mobile_programming_project.ui.fragments.DishFragment"
+        android:label="fragment_dish"
+        tools:layout="@layout/fragment_dish" >
+        <argument
+            android:name="dish_name"
+            app:argType="string"
+            android:defaultValue="Fool Sandwich" />
     </fragment>
 </navigation>

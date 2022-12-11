@@ -2,9 +2,11 @@ package com.college.cse431_mobile_programming_project.data.recycler_data
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.college.cse431_mobile_programming_project.data.model.Dish
 import com.college.cse431_mobile_programming_project.databinding.DishCardviewBinding
+import com.college.cse431_mobile_programming_project.ui.fragments.RestaurantFragmentDirections
 import com.squareup.picasso.Picasso
 
 class DishesRecyclerAdapter(private val dishesList: ArrayList<Dish>)
@@ -31,7 +33,7 @@ class DishesRecyclerAdapter(private val dishesList: ArrayList<Dish>)
 
         init {
             itemView.setOnClickListener {
-
+                it.findNavController().navigate(RestaurantFragmentDirections.actionRestaurantFragmentToDishFragment(binding.dishCardName.text.toString()))
             }
         }
 

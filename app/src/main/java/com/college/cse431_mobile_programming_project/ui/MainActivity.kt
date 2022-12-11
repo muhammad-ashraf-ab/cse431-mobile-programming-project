@@ -52,9 +52,9 @@ class MainActivity : AppCompatActivity() {
         else -> super.onOptionsItemSelected(item)
     }
 
-    fun configureBars(title: String, enabled: Boolean, navVisibility: Int, toolbarVisibility: Boolean = true) {
+    fun configureBars(title: String, toolbarUpEnabled: Boolean, navVisibility: Int, toolbarVisibility: Boolean = true) {
         binding.mainToolbar.title = title
-        supportActionBar!!.setDisplayHomeAsUpEnabled(enabled)
+        supportActionBar!!.setDisplayHomeAsUpEnabled(toolbarUpEnabled)
         binding.bottomNav.visibility = navVisibility
 
         if (!toolbarVisibility) supportActionBar!!.hide() else supportActionBar!!.show()

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.fragments.DishFragment"
+    android:background="?attr/colorSecondaryVariant">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/dish_image"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintVertical_weight="3"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/dish_info_card"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:contentDescription="@string/dish_image"
+            tools:src="@drawable/fool"
+            android:scaleType="centerCrop"/>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/dish_info_card"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@id/dish_image"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintVertical_weight="7"
+            android:layout_margin="16dp"
+            app:cardBackgroundColor="?attr/colorSecondary"
+            app:cardElevation="32dp"
+            app:cardCornerRadius="8dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/dish_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_margin="16dp"
+                    tools:text="Fool Sandwich"
+                    android:textSize="20sp"
+                    android:textColor="?attr/colorOnSecondary"/>
+
+                <TextView
+                    android:id="@+id/description_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/dish_name"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_margin="16dp"
+                    android:text="@string/description"
+                    android:textSize="18sp"
+                    android:textColor="?attr/colorOnSecondary"/>
+
+                <TextView
+                    android:id="@+id/description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/description_text"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    tools:text="A finely made fool sandwich made of the most exquisite of ingredients. The beans were grown in a farm with water taken directly from melting Antarctican glaciers. The bread was baked in the gates of hell. The tahini was created by crushing real human bones for the most exquisite of tastes. Truly a sandwich to fall in love with."
+                    android:justificationMode="inter_word"
+                    android:textColor="?attr/colorOnSecondary"/>
+
+                <TextView
+                    android:id="@+id/total_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="@id/increase_amount_button"
+                    app:layout_constraintBottom_toBottomOf="@id/increase_amount_button"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="16dp"
+                    tools:text="EGP 90.0"
+                    android:textSize="20sp"
+                    android:textStyle="bold|italic"
+                    android:textColor="?attr/colorOnSecondary"/>
+
+                <TextView
+                    android:id="@+id/price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/total_price"
+                    app:layout_constraintStart_toStartOf="@id/total_price"
+                    app:layout_constraintEnd_toEndOf="@id/total_price"
+                    tools:text="(45.0 per item)"
+                    android:textSize="12sp"
+                    android:textStyle="italic"
+                    android:textColor="?attr/colorOnSecondary" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/decrease_amount_button"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    app:layout_constraintTop_toBottomOf="@id/description"
+                    app:layout_constraintEnd_toStartOf="@id/amount"
+                    android:backgroundTint="@color/cultured"
+                    android:layout_margin="16dp"
+                    app:icon="@drawable/ic_baseline_remove_32"
+                    app:iconSize="24dp"
+                    app:iconTintMode="src_atop"
+                    app:iconTint="@color/jet"
+                    style="@style/Widget.MaterialComponents.Button.IconOnly" />
+
+                <TextView
+                    android:id="@+id/amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="@id/increase_amount_button"
+                    app:layout_constraintBottom_toBottomOf="@id/increase_amount_button"
+                    app:layout_constraintEnd_toStartOf="@id/increase_amount_button"
+                    android:layout_margin="16dp"
+                    android:fontFamily="monospace"
+                    android:text="@string/zero_one"
+                    android:textSize="16sp"
+                    android:textColor="?attr/colorOnSecondary"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/increase_amount_button"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    app:layout_constraintTop_toBottomOf="@id/description"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_margin="16dp"
+                    android:backgroundTint="@color/jet"
+                    app:icon="@drawable/ic_baseline_add_32"
+                    app:iconTint="@color/cultured"
+                    app:iconTintMode="src_atop"
+                    app:iconSize="24dp"
+                    style="@style/Widget.MaterialComponents.Button.IconOnly" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/add_to_cart_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/price"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginEnd="40dp"
+                    style="@style/LoginScreenButtons"
+                    android:text="@string/add_to_cart"
+                    android:textSize="20sp" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

@@ -24,4 +24,7 @@
     <string name="orders">Orders</string>
     <string name="profile">Profile</string>
     <string name="logout">Logout</string>
+    <string name="description">Description</string>
+    <string name="add_to_cart">Add to Cart</string>
+    <string name="zero_one">01</string>
 </resources>
