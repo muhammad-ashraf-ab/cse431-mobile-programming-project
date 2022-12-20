@@ -18,6 +18,8 @@ class LoginDataSource {
             val fakeUser = LoggedInUser(
                 UUID.randomUUID().toString(), username,
             "https://randomuser.me/api/portraits/${genders[Random.nextInt(genders.size)]}/${Random.nextInt(50)}.jpg")
+//            val user = LoggedInUser(uid, email, )
+//            return Result.Success(user)
             return Result.Success(fakeUser)
         } catch (e: Throwable) {
             return Result.Error(IOException("Error logging in", e))

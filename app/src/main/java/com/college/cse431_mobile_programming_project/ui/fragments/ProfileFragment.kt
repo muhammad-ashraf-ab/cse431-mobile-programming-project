@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import androidx.navigation.findNavController
 import com.college.cse431_mobile_programming_project.databinding.FragmentProfileBinding
 import com.college.cse431_mobile_programming_project.ui.MainActivity
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.squareup.picasso.Picasso
 import kotlin.random.Random
 
@@ -43,6 +45,7 @@ class ProfileFragment : Fragment() {
         binding.username.text = names[randomNumberGenerator.nextInt(names.size)]
 
         binding.logout.setOnClickListener {
+            Firebase.auth.signOut()
             it.findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToLoginFragment())
         }
     }
