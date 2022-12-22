@@ -34,6 +34,12 @@ class RestaurantsRecyclerAdapter(private val restaurantsList: ArrayList<Restaura
         return restaurantsList.size
     }
 
+    fun updateRestaurantsList(restaurantsList : List<Restaurant>) {
+        this.restaurantsList.clear()
+        this.restaurantsList.addAll(restaurantsList)
+        notifyDataSetChanged()
+    }
+
     class ViewHolder(private val binding: RestaurantsCardviewBinding): RecyclerView.ViewHolder(binding.root) {
 
         init {

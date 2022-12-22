@@ -20,7 +20,7 @@ class DishTypeFragment : Fragment() {
     private val foodDishList = ArrayList<Dish>()
     private var _binding: FragmentDishTypeBinding? = null
     private val binding get() = _binding!!
-    val args: DishTypeFragmentArgs by navArgs()
+    private val args: DishTypeFragmentArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
