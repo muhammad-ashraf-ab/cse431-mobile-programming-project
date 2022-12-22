@@ -26,10 +26,10 @@ class RestaurantsRepository {
         db.getReference("restaurants").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 try {
-                    val _userList : List<Restaurant> = snapshot.children.map {
+                    val _restaurantsList : List<Restaurant> = snapshot.children.map {
                         it.getValue(Restaurant::class.java)!!
                     }
-                    restaurantsList.postValue(_userList)
+                    restaurantsList.postValue(_restaurantsList)
                 } catch (e: Exception) {
                     Log.d("dberr", e.toString())
                 }

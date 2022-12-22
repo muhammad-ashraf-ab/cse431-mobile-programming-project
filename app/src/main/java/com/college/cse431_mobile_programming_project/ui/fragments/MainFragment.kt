@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.college.cse431_mobile_programming_project.R
 import com.college.cse431_mobile_programming_project.data.model.DishType
 import com.college.cse431_mobile_programming_project.data.model.Restaurant
 import com.college.cse431_mobile_programming_project.data.model.RestaurantsViewModel
@@ -14,12 +15,16 @@ import com.college.cse431_mobile_programming_project.data.recycler_data.DishType
 import com.college.cse431_mobile_programming_project.data.recycler_data.RestaurantsRecyclerAdapter
 import com.college.cse431_mobile_programming_project.databinding.FragmentMainBinding
 import com.college.cse431_mobile_programming_project.ui.MainActivity
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 
 class MainFragment : Fragment() {
 
     private val restaurantsList = ArrayList<Restaurant>()
     private val dishTypesList = ArrayList<DishType>()
     private lateinit var restaurantsViewModel : RestaurantsViewModel
+    private lateinit var database: FirebaseDatabase
 
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
@@ -121,6 +126,9 @@ class MainFragment : Fragment() {
             binding.dishesViewSwitcher.showNext()
         }
 
+        database = Firebase.database(getString(R.string.realtime_db_url))
+        val dbRef = database.reference
+        dbRef.child("dishTypes").setValue(dishTypesList)
 
         return view
     }
