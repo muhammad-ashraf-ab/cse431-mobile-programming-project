@@ -184,20 +184,31 @@ class DishTypeFragment : Fragment() {
     ): View {
         _binding = FragmentDishTypeBinding.inflate(inflater, container, false)
         val view = binding.root
-        val restaurantsRecyclerView = binding.restaurantsRecyclerview
-        val restaurantsRecyclerAdapter = RestaurantsRecyclerAdapter(restaurantsList)
-        restaurantsRecyclerView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
-        restaurantsRecyclerView.adapter = restaurantsRecyclerAdapter
-        return view
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
         allRestaurantsList.forEach {
             if (args.tag in it.tags)
                 restaurantsList.add(it)
         }
+
+        if (restaurantsList.isNotEmpty()) {
+            val restaurantsRecyclerView = binding.restaurantsRecyclerview
+            val restaurantsRecyclerAdapter = RestaurantsRecyclerAdapter(restaurantsList)
+            restaurantsRecyclerView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+            restaurantsRecyclerView.adapter = restaurantsRecyclerAdapter
+
+            if (binding.restaurantsRecyclerview.id == binding.restaurantsViewSwitcher.nextView.id) {
+                binding.restaurantsViewSwitcher.showNext()
+            }
+        }
+        else if (binding.noRestaurantsFoundText.id == binding.restaurantsViewSwitcher.nextView.id) {
+            binding.restaurantsViewSwitcher.showNext()
+        }
+
+        return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
     }
 
     override fun onResume() {

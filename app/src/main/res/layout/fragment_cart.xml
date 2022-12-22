@@ -7,40 +7,58 @@
     tools:context=".ui.fragments.CartFragment"
     android:background="?attr/colorSecondaryVariant">
 
-    <LinearLayout
+    <ViewSwitcher
+        android:id="@+id/cart_view_switcher"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/total_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            tools:text="Total: EGP 90.0"
-            android:textSize="24sp"
-            android:textStyle="bold|italic"
-            android:textColor="?attr/colorOnSecondary"
-            android:layout_gravity="center_horizontal"/>
+        <LinearLayout
+            android:id="@+id/cart_present_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/total_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                tools:text="Total: EGP 90.0"
+                android:textSize="24sp"
+                android:textStyle="bold|italic"
+                android:textColor="?attr/colorOnSecondary"
+                android:layout_gravity="center_horizontal"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/proceed_to_checkout_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="40dp"
+                style="@style/LoginScreenButtons"
+                app:cornerRadius="8dp"
+                android:text="@string/proceed_to_checkout"
+                android:textSize="20sp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/cart_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/add_to_cart_button"
-            android:layout_width="match_parent"
+            android:id="@+id/cart_empty_view"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
-            style="@style/LoginScreenButtons"
-            app:cornerRadius="8dp"
-            android:text="@string/proceed_to_checkout"
-            android:textSize="20sp" />
+            android:layout_gravity="center"
+            android:layout_marginBottom="56dp"
+            app:icon="@drawable/ic_baseline_shopping_cart_32"
+            android:text="@string/add_items_to_cart"
+            style="@style/NoResultsButton"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/cart_recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
-    </LinearLayout>
-
+    </ViewSwitcher>
 
 </FrameLayout>

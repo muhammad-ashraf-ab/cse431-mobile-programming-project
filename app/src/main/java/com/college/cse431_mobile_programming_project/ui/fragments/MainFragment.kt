@@ -13,6 +13,9 @@ import com.college.cse431_mobile_programming_project.data.recycler_data.DishType
 import com.college.cse431_mobile_programming_project.data.recycler_data.RestaurantsRecyclerAdapter
 import com.college.cse431_mobile_programming_project.databinding.FragmentMainBinding
 import com.college.cse431_mobile_programming_project.ui.MainActivity
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 
 class MainFragment : Fragment() {
 
@@ -21,6 +24,8 @@ class MainFragment : Fragment() {
     private val foodDishList = ArrayList<Dish>()
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var database: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -216,15 +221,40 @@ class MainFragment : Fragment() {
     ): View {
         _binding = FragmentMainBinding.inflate(inflater, container, false)
         val view = binding.root
-        val restaurantsRecyclerView = binding.restaurantsRecyclerview
-        val restaurantsRecyclerAdapter = RestaurantsRecyclerAdapter(restaurantsList)
-        restaurantsRecyclerView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
-        restaurantsRecyclerView.adapter = restaurantsRecyclerAdapter
 
-        val dishesRecyclerView = binding.dishTypesRecyclerview
-        val dishTypesRecyclerAdapter = DishTypesRecyclerAdapter(dishTypesList)
-        dishesRecyclerView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
-        dishesRecyclerView.adapter = dishTypesRecyclerAdapter
+//        database = Firebase.database.reference
+//
+//        database.child("dishes")
+
+        if (restaurantsList.isNotEmpty()) {
+            val restaurantsRecyclerView = binding.restaurantsRecyclerview
+            val restaurantsRecyclerAdapter = RestaurantsRecyclerAdapter(restaurantsList)
+            restaurantsRecyclerView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+            restaurantsRecyclerView.adapter = restaurantsRecyclerAdapter
+
+            if (binding.restaurantsRecyclerview.id == binding.restaurantsViewSwitcher.nextView.id) {
+                binding.restaurantsViewSwitcher.showNext()
+            }
+        }
+        else if (binding.noRestaurantsFoundText.id == binding.restaurantsViewSwitcher.nextView.id) {
+            binding.restaurantsViewSwitcher.showNext()
+        }
+
+        if (dishTypesList.isNotEmpty()) {
+            val dishesRecyclerView = binding.dishTypesRecyclerview
+            val dishTypesRecyclerAdapter = DishTypesRecyclerAdapter(dishTypesList)
+            dishesRecyclerView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+            dishesRecyclerView.adapter = dishTypesRecyclerAdapter
+
+            if (binding.dishTypesRecyclerview.id == binding.dishesViewSwitcher.nextView.id) {
+                binding.dishesViewSwitcher.showNext()
+            }
+        }
+        else if (binding.noDishesFoundText.id == binding.dishesViewSwitcher.nextView.id) {
+            binding.dishesViewSwitcher.showNext()
+        }
+
+
         return view
     }
 

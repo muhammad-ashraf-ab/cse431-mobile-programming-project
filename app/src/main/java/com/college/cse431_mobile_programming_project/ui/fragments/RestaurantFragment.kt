@@ -227,10 +227,19 @@ class RestaurantFragment : Fragment() {
             }
         }
 
-        val dishesRecyclerView = binding.dishesRecyclerview
-        val dishesRecyclerAdapter = DishesRecyclerAdapter(dishesList)
-        dishesRecyclerView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
-        dishesRecyclerView.adapter = dishesRecyclerAdapter
+        if (dishesList.isNotEmpty()) {
+            val dishesRecyclerView = binding.dishesRecyclerview
+            val dishesRecyclerAdapter = DishesRecyclerAdapter(dishesList)
+            dishesRecyclerView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+            dishesRecyclerView.adapter = dishesRecyclerAdapter
+
+            if (binding.dishesRecyclerview.id == binding.dishesViewSwitcher.nextView.id) {
+                binding.dishesViewSwitcher.showNext()
+            }
+        }
+        else if (binding.noDishesFoundText.id == binding.dishesViewSwitcher.nextView.id) {
+            binding.dishesViewSwitcher.showNext()
+        }
         return view
     }
 

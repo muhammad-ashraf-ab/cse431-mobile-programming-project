@@ -46,7 +46,7 @@ class DishFragment : Fragment() {
         binding.dishName.text = dish.name
         binding.totalPrice.text = totalPrice
         binding.price.text = pricePerItem
-        binding.price.visibility = View.INVISIBLE
+        binding.price.visibility = View.GONE
         binding.description.text = dish.description
         Picasso.get().load(dish.img_path).into(binding.dishImage)
 
@@ -56,10 +56,10 @@ class DishFragment : Fragment() {
                 --amount
                 totalPrice = "${dish.currency} ${dish.price * amount}"
                 binding.totalPrice.text = totalPrice
-                binding.price.visibility = if (amount >= 2) View.VISIBLE else View.INVISIBLE
+                binding.price.visibility = if (amount >= 2) View.VISIBLE else View.GONE
             }
             else {
-                binding.price.visibility = View.INVISIBLE
+                binding.price.visibility = View.GONE
             }
             binding.amount.text = amount.toString().padStart(2, '0')
         }

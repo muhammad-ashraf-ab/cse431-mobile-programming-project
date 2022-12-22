@@ -77,30 +77,38 @@
                     android:justificationMode="inter_word"
                     android:textColor="?attr/colorOnSecondary"/>
 
-                <TextView
-                    android:id="@+id/total_price"
+                <LinearLayout
+                    android:id="@+id/price_layout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toTopOf="@id/increase_amount_button"
                     app:layout_constraintBottom_toBottomOf="@id/increase_amount_button"
                     app:layout_constraintStart_toStartOf="parent"
                     android:layout_marginStart="16dp"
-                    tools:text="EGP 90.0"
-                    android:textSize="20sp"
-                    android:textStyle="bold|italic"
-                    android:textColor="?attr/colorOnSecondary"/>
+                    android:orientation="vertical"
+                    android:animateLayoutChanges="true">
 
-                <TextView
-                    android:id="@+id/price"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/total_price"
-                    app:layout_constraintStart_toStartOf="@id/total_price"
-                    app:layout_constraintEnd_toEndOf="@id/total_price"
-                    tools:text="(45.0 per item)"
-                    android:textSize="12sp"
-                    android:textStyle="italic"
-                    android:textColor="?attr/colorOnSecondary" />
+                    <TextView
+                        android:id="@+id/total_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="EGP 90.0"
+                        android:textSize="20sp"
+                        android:textStyle="bold|italic"
+                        android:textColor="?attr/colorOnSecondary"/>
+
+                    <TextView
+                        android:id="@+id/price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        tools:text="(45.0 per item)"
+                        android:textSize="12sp"
+                        android:textStyle="italic"
+                        android:textColor="?attr/colorOnSecondary" />
+
+                </LinearLayout>
+
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/decrease_amount_button"
@@ -147,7 +155,7 @@
                     android:id="@+id/add_to_cart_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/price"
+                    android:layout_marginBottom="32dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

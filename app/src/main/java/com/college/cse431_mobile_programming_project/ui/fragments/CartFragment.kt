@@ -12,6 +12,7 @@ import com.college.cse431_mobile_programming_project.data.model.DishesCart
 import com.college.cse431_mobile_programming_project.data.recycler_data.CartRecyclerAdapter
 import com.college.cse431_mobile_programming_project.databinding.FragmentCartBinding
 import com.college.cse431_mobile_programming_project.ui.MainActivity
+import com.college.cse431_mobile_programming_project.utils.OnQuantityChangeListener
 import kotlin.random.Random
 
 class CartFragment : Fragment() {
@@ -74,19 +75,39 @@ class CartFragment : Fragment() {
         _binding = FragmentCartBinding.inflate(inflater, container, false)
         val view = binding.root
 
-        val cartRecyclerView = binding.cartRecyclerView
-        val cartRecyclerAdapter = CartRecyclerAdapter(cart)
-        cartRecyclerView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
-        cartRecyclerView.adapter = cartRecyclerAdapter
+        if (cart.isNotEmpty()) {
+            val cartRecyclerView = binding.cartRecyclerView
+            val cartRecyclerAdapter = CartRecyclerAdapter(cart, object : OnQuantityChangeListener {
+                override fun onQuantityChange(position: Int, amount: Int) {
+                    cart[position].amount = amount
+                    val totalPrice = getCartTotalText()
+                    binding.totalPrice.text = totalPrice
+                }
+            })
+            cartRecyclerView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+            cartRecyclerView.adapter = cartRecyclerAdapter
+
+            if (binding.cartRecyclerView.id == binding.cartViewSwitcher.nextView.id) {
+                binding.cartViewSwitcher.showNext()
+            }
+        }
+        else if (binding.cartEmptyView.id == binding.cartViewSwitcher.nextView.id) {
+            binding.cartViewSwitcher.showNext()
+            binding.cartEmptyView.setOnClickListener {
+                it.findNavController().navigate(CartFragmentDirections.actionCartFragmentToMainFragment())
+            }
+        }
+
+
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val totalPrice = "Total: ${cart.map { it.dish.price * it.amount }.sum()}"
+        val totalPrice = getCartTotalText()
         binding.totalPrice.text = totalPrice
 
-        binding.addToCartButton.setOnClickListener {
+        binding.proceedToCheckoutButton.setOnClickListener {
             it.findNavController().navigate(CartFragmentDirections.actionCartFragmentToPaymentMethodFragment(cart.map { view -> view.dish.price * view.amount }.sum()))
         }
     }
@@ -100,6 +121,10 @@ class CartFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun getCartTotalText(): String {
+        return "Total: ${cart.map { it.dish.price * it.amount }.sum()}"
     }
 
 }

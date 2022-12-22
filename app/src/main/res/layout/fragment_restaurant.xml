@@ -3,12 +3,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.fragments.RestaurantFragment"
     android:background="?attr/colorSecondaryVariant">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/dishes_recyclerview"
+    <ViewSwitcher
+        android:id="@+id/dishes_view_switcher"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/dishes_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/no_dishes_found_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:icon="@drawable/ic_baseline_mood_bad_32"
+            android:text="@string/no_dishes_available"
+            style="@style/NoResultsButton"/>
+
+    </ViewSwitcher>
+
 
 </FrameLayout>

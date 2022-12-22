@@ -74,27 +74,35 @@
                 android:ellipsize="end"
                 android:maxLines="1"/>
 
-                <TextView
-                    android:id="@+id/total_price"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toTopOf="@id/price"
-                    app:layout_constraintStart_toStartOf="@id/dish_name"
-                    tools:text="EGP 90.0"
-                    android:textSize="20sp"
-                    android:textStyle="bold|italic"
-                    android:textColor="?attr/colorOnSecondary"/>
-
-                <TextView
-                    android:id="@+id/price"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    tools:text="(45.0 / item)"
-                    android:textSize="12sp"
-                    android:textStyle="italic"
-                    android:textColor="?attr/colorOnSecondary" />
+                    app:layout_constraintStart_toStartOf="@id/dish_name"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:animateLayoutChanges="true">
+
+                    <TextView
+                        android:id="@+id/total_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="EGP 90.0"
+                        android:textSize="20sp"
+                        android:textStyle="bold|italic"
+                        android:textColor="?attr/colorOnSecondary"/>
+
+                    <TextView
+                        android:id="@+id/price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="(45.0 / item)"
+                        android:textSize="12sp"
+                        android:textStyle="italic"
+                        android:textColor="?attr/colorOnSecondary" />
+
+                </LinearLayout>
+
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/decrease_amount_button"

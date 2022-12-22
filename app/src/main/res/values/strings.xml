@@ -41,4 +41,7 @@
     <string name="mm_yy">MM/YY</string>
     <string name="pay_now">Pay Now</string>
     <string name="total">Total</string>
+    <string name="no_restaurants_available">Sorry, no restaurants are currently available.</string>
+    <string name="no_dishes_available">Sorry, no dishes are currently available.</string>
+    <string name="add_items_to_cart">Add items to cart!</string>
 </resources>

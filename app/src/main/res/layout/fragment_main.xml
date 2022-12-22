@@ -38,37 +38,70 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/search_bar"
-                app:layout_constraintBottom_toTopOf="@id/dish_types_recyclerview"
+                app:layout_constraintBottom_toTopOf="@id/dishes_view_switcher"
                 app:layout_constraintStart_toStartOf="parent"
                 android:text="@string/dishes"
                 style="@style/Label"/>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/dish_types_recyclerview"
+            <ViewSwitcher
+                android:id="@+id/dishes_view_switcher"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 app:layout_constraintTop_toBottomOf="@id/dishes_text_scrollview"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/dish_types_recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:id="@+id/no_dishes_found_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/no_dishes_available"
+                    android:textColor="?attr/colorOnSecondary"
+                    android:textSize="16sp" />
+
+            </ViewSwitcher>
 
             <TextView
                 android:id="@+id/restaurants_text_scrollview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/dish_types_recyclerview"
-                app:layout_constraintBottom_toTopOf="@id/restaurants_recyclerview"
+                app:layout_constraintTop_toBottomOf="@id/dishes_view_switcher"
+                app:layout_constraintBottom_toTopOf="@id/restaurants_view_switcher"
                 app:layout_constraintStart_toStartOf="parent"
                 android:text="@string/restaurants"
                 style="@style/Label"/>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/restaurants_recyclerview"
+            <ViewSwitcher
+                android:id="@+id/restaurants_view_switcher"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/restaurants_text_scrollview"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/restaurants_recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+                <TextView
+                    android:id="@+id/no_restaurants_found_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/no_restaurants_available"
+                    android:textColor="?attr/colorOnSecondary"
+                    android:textSize="16sp" />
+
+            </ViewSwitcher>
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
