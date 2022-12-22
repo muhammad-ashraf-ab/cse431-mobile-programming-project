@@ -1,6 +1,7 @@
 package com.college.cse431_mobile_programming_project.ui.fragments
 
 import android.os.Bundle
+import android.text.method.ScrollingMovementMethod
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -27,7 +28,7 @@ class DishFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentDishBinding.inflate(inflater, container, false)
-
+        binding.description.movementMethod = ScrollingMovementMethod()
         return binding.root
     }
 
@@ -37,9 +38,9 @@ class DishFragment : Fragment() {
             "Fool Sandwich",
             5.0f,
             "EGP",
+            "Fool sandwich.",
             "A finely made fool sandwich made of the most exquisite of ingredients. The beans were grown in a farm with water taken directly from melting Antarctican glaciers. The bread was baked in the gates of hell. The tahini was created by crushing real human bones for the most exquisite of tastes. Truly a sandwich to fall in love with.",
-            "https://scontent-hbe1-1.xx.fbcdn.net/v/t1.6435-9/60127232_1012635668946457_170317722691829760_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=cdbe9c&_nc_eui2=AeFdLYgFf3GwwPiugcfP2t_xF1JFxbvQ96IXUkXFu9D3oma9HP71DkIlRy3rjf41Ssm9Z6dIKtPdki6kiCnZyw4Z&_nc_ohc=fgF6lROFYVgAX8GvVY-&_nc_ht=scontent-hbe1-1.xx&oh=00_AfDwtOOLmna3V4AHN1_u_wJRtfEdQTw1c60twtuXcBBuDA&oe=63BD4CF7",
-            true)
+            "https://scontent-hbe1-1.xx.fbcdn.net/v/t1.6435-9/60127232_1012635668946457_170317722691829760_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=cdbe9c&_nc_eui2=AeFdLYgFf3GwwPiugcfP2t_xF1JFxbvQ96IXUkXFu9D3oma9HP71DkIlRy3rjf41Ssm9Z6dIKtPdki6kiCnZyw4Z&_nc_ohc=fgF6lROFYVgAX8GvVY-&_nc_ht=scontent-hbe1-1.xx&oh=00_AfDwtOOLmna3V4AHN1_u_wJRtfEdQTw1c60twtuXcBBuDA&oe=63BD4CF7")
 
         var totalPrice = "${dish.currency} ${dish.price}"
         val pricePerItem = "(${dish.price} per item)"
@@ -47,7 +48,7 @@ class DishFragment : Fragment() {
         binding.totalPrice.text = totalPrice
         binding.price.text = pricePerItem
         binding.price.visibility = View.GONE
-        binding.description.text = dish.description
+        binding.description.text = dish.long_description
         Picasso.get().load(dish.img_path).into(binding.dishImage)
 
         binding.decreaseAmountButton.setOnClickListener {

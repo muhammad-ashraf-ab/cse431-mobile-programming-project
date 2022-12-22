@@ -22,7 +22,7 @@ class DishesRecyclerAdapter(private val dishesList: ArrayList<Dish>)
         holder.bind(currentItem.name,
             currentItem.price,
             currentItem.currency,
-            currentItem.description,
+            currentItem.short_description,
             currentItem.img_path,
             currentItem.available)
     }

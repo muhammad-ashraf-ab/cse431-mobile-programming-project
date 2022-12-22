@@ -5,7 +5,8 @@ data class Dish(
     val name: String,
     val price: Float,
     val currency: String,
-    val description: String,
+    val short_description: String,
+    val long_description: String,
     val img_path: String,
     val available: Boolean = true
 )
