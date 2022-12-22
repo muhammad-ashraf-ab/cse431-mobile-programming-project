@@ -9,7 +9,7 @@ import com.college.cse431_mobile_programming_project.databinding.DishesCardviewB
 import com.college.cse431_mobile_programming_project.ui.fragments.MainFragmentDirections
 import com.squareup.picasso.Picasso
 
-class DishTypesRecyclerAdapter(private val dishesList: ArrayList<DishType>)
+class DishTypesRecyclerAdapter(private val dishTypesList: ArrayList<DishType>)
     : RecyclerView.Adapter<DishTypesRecyclerAdapter.ViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -17,12 +17,18 @@ class DishTypesRecyclerAdapter(private val dishesList: ArrayList<DishType>)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val currentItem = dishesList[position]
+        val currentItem = dishTypesList[position]
         holder.bind(currentItem.name, currentItem.img_path)
     }
 
     override fun getItemCount(): Int {
-        return dishesList.size
+        return dishTypesList.size
+    }
+
+    fun updateDishTypesList(dishTypesList : List<DishType>) {
+        this.dishTypesList.clear()
+        this.dishTypesList.addAll(dishTypesList)
+        notifyDataSetChanged()
     }
 
     class ViewHolder(private val binding: DishesCardviewBinding): RecyclerView.ViewHolder(binding.root) {
