@@ -2,7 +2,6 @@ package com.college.cse431_mobile_programming_project.ui.fragments
 
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -22,6 +21,8 @@ class DishFragment : Fragment() {
     private var dish: Dish = Dish()
     private lateinit var restaurantsViewModel: RestaurantsViewModel
 
+    private var amount = 1
+
     private var _binding: FragmentDishBinding? = null
     private val binding get() = _binding!!
     private val args: DishFragmentArgs by navArgs()
@@ -38,6 +39,7 @@ class DishFragment : Fragment() {
 
         restaurantsViewModel.dish.observe(viewLifecycleOwner) {
             dish = it
+            updateUI()
         }
         return binding.root
     }
@@ -45,22 +47,11 @@ class DishFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        Log.d("livedata", dish.toString())
-
-        var totalPrice = "${dish.currency} ${dish.price}"
-        val pricePerItem = "(${dish.price} per item)"
-        binding.dishName.text = dish.name
-        binding.totalPrice.text = totalPrice
-        binding.price.text = pricePerItem
-        binding.price.visibility = View.GONE
-        binding.description.text = dish.long_description
-//        Picasso.get().load(dish.img_path).into(binding.dishImage)
-
         binding.decreaseAmountButton.setOnClickListener {
-            var amount = binding.amount.text.toString().toInt()
+            amount = binding.amount.text.toString().toInt()
             if (amount > 1) {
                 --amount
-                totalPrice = "${dish.currency} ${dish.price * amount}"
+                val totalPrice = "${dish.currency} ${dish.price * amount}"
                 binding.totalPrice.text = totalPrice
                 binding.price.visibility = if (amount >= 2) View.VISIBLE else View.GONE
             }
@@ -71,10 +62,10 @@ class DishFragment : Fragment() {
         }
 
         binding.increaseAmountButton.setOnClickListener {
-            var amount = binding.amount.text.toString().toInt()
+            amount = binding.amount.text.toString().toInt()
             if (amount < 99) {
                 ++amount
-                totalPrice = "${dish.currency} ${dish.price * amount}"
+                val totalPrice = "${dish.currency} ${dish.price * amount}"
                 binding.totalPrice.text = totalPrice
                 binding.price.visibility = View.VISIBLE
             }
@@ -90,6 +81,18 @@ class DishFragment : Fragment() {
         super.onResume()
 
         (activity as MainActivity).configureBars(args.dishName, true, View.GONE)
+    }
+
+    private fun updateUI() {
+        val totalPrice = "${dish.currency} ${dish.price * amount}"
+        val pricePerItem = "(${dish.price} per item)"
+        binding.dishName.text = dish.name
+        binding.totalPrice.text = totalPrice
+        binding.price.text = pricePerItem
+        if (amount <= 1)
+            binding.price.visibility = View.GONE
+        binding.description.text = dish.long_description
+        Picasso.get().load(dish.img_path).into(binding.dishImage)
     }
 
 }
