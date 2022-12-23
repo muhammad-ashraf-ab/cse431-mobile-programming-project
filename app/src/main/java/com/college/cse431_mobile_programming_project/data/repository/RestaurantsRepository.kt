@@ -25,11 +25,33 @@ class RestaurantsRepository {
     fun loadRestaurants(restaurantsList: MutableLiveData<List<Restaurant>>) {
         db.getReference("restaurants").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
+                Log.d("livedata", "restaurantslist ${restaurantsList.hasActiveObservers()}")
                 try {
                     val _restaurantsList : List<Restaurant> = snapshot.children.map {
                         it.getValue(Restaurant::class.java)!!
                     }
-                    restaurantsList.postValue(_restaurantsList)
+                    restaurantsList.value = _restaurantsList
+                } catch (e: Exception) {
+                    Log.d("dberr", e.toString())
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+
+        })
+    }
+
+    fun loadRestaurant(restaurant: MutableLiveData<Restaurant>, restaurantName: String) {
+        db.getReference("restaurants").orderByChild("name").equalTo(restaurantName).addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                Log.d("livedata", "restaurant ${restaurant.hasObservers()}")
+                try {
+                    val _restaurant : Restaurant = snapshot.children.map {
+                        it.getValue(Restaurant::class.java)!!
+                    }[0]
+                    restaurant.value = _restaurant
                 } catch (e: Exception) {
                     Log.d("dberr", e.toString())
                 }

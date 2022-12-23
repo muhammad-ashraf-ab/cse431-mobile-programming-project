@@ -31,6 +31,12 @@ class DishesRecyclerAdapter(private val dishesList: ArrayList<Dish>)
         return dishesList.size
     }
 
+    fun updateDishesList(dishesList: ArrayList<Dish>) {
+        this.dishesList.clear()
+        this.dishesList.addAll(dishesList)
+        notifyDataSetChanged()
+    }
+
     class ViewHolder(private val binding: DishRestaurantCardviewBinding): RecyclerView.ViewHolder(binding.root) {
 
         init {
