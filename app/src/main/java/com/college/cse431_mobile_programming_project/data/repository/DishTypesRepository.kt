@@ -10,9 +10,13 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
 class DishTypesRepository {
-    private val db = Firebase.database
+    private val dishTypesRef = Firebase.database.getReference("dish_types")
 
     @Volatile private var INSTANCE: DishTypesRepository ?= null
+
+    init {
+        dishTypesRef.keepSynced(true)
+    }
 
     fun getInstance(): DishTypesRepository {
         return INSTANCE ?: synchronized(this){
@@ -23,7 +27,7 @@ class DishTypesRepository {
     }
 
     fun loadDishTypes(dishTypesList: MutableLiveData<List<DishType>>) {
-        db.getReference("dish_types").addValueEventListener(object : ValueEventListener {
+        dishTypesRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 try {
                     val _dishTypesList : List<DishType> = snapshot.children.map {

@@ -10,7 +10,11 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
 class RestaurantsRepository {
-    private val db = Firebase.database
+    private val restaurantRef = Firebase.database.getReference("restaurants")
+
+    init {
+        restaurantRef.keepSynced(true)
+    }
 
     @Volatile private var INSTANCE: RestaurantsRepository ?= null
 
@@ -23,7 +27,7 @@ class RestaurantsRepository {
     }
 
     fun loadRestaurants(restaurantsList: MutableLiveData<List<Restaurant>>) {
-        db.getReference("restaurants").addValueEventListener(object : ValueEventListener {
+        restaurantRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 Log.d("livedata", "restaurantslist ${restaurantsList.hasActiveObservers()}")
                 try {
@@ -44,7 +48,7 @@ class RestaurantsRepository {
     }
 
     fun loadRestaurant(restaurant: MutableLiveData<Restaurant>, restaurantName: String) {
-        db.getReference("restaurants").orderByChild("name").equalTo(restaurantName).addValueEventListener(object : ValueEventListener {
+        restaurantRef.orderByChild("name").equalTo(restaurantName).addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 Log.d("livedata", "restaurant ${restaurant.hasObservers()}")
                 try {

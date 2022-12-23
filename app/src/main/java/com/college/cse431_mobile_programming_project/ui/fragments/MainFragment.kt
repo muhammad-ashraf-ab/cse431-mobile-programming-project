@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.college.cse431_mobile_programming_project.data.model.DishType
 import com.college.cse431_mobile_programming_project.data.model.DishTypesViewModel
 import com.college.cse431_mobile_programming_project.data.model.Restaurant
@@ -37,6 +38,7 @@ class MainFragment : Fragment() {
         val dishTypesRecyclerAdapter = DishTypesRecyclerAdapter(dishTypesList)
         dishesRecyclerView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
         dishesRecyclerView.adapter = dishTypesRecyclerAdapter
+        dishesRecyclerView.adapter!!.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
 
         dishTypesViewModel = ViewModelProvider(this)[DishTypesViewModel::class.java]
 
@@ -57,6 +59,7 @@ class MainFragment : Fragment() {
         val restaurantsRecyclerAdapter = RestaurantsRecyclerAdapter(restaurantsList)
         restaurantsRecyclerView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         restaurantsRecyclerView.adapter = restaurantsRecyclerAdapter
+        restaurantsRecyclerView.adapter!!.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
 
         restaurantsViewModel = ViewModelProvider(this)[RestaurantsViewModel::class.java]
 

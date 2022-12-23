@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.college.cse431_mobile_programming_project.data.repository.RestaurantsRepository
 
-class RestaurantsViewModel(restaurantName: String = "Burger Restaurant") : ViewModel() {
+class RestaurantsViewModel(restaurantName: String = "") : ViewModel() {
     private val repository : RestaurantsRepository = RestaurantsRepository().getInstance()
 
     private val _restaurantsList = MutableLiveData<List<Restaurant>>()
@@ -15,12 +15,11 @@ class RestaurantsViewModel(restaurantName: String = "Burger Restaurant") : ViewM
     val restaurant : LiveData<Restaurant> = _restaurant
 
     init {
-        TODO("Uncomment after fixing arguments.")
-//        if (restaurantName == "") {
+        if (restaurantName == "") {
             repository.loadRestaurants(_restaurantsList)
-//        }
-//        else {
+        }
+        else {
             repository.loadRestaurant(_restaurant, restaurantName)
-//        }
+        }
     }
 }
