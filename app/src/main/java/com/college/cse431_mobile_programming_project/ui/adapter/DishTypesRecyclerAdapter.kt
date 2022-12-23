@@ -1,4 +1,4 @@
-package com.college.cse431_mobile_programming_project.data.recycler_data
+package com.college.cse431_mobile_programming_project.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

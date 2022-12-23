@@ -1,4 +1,4 @@
-package com.college.cse431_mobile_programming_project.data.model
+package com.college.cse431_mobile_programming_project.data.model.login
 
 /**
  * Data class that captures user information for logged in users retrieved from LoginRepository

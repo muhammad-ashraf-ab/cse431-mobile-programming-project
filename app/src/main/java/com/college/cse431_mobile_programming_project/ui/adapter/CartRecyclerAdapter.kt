@@ -1,4 +1,4 @@
-package com.college.cse431_mobile_programming_project.data.recycler_data
+package com.college.cse431_mobile_programming_project.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -34,7 +34,7 @@ class CartRecyclerAdapter(private val cart: ArrayList<DishesCart>, quantityChang
         notifyItemRangeChanged(position, cart.size)
     }
 
-    private fun create(parent: ViewGroup): CartRecyclerAdapter.ViewHolder {
+    private fun create(parent: ViewGroup): ViewHolder {
         return ViewHolder(
             DishCartCardviewBinding
                 .inflate(LayoutInflater.from(parent.context), parent, false)

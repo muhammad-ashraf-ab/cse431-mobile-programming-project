@@ -1,8 +1,8 @@
 package com.college.cse431_mobile_programming_project.data.repository
 
-import com.college.cse431_mobile_programming_project.data.model.LoggedInUser
-import com.college.cse431_mobile_programming_project.data.LoginDataSource
-import com.college.cse431_mobile_programming_project.data.Result
+import com.college.cse431_mobile_programming_project.data.model.login.LoggedInUser
+import com.college.cse431_mobile_programming_project.data.data_source.LoginDataSource
+import com.college.cse431_mobile_programming_project.utils.Result
 
 /**
  * Class that requests authentication and user information from the remote data source and

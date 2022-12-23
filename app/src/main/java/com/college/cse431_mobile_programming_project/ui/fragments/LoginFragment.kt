@@ -1,4 +1,4 @@
-package com.college.cse431_mobile_programming_project.ui.login
+package com.college.cse431_mobile_programming_project.ui.fragments
 
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -19,6 +19,9 @@ import com.college.cse431_mobile_programming_project.databinding.FragmentLoginBi
 
 import com.college.cse431_mobile_programming_project.R
 import com.college.cse431_mobile_programming_project.ui.MainActivity
+import com.college.cse431_mobile_programming_project.data.model.login.LoggedInUserView
+import com.college.cse431_mobile_programming_project.ui.view_model.LoginViewModel
+import com.college.cse431_mobile_programming_project.utils.LoginViewModelFactory
 import com.google.android.gms.auth.api.identity.SignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -85,7 +88,8 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         loginViewModel = ViewModelProvider(this,
-            LoginViewModelFactory())[LoginViewModel::class.java]
+            LoginViewModelFactory()
+        )[LoginViewModel::class.java]
 
         val usernameEditText = binding.usernameEditText
         val passwordEditText = binding.passwordEditText

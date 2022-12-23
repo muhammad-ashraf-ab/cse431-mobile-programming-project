@@ -1,8 +1,9 @@
-package com.college.cse431_mobile_programming_project.data.model
+package com.college.cse431_mobile_programming_project.ui.view_model
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.college.cse431_mobile_programming_project.data.model.DishType
 import com.college.cse431_mobile_programming_project.data.repository.DishTypesRepository
 
 class DishTypesViewModel : ViewModel() {

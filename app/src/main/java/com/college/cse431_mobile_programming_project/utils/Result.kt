@@ -1,4 +1,4 @@
-package com.college.cse431_mobile_programming_project.data
+package com.college.cse431_mobile_programming_project.utils
 
 /**
  * A generic class that holds a value with its loading status.

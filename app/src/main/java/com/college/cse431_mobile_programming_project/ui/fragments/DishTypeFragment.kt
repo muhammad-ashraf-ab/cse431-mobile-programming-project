@@ -9,8 +9,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.college.cse431_mobile_programming_project.data.model.Restaurant
-import com.college.cse431_mobile_programming_project.data.model.RestaurantsViewModel
-import com.college.cse431_mobile_programming_project.data.recycler_data.RestaurantsRecyclerAdapter
+import com.college.cse431_mobile_programming_project.ui.view_model.RestaurantsViewModel
+import com.college.cse431_mobile_programming_project.ui.adapter.RestaurantsRecyclerAdapter
 import com.college.cse431_mobile_programming_project.databinding.FragmentDishTypeBinding
 import com.college.cse431_mobile_programming_project.ui.MainActivity
 

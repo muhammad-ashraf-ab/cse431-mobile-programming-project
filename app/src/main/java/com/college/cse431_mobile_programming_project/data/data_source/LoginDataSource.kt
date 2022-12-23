@@ -1,6 +1,7 @@
-package com.college.cse431_mobile_programming_project.data
+package com.college.cse431_mobile_programming_project.data.data_source
 
-import com.college.cse431_mobile_programming_project.data.model.LoggedInUser
+import com.college.cse431_mobile_programming_project.data.model.login.LoggedInUser
+import com.college.cse431_mobile_programming_project.utils.Result
 import java.io.IOException
 import java.util.*
 import kotlin.random.Random

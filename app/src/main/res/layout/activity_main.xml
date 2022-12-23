@@ -19,35 +19,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:padding="0dp"
-            android:background="?attr/colorPrimaryVariant">
-
-            <!--        <androidx.constraintlayout.widget.ConstraintLayout-->
-            <!--            android:layout_width="match_parent"-->
-            <!--            android:layout_height="wrap_content">-->
-
-            <!--            <ImageButton-->
-            <!--                android:id="@+id/profile_button"-->
-            <!--                app:layout_constraintTop_toTopOf="parent"-->
-            <!--                app:layout_constraintBottom_toBottomOf="parent"-->
-            <!--                app:layout_constraintStart_toStartOf="parent"-->
-            <!--                style="@style/circle_button"-->
-            <!--                android:background="@drawable/circle_button"-->
-            <!--                android:src="@drawable/ic_baseline_person_32"-->
-            <!--                android:contentDescription="@string/profile_button" />-->
-
-            <!--            <ImageButton-->
-            <!--                android:id="@+id/cart_button"-->
-            <!--                app:layout_constraintEnd_toEndOf="parent"-->
-            <!--                app:layout_constraintTop_toTopOf="parent"-->
-            <!--                app:layout_constraintBottom_toBottomOf="parent"-->
-            <!--                style="@style/circle_button"-->
-            <!--                android:background="@drawable/circle_button"-->
-            <!--                android:src="@drawable/ic_baseline_shopping_cart_32"-->
-            <!--                android:contentDescription="@string/cart"/>-->
-
-            <!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
-
-        </androidx.appcompat.widget.Toolbar>
+            android:background="?attr/colorPrimaryVariant"/>
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/nav_host_fragment"

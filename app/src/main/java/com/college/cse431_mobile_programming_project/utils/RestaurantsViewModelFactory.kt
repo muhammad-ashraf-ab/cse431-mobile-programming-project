@@ -2,7 +2,7 @@ package com.college.cse431_mobile_programming_project.utils
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.college.cse431_mobile_programming_project.data.model.RestaurantsViewModel
+import com.college.cse431_mobile_programming_project.ui.view_model.RestaurantsViewModel
 
 class RestaurantsViewModelFactory(param: String) : ViewModelProvider.Factory {
     private val _param = param

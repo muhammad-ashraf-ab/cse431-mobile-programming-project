@@ -1,13 +1,16 @@
-package com.college.cse431_mobile_programming_project.ui.login
+package com.college.cse431_mobile_programming_project.ui.view_model
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import android.util.Patterns
 import com.college.cse431_mobile_programming_project.data.repository.LoginRepository
-import com.college.cse431_mobile_programming_project.data.Result
+import com.college.cse431_mobile_programming_project.utils.Result
 
 import com.college.cse431_mobile_programming_project.R
+import com.college.cse431_mobile_programming_project.data.model.login.LoggedInUserView
+import com.college.cse431_mobile_programming_project.data.model.login.LoginFormState
+import com.college.cse431_mobile_programming_project.data.model.login.LoginResult
 
 class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel() {
 

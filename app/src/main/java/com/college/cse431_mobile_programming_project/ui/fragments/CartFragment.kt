@@ -9,7 +9,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.college.cse431_mobile_programming_project.data.model.Dish
 import com.college.cse431_mobile_programming_project.data.model.DishesCart
-import com.college.cse431_mobile_programming_project.data.recycler_data.CartRecyclerAdapter
+import com.college.cse431_mobile_programming_project.ui.adapter.CartRecyclerAdapter
 import com.college.cse431_mobile_programming_project.databinding.FragmentCartBinding
 import com.college.cse431_mobile_programming_project.ui.MainActivity
 import com.college.cse431_mobile_programming_project.utils.OnQuantityChangeListener
