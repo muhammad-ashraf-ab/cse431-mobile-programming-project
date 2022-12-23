@@ -32,7 +32,7 @@ class RestaurantFragment : Fragment() {
         val view = binding.root
 
         val dishesRecyclerView = binding.dishesRecyclerview
-        val dishesRecyclerAdapter = DishesRecyclerAdapter(dishesList)
+        val dishesRecyclerAdapter = DishesRecyclerAdapter(dishesList, args.restaurantName)
         dishesRecyclerView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         dishesRecyclerView.adapter = dishesRecyclerAdapter
 

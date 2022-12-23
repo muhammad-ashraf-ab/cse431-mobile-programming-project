@@ -10,11 +10,11 @@ import com.college.cse431_mobile_programming_project.databinding.DishRestaurantC
 import com.college.cse431_mobile_programming_project.ui.fragments.RestaurantFragmentDirections
 import com.squareup.picasso.Picasso
 
-class DishesRecyclerAdapter(private val dishesList: ArrayList<Dish>)
+class DishesRecyclerAdapter(private val dishesList: ArrayList<Dish>, private val restaurantName: String)
     : RecyclerView.Adapter<DishesRecyclerAdapter.ViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder.create(parent)
+        return ViewHolder.create(parent, restaurantName)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -37,12 +37,12 @@ class DishesRecyclerAdapter(private val dishesList: ArrayList<Dish>)
         notifyDataSetChanged()
     }
 
-    class ViewHolder(private val binding: DishRestaurantCardviewBinding): RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(private val binding: DishRestaurantCardviewBinding, restaurantName: String): RecyclerView.ViewHolder(binding.root) {
 
         init {
             itemView.setOnClickListener {
                 if (binding.dishUnavailable.visibility == View.INVISIBLE)
-                    it.findNavController().navigate(RestaurantFragmentDirections.actionRestaurantFragmentToDishFragment(binding.dishCardName.text.toString()))
+                    it.findNavController().navigate(RestaurantFragmentDirections.actionRestaurantFragmentToDishFragment(restaurantName = restaurantName, dishName = binding.dishCardName.text.toString()))
             }
         }
 
@@ -58,11 +58,11 @@ class DishesRecyclerAdapter(private val dishesList: ArrayList<Dish>)
         }
 
         companion object {
-            fun create(parent: ViewGroup): ViewHolder {
-
+            fun create(parent: ViewGroup, restaurantName: String): ViewHolder {
                 return ViewHolder(
                     DishRestaurantCardviewBinding
-                        .inflate(LayoutInflater.from(parent.context), parent, false)
+                        .inflate(LayoutInflater.from(parent.context), parent, false),
+                    restaurantName
                 )
             }
         }

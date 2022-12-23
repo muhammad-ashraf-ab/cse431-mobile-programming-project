@@ -2,6 +2,7 @@ package com.college.cse431_mobile_programming_project.data.repository
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.college.cse431_mobile_programming_project.data.model.Dish
 import com.college.cse431_mobile_programming_project.data.model.Restaurant
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -10,10 +11,10 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
 class RestaurantsRepository {
-    private val restaurantRef = Firebase.database.getReference("restaurants")
+    private val restaurantsRef = Firebase.database.getReference("restaurants")
 
     init {
-        restaurantRef.keepSynced(true)
+        restaurantsRef.keepSynced(true)
     }
 
     @Volatile private var INSTANCE: RestaurantsRepository ?= null
@@ -27,9 +28,8 @@ class RestaurantsRepository {
     }
 
     fun loadRestaurants(restaurantsList: MutableLiveData<List<Restaurant>>) {
-        restaurantRef.addValueEventListener(object : ValueEventListener {
+        restaurantsRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                Log.d("livedata", "restaurantslist ${restaurantsList.hasActiveObservers()}")
                 try {
                     val _restaurantsList : List<Restaurant> = snapshot.children.map {
                         it.getValue(Restaurant::class.java)!!
@@ -48,9 +48,8 @@ class RestaurantsRepository {
     }
 
     fun loadRestaurant(restaurant: MutableLiveData<Restaurant>, restaurantName: String) {
-        restaurantRef.orderByChild("name").equalTo(restaurantName).addValueEventListener(object : ValueEventListener {
+        restaurantsRef.orderByChild("name").equalTo(restaurantName).addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                Log.d("livedata", "restaurant ${restaurant.hasObservers()}")
                 try {
                     val _restaurant : Restaurant = snapshot.children.map {
                         it.getValue(Restaurant::class.java)!!
@@ -65,6 +64,29 @@ class RestaurantsRepository {
 
             }
 
+        })
+    }
+
+    fun loadDish(dish: MutableLiveData<Dish>, restaurantName: String, dishName: String) {
+        restaurantsRef.orderByChild("name").equalTo(restaurantName).addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val childKey : String = snapshot.children.first().key!!
+                restaurantsRef.child("$childKey/dishes").orderByChild("name").equalTo(dishName).addValueEventListener(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        Log.d("livedata", "restaurantslist ${dish.hasActiveObservers()}")
+                        try {
+                            val _dish : Dish = snapshot.children.map {
+                                it.getValue(Dish::class.java)!!
+                            }[0]
+                            dish.value = _dish
+                        } catch (e: Exception) {
+                            Log.d("dberr", e.toString())
+                        }
+                    }
+                    override fun onCancelled(error: DatabaseError) {}
+                })
+            }
+            override fun onCancelled(error: DatabaseError) {}
         })
     }
 }
