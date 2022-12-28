@@ -5,8 +5,8 @@ package com.college.cse431_mobile_programming_project.data.model.login
  */
 data class LoggedInUserView(
 //    val uid: String,
-//    val email: String,
-    val displayName: String,
-    val profile_picture_url: String
+    val email: String,
+//    val displayName: String,
+//    val profile_picture_url: String
     //... other data fields that may be accessible to the UI
 )

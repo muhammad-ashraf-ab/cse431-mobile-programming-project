@@ -20,39 +20,41 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
     private val _loginResult = MutableLiveData<LoginResult>()
     val loginResult: LiveData<LoginResult> = _loginResult
 
-    fun login(username: String, password: String) {
-        // can be launched in a separate asynchronous job
-        val result = loginRepository.login(username, password)
+    fun emailPasswordLogin(email: String, password: String, ) {
+        loginRepository.emailPasswordLogin(email, password) { result ->
+            if (result is Result.Success) {
+            _loginResult.postValue(
+                LoginResult(success = LoggedInUserView(email = result.data.display_name))
+            )
+            } else {
+                val errMessage = when (result.getException()) {
+                    "com.google.firebase.auth.FirebaseAuthInvalidUserException" -> R.string.authentication_failed
+                    "com.google.firebase.auth.FirebaseAuthInvalidCredentialsException" -> R.string.authentication_failed
+                    "com.google.firebase.FirebaseNetworkException" -> R.string.network_error
+                    else -> R.string.login_failed
+                }
 
-        if (result is Result.Success) {
-            _loginResult.value =
-                LoginResult(success = LoggedInUserView(displayName = result.data.display_name, result.data.profile_img_path))
+                _loginResult.postValue(LoginResult(error = errMessage))
+            }
+
+        }
+
+    }
+
+    fun loginDataChanged(email: String, password: String) {
+        if (!isEmailValid(email)) {
+            _loginForm.value = LoginFormState(emailError = R.string.invalid_email)
+        } else if (!isPasswordValid(password)) {
+            _loginForm.value = LoginFormState(passwordError = R.string.invalid_password)
         } else {
-            _loginResult.value = LoginResult(error = R.string.login_failed)
+            _loginForm.value = LoginFormState(isDataValid = true)
         }
     }
 
-    fun loginDataChanged(username: String, password: String) {
-//        if (!isUserNameValid(username)) {
-//            _loginForm.value = LoginFormState(usernameError = R.string.invalid_username)
-//        } else if (!isPasswordValid(password)) {
-//            _loginForm.value = LoginFormState(passwordError = R.string.invalid_password)
-//        } else {
-//            _loginForm.value = LoginFormState(isDataValid = true)
-//        }
-        _loginForm.value = LoginFormState(isDataValid = true)
+    private fun isEmailValid(email: String): Boolean {
+        return Patterns.EMAIL_ADDRESS.matcher(email).matches() and email.endsWith("@eng.asu.edu.eg")
     }
 
-    // A placeholder username validation check
-    private fun isUserNameValid(username: String): Boolean {
-        return if (username.contains("@")) {
-            Patterns.EMAIL_ADDRESS.matcher(username).matches()
-        } else {
-            username.isNotBlank()
-        }
-    }
-
-    // A placeholder password validation check
     private fun isPasswordValid(password: String): Boolean {
         return password.length > 5
     }

@@ -11,10 +11,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.college.cse431_mobile_programming_project.databinding.FragmentLoginBinding
 
 import com.college.cse431_mobile_programming_project.R
@@ -53,14 +53,16 @@ class LoginFragment : Fragment() {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
         val view = binding.root
 
+        binding.login.isEnabled = false
+
+        firebaseAuth = FirebaseAuth.getInstance()
+
         val googleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.web_client_id))
             .requestEmail()
             .build()
 
         googleSignInClient = GoogleSignIn.getClient(requireActivity(), googleSignInOptions)
-
-        firebaseAuth = FirebaseAuth.getInstance()
 
         val signInRequest = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             val data = it.data
@@ -91,7 +93,7 @@ class LoginFragment : Fragment() {
             LoginViewModelFactory()
         )[LoginViewModel::class.java]
 
-        val usernameEditText = binding.usernameEditText
+        val emailEditText = binding.emailEditText
         val passwordEditText = binding.passwordEditText
         val loginButton = binding.login
         val loadingProgressBar = binding.loading
@@ -100,8 +102,8 @@ class LoginFragment : Fragment() {
             Observer { loginFormState ->
                 loginFormState ?: return@Observer
                 loginButton.isEnabled = loginFormState.isDataValid
-                loginFormState.usernameError?.let {
-                    usernameEditText.error = getString(it)
+                loginFormState.emailError?.let {
+                    emailEditText.error = getString(it)
                 }
                 loginFormState.passwordError?.let {
                     passwordEditText.error = getString(it)
@@ -117,45 +119,31 @@ class LoginFragment : Fragment() {
                 }
                 loginResult.success?.let {
                     updateUiWithUser(it)
+                    findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToMainFragment())
                 }
             })
 
         val afterTextChangedListener = object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
-                // ignore
-            }
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
 
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                // ignore
-            }
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
 
             override fun afterTextChanged(s: Editable) {
                 loginViewModel.loginDataChanged(
-                    usernameEditText.text.toString(),
+                    emailEditText.text.toString(),
                     passwordEditText.text.toString()
                 )
             }
         }
-        usernameEditText.addTextChangedListener(afterTextChangedListener)
+        emailEditText.addTextChangedListener(afterTextChangedListener)
         passwordEditText.addTextChangedListener(afterTextChangedListener)
-        passwordEditText.setOnEditorActionListener { _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                loginViewModel.login(
-                    usernameEditText.text.toString(),
-                    passwordEditText.text.toString()
-                )
-            }
-            false
-        }
 
         loginButton.setOnClickListener {
             loadingProgressBar.visibility = View.VISIBLE
-            loginViewModel.login(
-                usernameEditText.text.toString(),
+            loginViewModel.emailPasswordLogin(
+                emailEditText.text.toString(),
                 passwordEditText.text.toString()
             )
-
-            it.findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToMainFragment())
         }
 
         binding.signup.setOnClickListener {
@@ -164,7 +152,7 @@ class LoginFragment : Fragment() {
     }
 
     private fun updateUiWithUser(model: LoggedInUserView) {
-        val welcome = getString(R.string.welcome) + model.displayName
+        val welcome = getString(R.string.welcome) + model.email
         val appContext = context?.applicationContext ?: return
         Toast.makeText(appContext, welcome, Toast.LENGTH_LONG).show()
     }
@@ -195,7 +183,7 @@ class LoginFragment : Fragment() {
             val imgUrl = firebaseUser.photoUrl
 
 //            loginViewModel.login(
-//                usernameEditText.text.toString(),
+//                emailEditText.text.toString(),
 //                passwordEditText.text.toString()
 //            )
             if (it.additionalUserInfo!!.isNewUser) {

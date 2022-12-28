@@ -1,15 +1,16 @@
 package com.college.cse431_mobile_programming_project.data.repository
 
 import com.college.cse431_mobile_programming_project.data.model.login.LoggedInUser
-import com.college.cse431_mobile_programming_project.data.data_source.LoginDataSource
 import com.college.cse431_mobile_programming_project.utils.Result
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 /**
  * Class that requests authentication and user information from the remote data source and
  * maintains an in-memory cache of login status and user credentials information.
  */
 
-class LoginRepository(val dataSource: LoginDataSource) {
+class LoginRepository {
 
     // in-memory cache of the loggedInUser object
     var user: LoggedInUser? = null
@@ -26,18 +27,33 @@ class LoginRepository(val dataSource: LoginDataSource) {
 
     fun logout() {
         user = null
-        dataSource.logout()
+        // TODO: revoke authentication
     }
 
-    fun login(username: String, password: String): Result<LoggedInUser> {
-        // handle login
-        val result = dataSource.login(username, password)
-
-        if (result is Result.Success) {
-            setLoggedInUser(result.data)
+    fun emailPasswordLogin(email: String = "John Doe", password: String, resultCallback: (Result<LoggedInUser>) -> Unit) {
+        var result: Result<LoggedInUser>
+        val firebaseAuth = Firebase.auth
+        var loggedInUser: LoggedInUser
+        try {
+            firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
+                if (it.isSuccessful) {
+                    loggedInUser = LoggedInUser(
+                        firebaseAuth.currentUser!!.uid,
+                        firebaseAuth.currentUser!!.email!!,
+                        ""
+                    )
+                    result = Result.Success(loggedInUser)
+                    setLoggedInUser(loggedInUser)
+                    resultCallback(result as Result.Success<LoggedInUser>)
+                } else {
+                    result = Result.Error(it.exception!!)
+                    resultCallback(result as Result.Error)
+                }
+            }
+        } catch (e: Exception) {
+            result = Result.Error(e)
+            resultCallback(result as Result.Error)
         }
-
-        return result
     }
 
     private fun setLoggedInUser(loggedInUser: LoggedInUser) {

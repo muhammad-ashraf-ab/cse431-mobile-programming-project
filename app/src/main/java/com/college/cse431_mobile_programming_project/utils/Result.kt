@@ -15,4 +15,12 @@ sealed class Result<out T : Any> {
             is Error -> "Error[exception=$exception]"
         }
     }
+
+    fun getException(): String {
+        return when (this) {
+            is Success<*> -> ""
+            is Error -> exception.javaClass.name
+        }
+    }
+
 }

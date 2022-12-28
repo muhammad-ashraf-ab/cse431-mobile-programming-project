@@ -2,7 +2,6 @@ package com.college.cse431_mobile_programming_project.utils
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.college.cse431_mobile_programming_project.data.data_source.LoginDataSource
 import com.college.cse431_mobile_programming_project.data.repository.LoginRepository
 import com.college.cse431_mobile_programming_project.ui.view_model.LoginViewModel
 
@@ -16,9 +15,7 @@ class LoginViewModelFactory : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(LoginViewModel::class.java)) {
             return LoginViewModel(
-                loginRepository = LoginRepository(
-                    dataSource = LoginDataSource()
-                )
+                loginRepository = LoginRepository()
             ) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")

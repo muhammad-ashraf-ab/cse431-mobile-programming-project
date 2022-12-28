@@ -42,7 +42,7 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         Picasso.get().load(imgPath).into(binding.profilePicture)
-        binding.username.text = names[randomNumberGenerator.nextInt(names.size)]
+        binding.emailField.text = names[randomNumberGenerator.nextInt(names.size)]
 
         binding.logout.setOnClickListener {
             Firebase.auth.signOut()
