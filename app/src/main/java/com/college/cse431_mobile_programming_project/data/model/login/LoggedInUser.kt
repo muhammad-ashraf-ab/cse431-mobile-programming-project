@@ -5,6 +5,6 @@ package com.college.cse431_mobile_programming_project.data.model.login
  */
 data class LoggedInUser(
     val user_id: String,
-    val display_name: String,
+    val email: String,
     val profile_img_path: String
 )

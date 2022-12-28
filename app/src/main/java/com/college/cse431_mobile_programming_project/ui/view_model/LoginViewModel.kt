@@ -11,6 +11,7 @@ import com.college.cse431_mobile_programming_project.R
 import com.college.cse431_mobile_programming_project.data.model.login.LoggedInUserView
 import com.college.cse431_mobile_programming_project.data.model.login.LoginFormState
 import com.college.cse431_mobile_programming_project.data.model.login.LoginResult
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 
 class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel() {
 
@@ -20,11 +21,11 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
     private val _loginResult = MutableLiveData<LoginResult>()
     val loginResult: LiveData<LoginResult> = _loginResult
 
-    fun emailPasswordLogin(email: String, password: String, ) {
+    fun emailPasswordLogin(email: String, password: String) {
         loginRepository.emailPasswordLogin(email, password) { result ->
             if (result is Result.Success) {
             _loginResult.postValue(
-                LoginResult(success = LoggedInUserView(email = result.data.display_name))
+                LoginResult(success = LoggedInUserView(email = result.data.email))
             )
             } else {
                 val errMessage = when (result.getException()) {
@@ -36,9 +37,19 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
 
                 _loginResult.postValue(LoginResult(error = errMessage))
             }
-
         }
+    }
 
+    fun firebaseAuthWithGoogleAccount(account: GoogleSignInAccount) {
+        loginRepository.firebaseAuthWithGoogleAccount(account) { result ->
+            if (result is Result.Success) {
+                _loginResult.postValue(
+                    LoginResult(success = LoggedInUserView(email = result.data.email))
+                )
+            } else {
+                _loginResult.postValue(LoginResult(error = R.string.login_failed))
+            }
+        }
     }
 
     fun loginDataChanged(email: String, password: String) {

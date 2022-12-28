@@ -2,6 +2,8 @@ package com.college.cse431_mobile_programming_project.data.repository
 
 import com.college.cse431_mobile_programming_project.data.model.login.LoggedInUser
 import com.college.cse431_mobile_programming_project.utils.Result
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
@@ -28,6 +30,27 @@ class LoginRepository {
     fun logout() {
         user = null
         // TODO: revoke authentication
+    }
+
+    fun firebaseAuthWithGoogleAccount(account: GoogleSignInAccount?, resultCallback: (Result<LoggedInUser>) -> Unit) {
+        val firebaseAuth = Firebase.auth
+        val credential = GoogleAuthProvider.getCredential(account!!.idToken, null)
+        firebaseAuth.signInWithCredential(credential).addOnCompleteListener {
+            if (it.isSuccessful) {
+                val firebaseUser = firebaseAuth.currentUser
+
+                val uid = firebaseUser!!.uid
+                val email = firebaseUser.email
+//                val displayName = firebaseUser.displayName
+                val imgUrl = firebaseUser.photoUrl
+
+                val loggedInUser = LoggedInUser(uid, email!!, imgUrl.toString())
+                setLoggedInUser(loggedInUser)
+                resultCallback(Result.Success(loggedInUser))
+            } else {
+                resultCallback(Result.Error(it.exception!!))
+            }
+        }
     }
 
     fun emailPasswordLogin(email: String = "John Doe", password: String, resultCallback: (Result<LoggedInUser>) -> Unit) {

@@ -22,14 +22,11 @@ import com.college.cse431_mobile_programming_project.ui.MainActivity
 import com.college.cse431_mobile_programming_project.data.model.login.LoggedInUserView
 import com.college.cse431_mobile_programming_project.ui.view_model.LoginViewModel
 import com.college.cse431_mobile_programming_project.utils.LoginViewModelFactory
-import com.google.android.gms.auth.api.identity.SignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.GoogleAuthProvider
 
 class LoginFragment : Fragment() {
 
@@ -40,8 +37,6 @@ class LoginFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
-    private lateinit var oneTapClient: SignInClient
-
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var firebaseAuth: FirebaseAuth
 
@@ -51,9 +46,18 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
-        val view = binding.root
 
         binding.login.isEnabled = false
+
+        return binding.root
+
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        loginViewModel = ViewModelProvider(this,
+            LoginViewModelFactory()
+        )[LoginViewModel::class.java]
 
         firebaseAuth = FirebaseAuth.getInstance()
 
@@ -64,12 +68,12 @@ class LoginFragment : Fragment() {
 
         googleSignInClient = GoogleSignIn.getClient(requireActivity(), googleSignInOptions)
 
-        val signInRequest = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        val googleSignInRequest = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             val data = it.data
             val accountTask = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
                 val account = accountTask.getResult(ApiException::class.java)
-                firebaseAuthWithGoogleAccount(account)
+                loginViewModel.firebaseAuthWithGoogleAccount(account)
             }
             catch (e: Exception) {
                 Log.d("signIn", e.toString())
@@ -79,19 +83,8 @@ class LoginFragment : Fragment() {
 
         binding.googleSignInButton.setOnClickListener {
             val intent = googleSignInClient.signInIntent
-            signInRequest.launch(intent)
-            it.findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToMainFragment())
+            googleSignInRequest.launch(intent)
         }
-
-        return view
-
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        loginViewModel = ViewModelProvider(this,
-            LoginViewModelFactory()
-        )[LoginViewModel::class.java]
 
         val emailEditText = binding.emailEditText
         val passwordEditText = binding.passwordEditText
@@ -170,32 +163,5 @@ class LoginFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         (activity as MainActivity).configureBars("", false, View.GONE, false)
-    }
-
-    private fun firebaseAuthWithGoogleAccount(account: GoogleSignInAccount?) {
-        val credential = GoogleAuthProvider.getCredential(account!!.idToken, null)
-        firebaseAuth.signInWithCredential(credential).addOnSuccessListener {
-            val firebaseUser = firebaseAuth.currentUser
-
-            val uid = firebaseUser!!.uid
-            val email = firebaseUser.email
-            val displayName = firebaseUser.displayName
-            val imgUrl = firebaseUser.photoUrl
-
-//            loginViewModel.login(
-//                emailEditText.text.toString(),
-//                passwordEditText.text.toString()
-//            )
-            if (it.additionalUserInfo!!.isNewUser) {
-                Toast.makeText(context?.applicationContext, "Account created...\n$email", Toast.LENGTH_SHORT).show()
-            }
-            else {
-                val welcome = getString(R.string.welcome) + displayName
-                Toast.makeText(context?.applicationContext, welcome, Toast.LENGTH_LONG).show()
-            }
-        }
-            .addOnFailureListener {
-                Toast.makeText(context?.applicationContext, "Sign in failed", Toast.LENGTH_LONG).show()
-            }
     }
 }
