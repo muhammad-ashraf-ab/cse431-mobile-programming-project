@@ -41,10 +41,10 @@ class LoginRepository {
 
                 val uid = firebaseUser!!.uid
                 val email = firebaseUser.email
-//                val displayName = firebaseUser.displayName
+                val displayName = firebaseUser.displayName
                 val imgUrl = firebaseUser.photoUrl
 
-                val loggedInUser = LoggedInUser(uid, email!!, imgUrl.toString())
+                val loggedInUser = LoggedInUser(uid, email!!, displayName!!, imgUrl.toString())
                 setLoggedInUser(loggedInUser)
                 resultCallback(Result.Success(loggedInUser))
             } else {
@@ -63,6 +63,7 @@ class LoginRepository {
                     loggedInUser = LoggedInUser(
                         firebaseAuth.currentUser!!.uid,
                         firebaseAuth.currentUser!!.email!!,
+                        firebaseAuth.currentUser!!.displayName!!,
                         ""
                     )
                     result = Result.Success(loggedInUser)

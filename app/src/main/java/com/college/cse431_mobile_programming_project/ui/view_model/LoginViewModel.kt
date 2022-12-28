@@ -25,7 +25,9 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
         loginRepository.emailPasswordLogin(email, password) { result ->
             if (result is Result.Success) {
             _loginResult.postValue(
-                LoginResult(success = LoggedInUserView(email = result.data.email))
+                LoginResult(success = LoggedInUserView(email = result.data.email,
+                                                       displayName = result.data.displayName,
+                                                       profile_img_path = result.data.profile_img_path))
             )
             } else {
                 val errMessage = when (result.getException()) {
@@ -44,7 +46,9 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
         loginRepository.firebaseAuthWithGoogleAccount(account) { result ->
             if (result is Result.Success) {
                 _loginResult.postValue(
-                    LoginResult(success = LoggedInUserView(email = result.data.email))
+                    LoginResult(success = LoggedInUserView(email = result.data.email,
+                                                           displayName = result.data.displayName,
+                                                           profile_img_path = result.data.profile_img_path))
                 )
             } else {
                 _loginResult.postValue(LoginResult(error = R.string.login_failed))

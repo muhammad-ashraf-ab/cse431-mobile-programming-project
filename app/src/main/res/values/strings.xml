@@ -21,7 +21,7 @@
     <string name="new_user">New user?</string>
     <string name="sign_up">Sign Up!</string>
     <string name="or_login_through">Or login through</string>
-    <string name="username">Username</string>
+    <string name="display_name">Display Name</string>
     <string name="home">Home</string>
     <string name="orders">Orders</string>
     <string name="profile">Profile</string>

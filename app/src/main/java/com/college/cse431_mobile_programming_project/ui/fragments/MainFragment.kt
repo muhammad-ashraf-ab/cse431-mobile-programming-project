@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.college.cse431_mobile_programming_project.data.model.DishType
@@ -16,6 +17,8 @@ import com.college.cse431_mobile_programming_project.ui.adapter.DishTypesRecycle
 import com.college.cse431_mobile_programming_project.ui.adapter.RestaurantsRecyclerAdapter
 import com.college.cse431_mobile_programming_project.databinding.FragmentMainBinding
 import com.college.cse431_mobile_programming_project.ui.MainActivity
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 class MainFragment : Fragment() {
 
@@ -26,6 +29,15 @@ class MainFragment : Fragment() {
 
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        val user = Firebase.auth.currentUser
+        if (user == null) {
+            findNavController().navigate(MainFragmentDirections.actionMainFragmentToLoginFragment())
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

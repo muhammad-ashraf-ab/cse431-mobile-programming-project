@@ -38,7 +38,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/app_title"
-        app:layout_constraintBottom_toTopOf="@id/email_field"
+        app:layout_constraintBottom_toTopOf="@id/display_name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="40dp"
@@ -57,7 +57,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/email_field"
+        android:id="@+id/display_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/email"
@@ -69,11 +69,11 @@
         style="@style/TextInputLayout" >
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/username_edit"
+            android:id="@+id/display_name_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/username"
-            android:autofillHints="@string/prompt_email"
+            android:hint="@string/display_name"
+            android:autofillHints="name"
             android:inputType="textAutoCorrect"
             style="@style/TextInputEditText"/>
 
@@ -83,7 +83,7 @@
         android:id="@+id/password"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/email_field"
+        app:layout_constraintTop_toBottomOf="@+id/display_name"
         app:layout_constraintBottom_toTopOf="@id/signup_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

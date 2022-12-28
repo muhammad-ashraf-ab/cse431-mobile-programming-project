@@ -1,34 +1,25 @@
 package com.college.cse431_mobile_programming_project.ui.fragments
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import com.college.cse431_mobile_programming_project.R
 import com.college.cse431_mobile_programming_project.databinding.FragmentProfileBinding
 import com.college.cse431_mobile_programming_project.ui.MainActivity
+import com.college.cse431_mobile_programming_project.ui.view_model.LoginViewModel
+import com.college.cse431_mobile_programming_project.utils.LoginViewModelFactory
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.squareup.picasso.Picasso
-import kotlin.random.Random
 
 class ProfileFragment : Fragment() {
 
-    private lateinit var imgPath : String
-    private val names = arrayOf("John Doe", "John Smith", "David Rodriguez", "Maria Rodriguez", "Maria Martinez", "Mary Garcia")
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
-    private lateinit var randomNumberGenerator: Random
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        randomNumberGenerator = Random(System.currentTimeMillis())
-        imgPath = "https://randomuser.me/api/portraits/${arrayOf("men", "women")[randomNumberGenerator.nextInt(2)]}/${randomNumberGenerator.nextInt(1, 50)}.jpg"
-        Log.d("imgPath", imgPath)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,8 +32,20 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        Picasso.get().load(imgPath).into(binding.profilePicture)
-        binding.emailField.text = names[randomNumberGenerator.nextInt(names.size)]
+        val loginViewModel = ViewModelProvider(requireActivity(),
+            LoginViewModelFactory()
+        )[LoginViewModel::class.java]
+
+        // TODO: save user locally to use here
+//        val imgPath = loginViewModel.loginResult.value!!.success!!.profile_img_path
+        val imgPath = Firebase.auth.currentUser!!.photoUrl.toString()
+        if (imgPath != "") {
+            Picasso.get().load(imgPath).into(binding.profilePicture)
+        } else {
+            binding.profilePicture.setImageResource(R.drawable.ic_baseline_person_32)
+        }
+//        binding.displayName.text = loginViewModel.loginResult.value!!.success!!.displayName
+        binding.displayName.text = Firebase.auth.currentUser!!.displayName
 
         binding.logout.setOnClickListener {
             Firebase.auth.signOut()
