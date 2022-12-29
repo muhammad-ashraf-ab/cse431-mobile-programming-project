@@ -83,6 +83,8 @@
         app:layout_constraintBottom_toTopOf="@id/login"
         android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp"
+        app:passwordToggleEnabled="true"
+        app:passwordToggleTint="?attr/colorPrimary"
         style="@style/TextInputLayout">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -150,7 +152,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/google_sign_in_button"
-        android:text="@string/or_login_through"
+        android:text="@string/or_continue_with"
         android:textColor="?attr/colorPrimary"
         android:textSize="16sp"/>
     

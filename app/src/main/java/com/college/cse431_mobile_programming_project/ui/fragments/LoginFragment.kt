@@ -145,7 +145,8 @@ class LoginFragment : Fragment() {
     }
 
     private fun updateUiWithUser(model: LoggedInUser) {
-        val welcome = getString(R.string.welcome) + model.displayName
+        val name = if (model.displayName != "") model.displayName else model.email
+        val welcome = getString(R.string.welcome) + name
         val appContext = context?.applicationContext ?: return
         Toast.makeText(appContext, welcome, Toast.LENGTH_LONG).show()
     }

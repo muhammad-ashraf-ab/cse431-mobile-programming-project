@@ -10,9 +10,13 @@ import com.college.cse431_mobile_programming_project.utils.Result
 import com.college.cse431_mobile_programming_project.R
 import com.college.cse431_mobile_programming_project.data.model.login.LoginFormState
 import com.college.cse431_mobile_programming_project.data.model.login.LoginResult
+import com.college.cse431_mobile_programming_project.data.model.login.SignupFormState
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 
 class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel() {
+
+    private val _signupForm = MutableLiveData<SignupFormState>()
+    val signupFormState: LiveData<SignupFormState> = _signupForm
 
     private val _loginForm = MutableLiveData<LoginFormState>()
     val loginFormState: LiveData<LoginFormState> = _loginForm
