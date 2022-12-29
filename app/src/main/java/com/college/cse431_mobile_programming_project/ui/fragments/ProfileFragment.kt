@@ -39,7 +39,7 @@ class ProfileFragment : Fragment() {
         // TODO: save user locally to use here
 //        val imgPath = loginViewModel.loginResult.value!!.success!!.profile_img_path
         val imgPath = Firebase.auth.currentUser!!.photoUrl.toString()
-        if (imgPath != "") {
+        if (imgPath != "" && imgPath != "null") {
             Picasso.get().load(imgPath).into(binding.profilePicture)
         } else {
             binding.profilePicture.setImageResource(R.drawable.ic_baseline_person_32)
