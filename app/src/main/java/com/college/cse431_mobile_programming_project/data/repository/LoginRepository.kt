@@ -5,6 +5,7 @@ import com.college.cse431_mobile_programming_project.utils.Result
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.ktx.Firebase
 
 /**
@@ -53,17 +54,48 @@ class LoginRepository {
         }
     }
 
-    fun emailPasswordLogin(email: String = "John Doe", password: String, resultCallback: (Result<LoggedInUser>) -> Unit) {
+    fun emailPasswordLogin(email: String, password: String, resultCallback: (Result<LoggedInUser>) -> Unit) {
         var result: Result<LoggedInUser>
         val firebaseAuth = Firebase.auth
-        var loggedInUser: LoggedInUser
         try {
             firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
                 if (it.isSuccessful) {
-                    loggedInUser = LoggedInUser(
+                    val loggedInUser = LoggedInUser(
                         firebaseAuth.currentUser!!.uid,
                         firebaseAuth.currentUser!!.email!!,
-                        firebaseAuth.currentUser!!.displayName!!,
+                        firebaseAuth.currentUser!!.displayName.let { firebaseAuth.currentUser!!.displayName } ?: "",
+                        ""
+                    )
+                    result = Result.Success(loggedInUser)
+                    setLoggedInUser(loggedInUser)
+                    resultCallback(result as Result.Success<LoggedInUser>)
+                } else {
+                    result = Result.Error(it.exception!!)
+                    resultCallback(result as Result.Error)
+                }
+            }
+        } catch (e: Exception) {
+            result = Result.Error(e)
+            resultCallback(result as Result.Error)
+        }
+    }
+
+    fun signup(email: String, password: String, displayName: String, resultCallback: (Result<LoggedInUser>) -> Unit) {
+        var result: Result<LoggedInUser>
+        val firebaseAuth = Firebase.auth
+        try {
+            firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener {
+                if (it.isSuccessful) {
+                    if (displayName != "") {
+                        val profileUpdates = userProfileChangeRequest {
+                            this.displayName = displayName
+                        }
+                        Firebase.auth.currentUser!!.updateProfile(profileUpdates)
+                    }
+                    val loggedInUser = LoggedInUser(
+                        firebaseAuth.currentUser!!.uid,
+                        firebaseAuth.currentUser!!.email!!,
+                        firebaseAuth.currentUser!!.displayName.let { firebaseAuth.currentUser!!.displayName } ?: "",
                         ""
                     )
                     result = Result.Success(loggedInUser)

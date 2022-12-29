@@ -10,13 +10,9 @@ import com.college.cse431_mobile_programming_project.utils.Result
 import com.college.cse431_mobile_programming_project.R
 import com.college.cse431_mobile_programming_project.data.model.login.LoginFormState
 import com.college.cse431_mobile_programming_project.data.model.login.LoginResult
-import com.college.cse431_mobile_programming_project.data.model.login.SignupFormState
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 
 class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel() {
-
-    private val _signupForm = MutableLiveData<SignupFormState>()
-    val signupFormState: LiveData<SignupFormState> = _signupForm
 
     private val _loginForm = MutableLiveData<LoginFormState>()
     val loginFormState: LiveData<LoginFormState> = _loginForm
@@ -51,6 +47,22 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
         }
     }
 
+    fun signup(email: String, password: String, displayName: String) {
+        loginRepository.signup(email, password, displayName) { result ->
+            if (result is Result.Success) {
+                _loginResult.postValue(LoginResult(success = result.data))
+            } else {
+                val errMessage = when (result.getException()) {
+                    "com.google.firebase.auth.FirebaseAuthUserCollisionException" -> R.string.user_exists
+                    "com.google.firebase.FirebaseNetworkException" -> R.string.network_error
+                    else -> R.string.login_failed
+                }
+
+                _loginResult.postValue(LoginResult(error = errMessage))
+            }
+        }
+    }
+
     fun loginDataChanged(email: String, password: String) {
         if (!isEmailValid(email)) {
             _loginForm.value = LoginFormState(emailError = R.string.invalid_email)
@@ -61,11 +73,23 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
         }
     }
 
+    fun signupDataChanged(email: String, password: String, confirmPassword: String) {
+        if (!isPasswordMatching(password, confirmPassword)) {
+            _loginForm.value = LoginFormState(confirmPasswordError = R.string.passwords_do_not_match)
+        } else {
+            loginDataChanged(email, password)
+        }
+    }
+
     private fun isEmailValid(email: String): Boolean {
         return Patterns.EMAIL_ADDRESS.matcher(email).matches() and email.endsWith("@eng.asu.edu.eg")
     }
 
     private fun isPasswordValid(password: String): Boolean {
         return password.length > 5
+    }
+
+    private fun isPasswordMatching(password: String, confirmPassword: String): Boolean {
+        return password == confirmPassword
     }
 }
