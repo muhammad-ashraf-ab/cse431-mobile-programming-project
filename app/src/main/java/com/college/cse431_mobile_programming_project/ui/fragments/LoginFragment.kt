@@ -18,8 +18,8 @@ import androidx.navigation.fragment.findNavController
 import com.college.cse431_mobile_programming_project.databinding.FragmentLoginBinding
 
 import com.college.cse431_mobile_programming_project.R
+import com.college.cse431_mobile_programming_project.data.model.login.LoggedInUser
 import com.college.cse431_mobile_programming_project.ui.MainActivity
-import com.college.cse431_mobile_programming_project.data.model.login.LoggedInUserView
 import com.college.cse431_mobile_programming_project.ui.view_model.LoginViewModel
 import com.college.cse431_mobile_programming_project.utils.LoginViewModelFactory
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -144,7 +144,7 @@ class LoginFragment : Fragment() {
         }
     }
 
-    private fun updateUiWithUser(model: LoggedInUserView) {
+    private fun updateUiWithUser(model: LoggedInUser) {
         val welcome = getString(R.string.welcome) + model.displayName
         val appContext = context?.applicationContext ?: return
         Toast.makeText(appContext, welcome, Toast.LENGTH_LONG).show()

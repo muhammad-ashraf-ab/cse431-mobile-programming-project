@@ -8,7 +8,6 @@ import com.college.cse431_mobile_programming_project.data.repository.LoginReposi
 import com.college.cse431_mobile_programming_project.utils.Result
 
 import com.college.cse431_mobile_programming_project.R
-import com.college.cse431_mobile_programming_project.data.model.login.LoggedInUserView
 import com.college.cse431_mobile_programming_project.data.model.login.LoginFormState
 import com.college.cse431_mobile_programming_project.data.model.login.LoginResult
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -24,11 +23,7 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
     fun emailPasswordLogin(email: String, password: String) {
         loginRepository.emailPasswordLogin(email, password) { result ->
             if (result is Result.Success) {
-            _loginResult.postValue(
-                LoginResult(success = LoggedInUserView(email = result.data.email,
-                                                       displayName = result.data.displayName,
-                                                       profile_img_path = result.data.profile_img_path))
-            )
+            _loginResult.postValue(LoginResult(success = result.data))
             } else {
                 val errMessage = when (result.getException()) {
                     "com.google.firebase.auth.FirebaseAuthInvalidUserException" -> R.string.authentication_failed
@@ -45,11 +40,7 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
     fun firebaseAuthWithGoogleAccount(account: GoogleSignInAccount) {
         loginRepository.firebaseAuthWithGoogleAccount(account) { result ->
             if (result is Result.Success) {
-                _loginResult.postValue(
-                    LoginResult(success = LoggedInUserView(email = result.data.email,
-                                                           displayName = result.data.displayName,
-                                                           profile_img_path = result.data.profile_img_path))
-                )
+                _loginResult.postValue(LoginResult(success = result.data))
             } else {
                 _loginResult.postValue(LoginResult(error = R.string.login_failed))
             }
