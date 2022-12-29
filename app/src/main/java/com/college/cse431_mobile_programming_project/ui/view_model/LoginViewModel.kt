@@ -20,6 +20,10 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
     private val _loginResult = MutableLiveData<LoginResult>()
     val loginResult: LiveData<LoginResult> = _loginResult
 
+    fun logout() {
+        loginRepository.logout()
+    }
+
     fun emailPasswordLogin(email: String, password: String) {
         loginRepository.emailPasswordLogin(email, password) { result ->
             if (result is Result.Success) {

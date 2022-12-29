@@ -48,7 +48,8 @@ class ProfileFragment : Fragment() {
         binding.displayName.text = Firebase.auth.currentUser!!.displayName
 
         binding.logout.setOnClickListener {
-            Firebase.auth.signOut()
+            loginViewModel.logout()
+            requireActivity().viewModelStore.clear()
             it.findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToLoginFragment())
         }
     }

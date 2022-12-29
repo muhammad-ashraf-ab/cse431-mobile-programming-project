@@ -30,7 +30,7 @@ class LoginRepository {
 
     fun logout() {
         user = null
-        // TODO: revoke authentication
+        Firebase.auth.signOut()
     }
 
     fun firebaseAuthWithGoogleAccount(account: GoogleSignInAccount?, resultCallback: (Result<LoggedInUser>) -> Unit) {
