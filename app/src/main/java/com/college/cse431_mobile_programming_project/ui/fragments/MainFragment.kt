@@ -34,7 +34,7 @@ class MainFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         val user = Firebase.auth.currentUser
-        if (user == null) {
+        if (user == null && findNavController().currentDestination!!.displayName == "com.college.cse431_mobile_programming_project:id/mainFragment") {
             findNavController().navigate(MainFragmentDirections.actionMainFragmentToLoginFragment())
         }
     }

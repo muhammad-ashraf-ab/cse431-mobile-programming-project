@@ -45,7 +45,8 @@ class ProfileFragment : Fragment() {
             binding.profilePicture.setImageResource(R.drawable.ic_baseline_person_32)
         }
 //        binding.displayName.text = loginViewModel.loginResult.value!!.success!!.displayName
-        binding.displayName.text = Firebase.auth.currentUser!!.displayName
+        binding.displayName.text = if (Firebase.auth.currentUser!!.displayName != "" && Firebase.auth.currentUser!!.displayName != null)
+            Firebase.auth.currentUser!!.displayName else Firebase.auth.currentUser!!.email
 
         binding.logout.setOnClickListener {
             loginViewModel.logout()
