@@ -29,6 +29,7 @@ class CartRecyclerAdapter(private val cart: ArrayList<DishesCart>, quantityChang
     }
 
     fun remove(position: Int) {
+        _quantityListener.onQuantityChange(position, 0)
         cart.removeAt(position)
         notifyItemRemoved(position)
         notifyItemRangeChanged(position, cart.size)
@@ -79,9 +80,9 @@ class CartRecyclerAdapter(private val cart: ArrayList<DishesCart>, quantityChang
                 binding.amount.text = currAmount.toString().padStart(2, '0')
             }
 
-//            binding.removeFromCart.setOnClickListener {
-//                remove(this.layoutPosition)
-//            }
+            binding.removeFromCart.setOnClickListener {
+                remove(this.layoutPosition)
+            }
         }
     }
 }

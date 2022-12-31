@@ -1,32 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--<com.chauthai.swipereveallayout.SwipeRevealLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
-<!--    xmlns:tools="http://schemas.android.com/tools"-->
-<!--    android:layout_width="match_parent"-->
-<!--    android:layout_height="160dp"-->
-<!--    android:layout_margin="16dp"-->
-<!--    app:mode="same_level"-->
-<!--    app:dragEdge="left">-->
+<com.chauthai.swipereveallayout.SwipeRevealLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="136dp"
+    android:layout_margin="16dp"
+    app:mode="same_level"
+    app:dragEdge="right">
 
-<!--    <com.google.android.material.button.MaterialButton-->
-<!--        android:id="@+id/remove_from_cart"-->
-<!--        android:layout_width="96dp"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:backgroundTint="#88FB9999"-->
-<!--        android:layout_margin="16dp"-->
-<!--        app:icon="@drawable/ic_baseline_delete_32"-->
-<!--        app:iconSize="48dp"-->
-<!--        app:iconTintMode="src_atop"-->
-<!--        app:iconTint="@color/tart_orange"-->
-<!--        style="@style/Widget.MaterialComponents.Button.IconOnly" />-->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/remove_from_cart"
+        android:layout_width="96dp"
+        android:layout_height="match_parent"
+        android:backgroundTint="#88FB9999"
+        android:elevation="4dp"
+        app:cornerRadius="8dp"
+        app:icon="@drawable/ic_baseline_delete_32"
+        app:iconSize="48dp"
+        app:iconTintMode="src_atop"
+        app:iconTint="@color/tart_orange"
+        app:iconPadding="0dp"
+        app:iconGravity="textStart"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:insetLeft="0dp"
+        android:insetRight="0dp"
+        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"/>
 
 
     <androidx.cardview.widget.CardView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="136dp"
+        android:layout_height="match_parent"
         android:layout_margin="16dp"
         app:cardCornerRadius="8dp"
         app:cardElevation="4dp"
@@ -151,4 +155,4 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
-<!--</com.chauthai.swipereveallayout.SwipeRevealLayout>-->
+</com.chauthai.swipereveallayout.SwipeRevealLayout>
