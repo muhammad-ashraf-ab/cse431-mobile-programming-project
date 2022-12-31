@@ -96,4 +96,12 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
     private fun isPasswordMatching(password: String, confirmPassword: String): Boolean {
         return password == confirmPassword
     }
+
+    fun setLoggedInUserProgram(program: String) {
+        loginRepository.setLoggedInUserProgram(program)
+    }
+
+    fun setLoggedInUserLevel(level: String) {
+        loginRepository.setLoggedInUserLevel(level)
+    }
 }

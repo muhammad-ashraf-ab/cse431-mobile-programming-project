@@ -10,6 +10,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.AdapterView.OnItemSelectedListener
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.ViewModelProvider
@@ -27,6 +30,45 @@ import com.squareup.picasso.Picasso
 
 class ProfileFragment : Fragment() {
 
+    private val programs = arrayOf(
+        "Freshman",
+        "Mechanical Engineering",
+        "Electrical Engineering",
+        "Architectural Engineering",
+        "Civil Engineering",
+        "Design and Production Engineering",
+        "Mechanical Power Engineering",
+        "Automotive Engineering",
+        "Mechatronics Engineering",
+        "Electrical Power and Machines Engineering",
+        "Electronics and Communications Engineering",
+        "Computer and Systems Engineering",
+        "Structural Engineering",
+        "Water Engineering and Hydraulic Structures",
+        "Utilities and Infrastructure",
+        "Materials Engineering",
+        "Manufacturing Engineering",
+        "Mechatronics Engineering and Automation",
+        "Landscape Architecture",
+        "Environmental Architecture and Urbanism",
+        "Housing Architecture and Urban Development",
+        "Communication Systems Engineering",
+        "Energy and Renewable Energy Engineering",
+        "Computer Engineering and Software Systems",
+        "Building Engineering",
+        "Civil Infrastructure Engineering",
+    )
+
+    private val levels = arrayOf(
+        "Freshman",
+        "Sophomore",
+        "Junior",
+        "Senior-1",
+        "Senior-2"
+    )
+
+    private lateinit var loginViewModel: LoginViewModel
+
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
 
@@ -35,13 +77,22 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
+
+        val programsArrayAdapter = ArrayAdapter(requireContext(), R.layout.profile_spinner_item, programs)
+        programsArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.programSpinner.adapter = programsArrayAdapter
+
+        val levelsArrayAdapter = ArrayAdapter(requireContext(), R.layout.profile_spinner_item, levels)
+        levelsArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.levelSpinner.adapter = levelsArrayAdapter
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val loginViewModel = ViewModelProvider(requireActivity(),
+        loginViewModel = ViewModelProvider(requireActivity(),
             LoginViewModelFactory()
         )[LoginViewModel::class.java]
 
@@ -57,8 +108,56 @@ class ProfileFragment : Fragment() {
         binding.displayName.text = if (Firebase.auth.currentUser!!.displayName != "" && Firebase.auth.currentUser!!.displayName != null)
             Firebase.auth.currentUser!!.displayName else Firebase.auth.currentUser!!.email
 
+        binding.programText.text = getProgram()
+
+        binding.levelText.text = getLevel()
+
+        binding.emailCardview.visibility = if (Firebase.auth.currentUser!!.displayName != "" && Firebase.auth.currentUser!!.displayName != null)
+            View.VISIBLE else View.GONE
+
+        binding.email.text = Firebase.auth.currentUser!!.email
+
         binding.profilePicture.setOnClickListener {
             requestPermissionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
+        }
+
+        binding.changeProgram.setOnClickListener {
+            binding.programText.visibility = View.GONE
+            binding.programSpinner.visibility = View.VISIBLE
+        }
+
+        binding.changeLevel.setOnClickListener {
+            binding.levelText.visibility = View.GONE
+            binding.levelSpinner.visibility = View.VISIBLE
+        }
+
+        binding.programSpinner.onItemSelectedListener = object : OnItemSelectedListener {
+
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                loginViewModel.setLoggedInUserProgram(binding.programSpinner.selectedItem.toString())
+                binding.programText.text = getProgram()
+                binding.programText.visibility = View.VISIBLE
+                binding.programSpinner.visibility = View.GONE
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+                binding.programText.visibility = View.VISIBLE
+                binding.programSpinner.visibility = View.GONE
+            }
+        }
+
+        binding.levelSpinner.onItemSelectedListener = object : OnItemSelectedListener {
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                loginViewModel.setLoggedInUserLevel(binding.levelSpinner.selectedItem.toString())
+                binding.levelText.text = getLevel()
+                binding.levelText.visibility = View.VISIBLE
+                binding.levelSpinner.visibility = View.GONE
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+                binding.levelText.visibility = View.VISIBLE
+                binding.levelSpinner.visibility = View.GONE
+            }
         }
 
         binding.logout.setOnClickListener {
@@ -135,6 +234,28 @@ class ProfileFragment : Fragment() {
             Toast.makeText(requireContext(), "An unexpected error occurred while setting image", Toast.LENGTH_SHORT).show()
             binding.profilePicture.setImageResource(R.drawable.ic_baseline_person_32)
         }
+    }
+
+    private fun getProgram(): String {
+        loginViewModel.loginResult.value?.let { loginResult ->
+            loginResult.success?.let { loggedInUser ->
+                if (loggedInUser.program != "") {
+                    return loggedInUser.program
+                }
+            }
+        }
+        return "No program assigned."
+    }
+
+    private fun getLevel(): String {
+        loginViewModel.loginResult.value?.let { loginResult ->
+            loginResult.success?.let { loggedInUser ->
+                if (loggedInUser.level != "") {
+                    return loggedInUser.level
+                }
+            }
+        }
+        return "No level assigned."
     }
 
 }

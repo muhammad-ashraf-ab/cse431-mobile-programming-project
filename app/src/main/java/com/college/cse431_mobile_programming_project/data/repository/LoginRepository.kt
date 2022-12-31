@@ -117,4 +117,19 @@ class LoginRepository {
         // If user credentials will be cached in local storage, it is recommended it be encrypted
         // @see https://developer.android.com/training/articles/keystore
     }
+
+    fun setLoggedInUserProgram(program: String) {
+        this.user?.let {
+            it.program = program
+        }
+        // TODO: Do it with Firebase and ROOM database
+    }
+
+    fun setLoggedInUserLevel(level: String) {
+        this.user?.let {
+            it.level = level
+        }
+        // TODO: Do it with Firebase and ROOM database
+    }
+
 }

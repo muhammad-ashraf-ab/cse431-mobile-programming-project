@@ -7,5 +7,7 @@ data class LoggedInUser(
     val user_id: String,
     val email: String,
     val displayName: String,
-    val profile_img_path: String
+    val profile_img_path: String,
+    var program: String = "",
+    var level: String = ""
 )
