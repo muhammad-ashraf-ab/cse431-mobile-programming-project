@@ -34,27 +34,186 @@
             style="@style/Label"
             android:textSize="16sp"/>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/logout"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/program_cardview"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@id/display_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/level_cardview"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintHorizontal_weight="1"
+            android:layout_margin="16dp"
+            app:cardElevation="4dp"
+            app:cardCornerRadius="8dp"
+            android:background="?attr/colorSecondary">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/program_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_margin="12dp"
+                    app:drawableStartCompat="@drawable/ic_baseline_menu_book_32"
+                    android:drawablePadding="4dp"
+                    android:gravity="center"
+                    android:text="@string/program"
+                    android:textSize="18sp"
+                    android:textColor="?attr/colorOnSecondary"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/change_program"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    app:layout_constraintTop_toTopOf="@id/program_label"
+                    app:layout_constraintBottom_toBottomOf="@id/program_label"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_margin="12dp"
+                    android:padding="2dp"
+                    android:src="@drawable/ic_baseline_settings_32"
+                    android:contentDescription="@string/change_program"/>
+
+                <Spinner
+                    android:id="@+id/program_spinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:minWidth="80dp"
+                    android:layout_marginStart="8dp"
+                    android:visibility="gone"
+                    android:backgroundTint="?attr/colorSecondary" />
+
+                <TextView
+                    android:id="@+id/program_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/program_label"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:padding="12dp"
+                    android:gravity="center"
+                    tools:text="Computer Engineering and Software Systems"
+                    android:textSize="16sp"
+                    android:textColor="?attr/colorOnSecondary" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/level_cardview"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@id/display_name"
+            app:layout_constraintStart_toEndOf="@id/program_cardview"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintHorizontal_weight="1"
+            android:layout_margin="16dp"
+            app:cardElevation="4dp"
+            app:cardCornerRadius="8dp"
+            android:background="?attr/colorSecondary">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/level_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_margin="12dp"
+                    app:drawableStartCompat="@drawable/arrow_up_right_dots_solid"
+                    android:drawablePadding="4dp"
+                    android:gravity="center"
+                    android:text="@string/level"
+                    android:textSize="18sp"
+                    android:textColor="?attr/colorOnSecondary"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/change_level"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    app:layout_constraintTop_toTopOf="@id/level_label"
+                    app:layout_constraintBottom_toBottomOf="@id/level_label"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_margin="12dp"
+                    android:padding="2dp"
+                    android:src="@drawable/ic_baseline_settings_32"
+                    android:contentDescription="@string/change_level"/>
+
+                <Spinner
+                    android:id="@+id/level_spinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:minWidth="80dp"
+                    android:layout_marginStart="8dp"
+                    android:visibility="gone"
+                    android:backgroundTint="?attr/colorSecondary" />
+
+                <TextView
+                    android:id="@+id/level_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/level_label"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:padding="16dp"
+                    android:gravity="center"
+                    tools:text="Senior-2"
+                    android:textSize="16sp"
+                    android:textColor="?attr/colorOnSecondary" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/program_cardview"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
-            style="@style/LoginScreenButtons"
-            android:elevation="4dp"
-            android:text="@string/logout"
-            android:textSize="16sp"
-            android:gravity="center"
-            app:icon="@drawable/ic_baseline_power_settings_new_32"
-            app:iconTint="?attr/colorOnPrimary"
-            app:iconSize="24dp"
-            app:iconGravity="textStart"
-            app:iconPadding="8dp"/>
-        
+            android:layout_margin="16dp"
+            android:layout_marginBottom="56dp"
+            android:orientation="vertical">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/logout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/LoginScreenButtons"
+                android:elevation="4dp"
+                android:text="@string/logout"
+                android:textSize="16sp"
+                android:gravity="center"
+                app:icon="@drawable/ic_baseline_power_settings_new_32"
+                app:iconTint="?attr/colorOnPrimary"
+                app:iconSize="24dp"
+                app:iconGravity="textStart"
+                app:iconPadding="8dp"/>
+
+        </LinearLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

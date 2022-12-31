@@ -50,4 +50,8 @@
     <string name="no_restaurants_available">Sorry, no restaurants are currently available.</string>
     <string name="no_dishes_available">Sorry, no dishes are currently available.</string>
     <string name="add_items_to_cart">Add items to cart!</string>
+    <string name="program">Program</string>
+    <string name="change_program">Change program</string>
+    <string name="level">Level</string>
+    <string name="change_level">Change level</string>
 </resources>
