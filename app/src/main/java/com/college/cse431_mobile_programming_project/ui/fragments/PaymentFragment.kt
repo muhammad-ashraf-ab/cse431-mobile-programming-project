@@ -9,6 +9,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import com.college.cse431_mobile_programming_project.databinding.FragmentPaymentBinding
 import com.college.cse431_mobile_programming_project.ui.MainActivity
+import java.util.Calendar
 
 class PaymentFragment : Fragment() {
 
@@ -26,6 +27,24 @@ class PaymentFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentPaymentBinding.inflate(inflater, container, false)
+
+        binding.paymentMethodRadioGroup.setOnCheckedChangeListener { group, buttonId ->
+            when (buttonId) {
+                binding.paymentMethodCash.id -> {
+                    binding.creditCardInfoLayout.visibility = View.GONE
+                }
+                binding.paymentMethodCreditCard.id -> {
+                    binding.creditCardInfoLayout.visibility = View.VISIBLE
+                }
+            }
+        }
+
+        binding.pickupTime12pm.isEnabled = isTimeValid(10)
+        binding.pickupTime12pm.alpha = if (binding.pickupTime12pm.isEnabled) 1f else 0.5f
+
+        binding.pickupTime3pm.isEnabled = isTimeValid(13)
+        binding.pickupTime3pm.alpha = if (binding.pickupTime3pm.isEnabled) 1f else 0.5f
+
         return binding.root
     }
 
@@ -43,12 +62,25 @@ class PaymentFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 
-        (activity as MainActivity).configureBars("Credit Card Payment", true, View.VISIBLE)
+        (activity as MainActivity).configureBars("Credit Card Payment", true, View.GONE)
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun isTimeValid(hour: Int) : Boolean {
+        val currentTime = Calendar.getInstance()
+        val timeToMatch = Calendar.getInstance()
+
+        timeToMatch[Calendar.HOUR_OF_DAY] = hour
+        timeToMatch[Calendar.MINUTE] = 0
+
+        return when {
+            currentTime < timeToMatch -> true
+            else -> false
+        }
     }
 
 }

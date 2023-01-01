@@ -112,7 +112,7 @@ class CartFragment : Fragment() {
         binding.totalPrice.text = totalPrice
 
         binding.proceedToCheckoutButton.setOnClickListener {
-            it.findNavController().navigate(CartFragmentDirections.actionCartFragmentToPaymentMethodFragment(cart.map { view -> view.dish.price * view.amount }.sum()))
+            it.findNavController().navigate(CartFragmentDirections.actionCartFragmentToPaymentFragment(cart.map { view -> view.dish.price * view.amount }.sum()))
         }
     }
 

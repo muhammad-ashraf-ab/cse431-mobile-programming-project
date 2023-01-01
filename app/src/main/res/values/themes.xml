@@ -59,6 +59,33 @@
         <item name="android:selectAllOnFocus">true</item>
     </style>
 
+    <style name="TextInputLayoutVariant" parent="TextAppearance.AppCompat">
+        <!-- Hint color and label color in FALSE state -->
+        <item name="android:textColorHint">?attr/colorOnSecondary</item>
+        <!-- Label color in TRUE state and bar color FALSE and TRUE State -->
+        <item name="colorPrimary">?attr/colorOnSecondary</item>
+        <item name="colorOnSurface">?attr/colorOnSecondary</item>
+        <item name="android:textColor">?attr/colorOnSecondary</item>
+        <item name="colorAccent">?attr/colorOnSecondary</item>
+        <item name="colorControlNormal">?attr/colorOnSecondary</item>
+        <item name="colorControlActivated">?attr/colorOnSecondary</item>
+        <item name="colorControlHighlight">?attr/colorOnSecondary</item>
+        <item name="boxStrokeColor">?attr/colorPrimary</item>
+        <item name="boxStrokeWidth">2dp</item>
+        <item name="boxBackgroundColor">@color/transparent</item>
+        <item name="boxBackgroundMode">outline</item>
+        <item name="hintTextColor">?attr/colorOnSecondary</item>
+    </style>
+
+    <style name="TextInputEditTextVariant">
+        <item name="android:padding">16dp</item>
+        <item name="backgroundTint">?attr/colorOnSecondary</item>
+        <item name="android:textColor">?attr/colorOnSecondary</item>
+        <item name="android:textColorHint">?attr/colorOnSecondary</item>
+        <item name="android:textCursorDrawable">?attr/colorOnSecondary</item>
+        <item name="android:selectAllOnFocus">true</item>
+    </style>
+
     <style name="LoginScreenButtons" parent="Widget.MaterialComponents.Button.OutlinedButton">
         <item name="android:paddingStart">40dp</item>
         <item name="android:paddingEnd">40dp</item>

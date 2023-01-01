@@ -11,116 +11,265 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/credit_card_number"
-            android:layout_width="0dp"
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/first_name"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
-            style="@style/TextInputLayout">
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/credit_card_number_editText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/credit_card"
-                android:autofillHints="creditCardNumber"
-                android:inputType="number"
-                style="@style/TextInputEditText" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="16dp"
+                    android:animateLayoutChanges="true">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                    <RadioGroup
+                        android:id="@+id/payment_method_radio_group"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/first_name"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/credit_card_number"
-            app:layout_constraintBottom_toTopOf="@id/last_name"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
-            style="@style/TextInputLayout">
+                        <RadioButton
+                            android:id="@+id/payment_method_cash"
+                            android:layout_width="wrap_content"
+                            android:layout_height="48dp"
+                            android:buttonTint="?attr/colorOnSecondary"
+                            android:drawableStart="@drawable/ic_baseline_attach_money_32"
+                            android:drawablePadding="8dp"
+                            android:drawableTint="?attr/colorOnSecondary"
+                            android:text="@string/cash"
+                            android:textColor="?attr/colorOnSecondary"
+                            android:textSize="16sp"/>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/first_name_editText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/first_name"
-                android:autofillHints="name"
-                android:inputType="textAutoComplete"
-                style="@style/TextInputEditText" />
+                        <RadioButton
+                            android:id="@+id/payment_method_credit_card"
+                            android:layout_width="wrap_content"
+                            android:layout_height="48dp"
+                            android:buttonTint="?attr/colorOnSecondary"
+                            android:drawableStart="@drawable/ic_baseline_credit_card_32"
+                            android:drawablePadding="8dp"
+                            android:drawableTint="?attr/colorOnSecondary"
+                            android:text="@string/credit_card"
+                            android:textColor="?attr/colorOnSecondary"
+                            android:textSize="16sp"/>
 
-        </com.google.android.material.textfield.TextInputLayout>
+                    </RadioGroup>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/last_name"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/first_name"
-            app:layout_constraintBottom_toTopOf="@id/expiration_date"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
-            style="@style/TextInputLayout">
+                    <LinearLayout
+                        android:id="@+id/credit_card_info_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@id/payment_method_radio_group"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:orientation="vertical"
+                        android:visibility="gone" >
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/last_name_editText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/last_name"
-                android:autofillHints="name"
-                android:inputType="textAutoComplete"
-                style="@style/TextInputEditText" />
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            style="@style/TextInputLayoutVariant">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/first_name_editText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/name_on_card"
+                                android:autofillHints="name"
+                                android:inputType="textAutoComplete"
+                                style="@style/TextInputEditTextVariant" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/expiration_date"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/last_name"
-            app:layout_constraintBottom_toTopOf="@id/space"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
-            style="@style/TextInputLayout">
+                        </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/expiration_date_editText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/mm_yy"
-                android:autofillHints="creditCardExpirationDate"
-                android:inputType="date"
-                style="@style/TextInputEditText" />
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/credit_card_number"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            style="@style/TextInputLayoutVariant">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/credit_card_number_editText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/card_number"
+                                android:autofillHints="creditCardNumber"
+                                android:inputType="number"
+                                style="@style/TextInputEditTextVariant" />
 
-        <Space
-            android:id="@+id/space"
-            android:layout_width="match_parent"
-            android:layout_height="160dp"
-            app:layout_constraintTop_toBottomOf="@id/expiration_date"
-            app:layout_constraintBottom_toTopOf="@id/total_price"/>
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/expiration_date"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            style="@style/TextInputLayoutVariant">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/expiration_date_editText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/mm_yy"
+                                android:autofillHints="creditCardExpirationDate"
+                                android:inputType="date"
+                                style="@style/TextInputEditTextVariant" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                    </LinearLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
 
         <TextView
+            android:id="@+id/total_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toTopOf="@id/pay_now_button"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginBottom="16dp"
-            android:layout_marginStart="48dp"
+            android:layout_marginStart="32dp"
             android:text="@string/total"
             android:textSize="16sp"
             android:textColor="?attr/colorOnSecondary"
             android:textStyle="bold"/>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/pickup_time_cardview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/pickup_location_cardview"
+            app:layout_constraintBottom_toTopOf="@id/total_text"
+            app:layout_constraintHorizontal_weight="1"
+            android:layout_marginBottom="16dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="8dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="8dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="4dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginStart="4dp"
+                    android:text="@string/pickup_location"
+                    android:textSize="16sp"
+                    android:textColor="?attr/colorOnSecondary"
+                    android:textStyle="bold"/>
+
+                <RadioGroup
+                    android:id="@+id/pickup_location_radio_group"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/pickup_location_gate_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="32dp"
+                        android:layout_marginEnd="8dp"
+                        android:buttonTint="?attr/colorOnSecondary"
+                        android:text="@string/gate_2"
+                        android:textColor="?attr/colorOnSecondary"/>
+
+                    <RadioButton
+                        android:id="@+id/pickup_location_gate_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="32dp"
+                        android:buttonTint="?attr/colorOnSecondary"
+                        android:text="@string/gate_3"
+                        android:textColor="?attr/colorOnSecondary"/>
+
+                </RadioGroup>
+
+            </LinearLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/pickup_location_cardview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@id/total_text"
+            app:layout_constraintStart_toEndOf="@id/pickup_time_cardview"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="1"
+            android:layout_marginBottom="16dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="24dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="8dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="4dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginStart="4dp"
+                    android:text="@string/pickup_time"
+                    android:textSize="16sp"
+                    android:textColor="?attr/colorOnSecondary"
+                    android:textStyle="bold"/>
+
+                <RadioGroup
+                    android:id="@+id/pickup_time_radio_group"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/pickup_time_12pm"
+                        android:layout_width="wrap_content"
+                        android:layout_height="32dp"
+                        android:layout_marginEnd="8dp"
+                        android:buttonTint="?attr/colorOnSecondary"
+                        android:text="@string/twelve_pm"
+                        android:textColor="?attr/colorOnSecondary"/>
+
+                    <RadioButton
+                        android:id="@+id/pickup_time_3pm"
+                        android:layout_width="wrap_content"
+                        android:layout_height="32dp"
+                        android:buttonTint="?attr/colorOnSecondary"
+                        android:text="@string/three_pm"
+                        android:textColor="?attr/colorOnSecondary"/>
+
+                </RadioGroup>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
 
         <TextView
             android:id="@+id/total_price"
@@ -129,7 +278,7 @@
             app:layout_constraintBottom_toTopOf="@id/pay_now_button"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginBottom="16dp"
-            android:layout_marginEnd="48dp"
+            android:layout_marginEnd="32dp"
             tools:text="EPG 45.0"
             android:textSize="16sp"
             android:textColor="?attr/colorOnSecondary"
@@ -143,12 +292,27 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginBottom="56dp"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
             style="@style/LoginScreenButtons"
             android:textSize="16sp"
             android:text="@string/pay_now" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/pay_now_button"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/order_placing_note"
+            android:textSize="12sp"
+            android:textColor="?attr/colorOnSecondary"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </FrameLayout>

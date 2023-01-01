@@ -41,6 +41,7 @@ class SignupFragment : Fragment() {
     ): View {
         _binding = FragmentSignupBinding.inflate(inflater, container, false)
         binding.signupButton.isEnabled = false
+        binding.signupButton.alpha = if (binding.signupButton.isEnabled) 1f else 0.5f
         return binding.root
     }
 
@@ -87,6 +88,7 @@ class SignupFragment : Fragment() {
             Observer { signupFormState ->
                 signupFormState ?: return@Observer
                 signupButton.isEnabled = signupFormState.isDataValid
+                signupButton.alpha = if (signupButton.isEnabled) 1f else 0.5f
                 signupFormState.emailError?.let {
                     emailEditText.error = getString(it)
                 }

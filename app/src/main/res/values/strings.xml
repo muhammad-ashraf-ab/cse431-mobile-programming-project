@@ -36,13 +36,13 @@
     <string name="dish_unavailable">Dish Unavailable</string>
     <string name="confirm_order">Confirm Order</string>
     <string name="proceed_to_checkout">Proceed to Checkout</string>
-    <string name="credit_card">Credit Card</string>
+    <string name="card_number">Card Number</string>
     <string name="cash">Cash</string>
     <string name="thumbs_up">Thumbs Up</string>
     <string name="order_complete">Order Complete</string>
     <string name="go_back_to_home">Go back to home</string>
     <string name="trace_order">Trace Order</string>
-    <string name="first_name">First Name</string>
+    <string name="name_on_card">Name on Card</string>
     <string name="last_name">Last Name</string>
     <string name="mm_yy">MM/YY</string>
     <string name="pay_now">Pay Now</string>
@@ -54,4 +54,12 @@
     <string name="change_program">Change program</string>
     <string name="level">Level</string>
     <string name="change_level">Change level</string>
+    <string name="credit_card">Credit Card</string>
+    <string name="pickup_location">Pickup Location</string>
+    <string name="gate_2">Gate 2</string>
+    <string name="gate_3">Gate 3</string>
+    <string name="twelve_pm">12PM</string>
+    <string name="three_pm">3PM</string>
+    <string name="pickup_time">Pickup Time*</string>
+    <string name="order_placing_note">*Note: As of now, 12PM orders should be placed before 10PM and 3PM orders should be placed before 1PM.</string>
 </resources>

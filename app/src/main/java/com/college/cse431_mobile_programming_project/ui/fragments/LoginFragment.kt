@@ -47,6 +47,7 @@ class LoginFragment : Fragment() {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
 
         binding.login.isEnabled = false
+        binding.login.alpha = if (binding.login.isEnabled) 1f else 0.5f
 
         return binding.root
 
@@ -93,6 +94,7 @@ class LoginFragment : Fragment() {
             Observer { loginFormState ->
                 loginFormState ?: return@Observer
                 loginButton.isEnabled = loginFormState.isDataValid
+                loginButton.alpha = if (loginButton.isEnabled) 1f else 0.5f
                 loginFormState.emailError?.let {
                     emailEditText.error = getString(it)
                 }
