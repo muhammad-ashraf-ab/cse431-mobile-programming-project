@@ -159,7 +159,9 @@
         tools:layout="@layout/fragment_payment" >
         <action
             android:id="@+id/action_paymentFragment_to_orderCompleteFragment"
-            app:destination="@id/orderCompleteFragment" />
+            app:destination="@id/orderCompleteFragment"
+            app:popUpTo="@id/mainFragment"
+            app:popUpToInclusive="false"/>
         <argument
             android:name="total_price"
             app:argType="float"
