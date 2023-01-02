@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.college.cse431_mobile_programming_project.data.databases.RestaurantDatabase
 import com.college.cse431_mobile_programming_project.data.model.Dish
 import com.college.cse431_mobile_programming_project.databinding.FragmentDishBinding
 import com.college.cse431_mobile_programming_project.ui.MainActivity
@@ -35,7 +36,12 @@ class DishFragment : Fragment() {
         binding.description.movementMethod = ScrollingMovementMethod()
 
         restaurantsViewModel = ViewModelProvider(this,
-            RestaurantsViewModelFactory(args.restaurantId, args.dishId))[RestaurantsViewModel::class.java]
+            RestaurantsViewModelFactory(
+                RestaurantDatabase.getDatabase(requireContext()).restaurantDao(),
+                args.restaurantId,
+                args.dishId
+            )
+        )[RestaurantsViewModel::class.java]
 
         restaurantsViewModel.dish.observe(viewLifecycleOwner) {
             dish = it

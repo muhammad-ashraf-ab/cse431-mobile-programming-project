@@ -23,11 +23,13 @@ class RestaurantsRecyclerAdapter(private val restaurantsList: ArrayList<Restaura
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentItem = restaurantsList[position]
-        holder.bind(currentItem.name,
-            currentItem.rating,
-            currentItem.reviewers,
-            currentItem.img_path,
-            currentItem.tags)
+        holder.bind(
+            currentItem.name!!,
+            currentItem.rating!!,
+            currentItem.reviewers!!,
+            currentItem.img_path!!,
+            currentItem.tags!!
+        )
     }
 
     override fun getItemCount(): Int {
@@ -51,8 +53,16 @@ class RestaurantsRecyclerAdapter(private val restaurantsList: ArrayList<Restaura
             itemView.setOnClickListener {
                 val navController = it.findNavController()
                 when (it.findNavController().currentDestination!!.label) {
-                    "fragment_main" -> navController.navigate(MainFragmentDirections.actionMainFragmentToRestaurantFragment(restaurantsList[absoluteAdapterPosition].id))
-                    "fragment_dish_type" -> navController.navigate(DishTypeFragmentDirections.actionDishTypeFragmentToRestaurantFragment(restaurantsList[absoluteAdapterPosition].id))
+                    "fragment_main" -> navController.navigate(
+                        MainFragmentDirections.actionMainFragmentToRestaurantFragment(
+                            restaurantsList[absoluteAdapterPosition].id!!
+                        )
+                    )
+                    "fragment_dish_type" -> navController.navigate(
+                        DishTypeFragmentDirections.actionDishTypeFragmentToRestaurantFragment(
+                            restaurantsList[absoluteAdapterPosition].id!!
+                        )
+                    )
                 }
             }
         }

@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.college.cse431_mobile_programming_project.data.databases.RestaurantDatabase
 import com.college.cse431_mobile_programming_project.data.model.DishType
 import com.college.cse431_mobile_programming_project.ui.view_model.DishTypesViewModel
 import com.college.cse431_mobile_programming_project.data.model.Restaurant
@@ -17,6 +18,7 @@ import com.college.cse431_mobile_programming_project.ui.adapter.DishTypesRecycle
 import com.college.cse431_mobile_programming_project.ui.adapter.RestaurantsRecyclerAdapter
 import com.college.cse431_mobile_programming_project.databinding.FragmentMainBinding
 import com.college.cse431_mobile_programming_project.ui.MainActivity
+import com.college.cse431_mobile_programming_project.utils.RestaurantsViewModelFactory
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
@@ -73,9 +75,13 @@ class MainFragment : Fragment() {
         restaurantsRecyclerView.adapter = restaurantsRecyclerAdapter
         restaurantsRecyclerView.adapter!!.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
 
-        restaurantsViewModel = ViewModelProvider(this)[RestaurantsViewModel::class.java]
+        restaurantsViewModel = ViewModelProvider(this,
+            RestaurantsViewModelFactory(
+                RestaurantDatabase.getDatabase(requireContext()).restaurantDao()
+            )
+        )[RestaurantsViewModel::class.java]
 
-        restaurantsViewModel.restaurantsList.observe(viewLifecycleOwner) {
+        restaurantsViewModel.getAllRestaurants().observe(viewLifecycleOwner) {
             if (it.isNotEmpty()) {
                 restaurantsRecyclerAdapter.updateRestaurantsList(it)
                 if (binding.restaurantsRecyclerview.id == binding.restaurantsViewSwitcher.nextView.id) {

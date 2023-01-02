@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.college.cse431_mobile_programming_project.data.databases.RestaurantDatabase
 import com.college.cse431_mobile_programming_project.data.model.Dish
 import com.college.cse431_mobile_programming_project.ui.view_model.RestaurantsViewModel
 import com.college.cse431_mobile_programming_project.ui.adapter.DishesRecyclerAdapter
@@ -36,11 +37,15 @@ class RestaurantFragment : Fragment() {
         dishesRecyclerView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         dishesRecyclerView.adapter = dishesRecyclerAdapter
 
-        restaurantsViewModel = ViewModelProvider(this, RestaurantsViewModelFactory(args.restaurantId))[RestaurantsViewModel::class.java]
+        restaurantsViewModel = ViewModelProvider(this,
+            RestaurantsViewModelFactory(
+                RestaurantDatabase.getDatabase(requireContext()).restaurantDao(),
+                args.restaurantId
+            ))[RestaurantsViewModel::class.java]
 
         restaurantsViewModel.restaurant.observe(viewLifecycleOwner) {
             (activity as MainActivity).configureBars(restaurantsViewModel.restaurant.value?.name!!, true, View.GONE)
-            if (it.dishes.isNotEmpty()) {
+            if (it.dishes!!.isNotEmpty()) {
                 dishesRecyclerAdapter.updateDishesList(it.dishes)
 
                 if (binding.dishesRecyclerview.id == binding.dishesViewSwitcher.nextView.id) {

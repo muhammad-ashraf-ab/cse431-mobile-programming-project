@@ -8,11 +8,13 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.college.cse431_mobile_programming_project.data.databases.RestaurantDatabase
 import com.college.cse431_mobile_programming_project.data.model.Restaurant
 import com.college.cse431_mobile_programming_project.ui.view_model.RestaurantsViewModel
 import com.college.cse431_mobile_programming_project.ui.adapter.RestaurantsRecyclerAdapter
 import com.college.cse431_mobile_programming_project.databinding.FragmentDishTypeBinding
 import com.college.cse431_mobile_programming_project.ui.MainActivity
+import com.college.cse431_mobile_programming_project.utils.RestaurantsViewModelFactory
 
 class DishTypeFragment : Fragment() {
 
@@ -35,12 +37,16 @@ class DishTypeFragment : Fragment() {
         restaurantsRecyclerView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         restaurantsRecyclerView.adapter = restaurantsRecyclerAdapter
 
-        restaurantsViewModel = ViewModelProvider(this)[RestaurantsViewModel::class.java]
+        restaurantsViewModel = ViewModelProvider(this,
+            RestaurantsViewModelFactory(
+                RestaurantDatabase.getDatabase(requireContext()).restaurantDao()
+            )
+        )[RestaurantsViewModel::class.java]
 
-        restaurantsViewModel.restaurantsList.observe(viewLifecycleOwner) { restaurants ->
+        restaurantsViewModel.getAllRestaurants().observe(viewLifecycleOwner) { restaurants ->
             val filteredRestaurants = ArrayList<Restaurant>()
             restaurants.forEach {
-                if (args.tag in it.tags)
+                if (args.tag in it.tags!!)
                     filteredRestaurants.add(it)
             }
 
