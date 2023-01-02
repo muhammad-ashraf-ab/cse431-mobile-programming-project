@@ -151,6 +151,9 @@
         <action
             android:id="@+id/action_orderCompleteFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
+        <action
+            android:id="@+id/action_orderCompleteFragment_to_ordersFragment"
+            app:destination="@id/ordersFragment" />
     </fragment>
     <fragment
         android:id="@+id/paymentFragment"

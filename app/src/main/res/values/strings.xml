@@ -65,6 +65,7 @@
     <string name="display_name">Display Name</string>
     <string name="confirm_change">Confirm change</string>
     <string name="profile_img_change_failed">An unexpected error occurred while updating image</string>
+    <string name="no_orders_available">No orders have been made yet. Make an order to track its status!</string>
     <string-array name="programs">
         <item>Freshman</item>
         <item>Mechanical Engineering</item>

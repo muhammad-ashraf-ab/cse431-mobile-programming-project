@@ -1,6 +1,7 @@
 package com.college.cse431_mobile_programming_project.ui.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,11 +14,19 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.college.cse431_mobile_programming_project.R
 import com.college.cse431_mobile_programming_project.data.databases.CartDatabase
+import com.college.cse431_mobile_programming_project.data.databases.DishesDatabase
+import com.college.cse431_mobile_programming_project.data.model.Order
 import com.college.cse431_mobile_programming_project.databinding.FragmentPaymentBinding
 import com.college.cse431_mobile_programming_project.ui.MainActivity
 import com.college.cse431_mobile_programming_project.ui.view_model.CartViewModel
+import com.college.cse431_mobile_programming_project.ui.view_model.DishesViewModel
 import com.college.cse431_mobile_programming_project.utils.viewmodel_factory.CartViewModelFactory
+import com.college.cse431_mobile_programming_project.utils.viewmodel_factory.DishesViewModelFactory
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import java.util.Calendar
+import kotlin.random.Random
 
 class PaymentFragment : Fragment() {
 
@@ -59,12 +68,38 @@ class PaymentFragment : Fragment() {
 
         binding.payNowButton.setOnClickListener {
             if (isFormValid()) {
-                ViewModelProvider(this,
+                val cartViewModel = ViewModelProvider(this,
                     CartViewModelFactory(
                         CartDatabase.getDatabase(requireContext()).cartDao()
                     )
-                )[CartViewModel::class.java].clearCart()
-                findNavController().navigate(PaymentFragmentDirections.actionPaymentFragmentToOrderCompleteFragment())
+                )[CartViewModel::class.java]
+
+                cartViewModel.getCartItems().observe(viewLifecycleOwner) { cart ->
+                    val dishesViewmodel = ViewModelProvider(this,
+                        DishesViewModelFactory(
+                            DishesDatabase.getDatabase(requireContext()).dishDao(),
+                        )
+                    )[DishesViewModel::class.java]
+                    dishesViewmodel.getDishes(cart.map { it.dishId }).observe(viewLifecycleOwner) { dishes ->
+                        Log.d("bruh", cart.map { it.dishId }.toString())
+                        Log.d("bruh", dishes.toString())
+                        if (dishes.isNotEmpty()) {
+                            val orderId = Random.nextInt()
+                            val order = Order(
+                                orderId,
+                                Firebase.auth.currentUser!!.uid,
+                                dishes[0].restaurant_id,
+                                "RECEIVED",
+                                "EGP ${args.totalPrice}")
+                            Log.d("bruh", order.toString())
+                            Firebase.database.getReference("orders/${Firebase.auth.currentUser!!.uid}/$orderId")
+                                .setValue(order)
+                            cartViewModel.clearCart()
+                            findNavController().navigate(PaymentFragmentDirections.actionPaymentFragmentToOrderCompleteFragment())
+                        }
+                    }
+                }
+
             }
         }
     }

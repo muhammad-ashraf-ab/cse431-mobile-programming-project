@@ -30,6 +30,10 @@ class OrderCompleteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.traceOrderButton.setOnClickListener {
+            it.findNavController().navigate(OrderCompleteFragmentDirections.actionOrderCompleteFragmentToOrdersFragment())
+        }
+
         binding.goBackHomeButton.setOnClickListener {
             it.findNavController().navigate(OrderCompleteFragmentDirections.actionOrderCompleteFragmentToMainFragment())
         }
