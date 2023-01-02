@@ -24,7 +24,7 @@
     <string name="sign_up">Sign Up!</string>
     <string name="have_an_account">Already have an account?</string>
     <string name="or_continue_with">Or continue with</string>
-    <string name="display_name">Display Name (Optional)</string>
+    <string name="display_name_optional">Display Name (Optional)</string>
     <string name="passwords_do_not_match">Passwords do not match</string>
     <string name="home">Home</string>
     <string name="orders">Orders</string>
@@ -62,4 +62,41 @@
     <string name="three_pm">3PM</string>
     <string name="pickup_time">Pickup Time*</string>
     <string name="order_placing_note">*Note: As of now, 12PM orders should be placed before 10PM and 3PM orders should be placed before 1PM.</string>
+    <string name="display_name">Display Name</string>
+    <string name="confirm_change">Confirm change</string>
+    <string-array name="programs">
+        <item>Freshman</item>
+        <item>Mechanical Engineering</item>
+        <item>Electrical Engineering</item>
+        <item>Architectural Engineering</item>
+        <item>Civil Engineering</item>
+        <item>Design and Production Engineering</item>
+        <item>Mechanical Power Engineering</item>
+        <item>Automotive Engineering</item>
+        <item>Mechatronics Engineering</item>
+        <item>Electrical Power and Machines Engineering</item>
+        <item>Electronics and Communications Engineering</item>
+        <item>Computer and Systems Engineering</item>
+        <item>Structural Engineering</item>
+        <item>Water Engineering and Hydraulic Structures</item>
+        <item>Utilities and Infrastructure</item>
+        <item>Materials Engineering</item>
+        <item>Manufacturing Engineering</item>
+        <item>Mechatronics Engineering and Automation</item>
+        <item>Landscape Architecture</item>
+        <item>Environmental Architecture and Urbanism</item>
+        <item>Housing Architecture and Urban Development</item>
+        <item>Communication Systems Engineering</item>
+        <item>Energy and Renewable Energy Engineering</item>
+        <item>Computer Engineering and Software Systems</item>
+        <item>Building Engineering</item>
+        <item>Civil Infrastructure Engineering</item>
+    </string-array>
+    <string-array name="levels">
+        <item>Freshman</item>
+        <item>Sophomore</item>
+        <item>Junior</item>
+        <item>Senior-1</item>
+        <item>Senior-2</item>
+    </string-array>
 </resources>

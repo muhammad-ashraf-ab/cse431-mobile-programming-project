@@ -2,6 +2,7 @@ package com.college.cse431_mobile_programming_project.ui.fragments
 
 import android.Manifest
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -10,11 +11,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.college.cse431_mobile_programming_project.R
@@ -30,43 +33,6 @@ import com.squareup.picasso.Picasso
 
 class ProfileFragment : Fragment() {
 
-    private val programs = arrayOf(
-        "Freshman",
-        "Mechanical Engineering",
-        "Electrical Engineering",
-        "Architectural Engineering",
-        "Civil Engineering",
-        "Design and Production Engineering",
-        "Mechanical Power Engineering",
-        "Automotive Engineering",
-        "Mechatronics Engineering",
-        "Electrical Power and Machines Engineering",
-        "Electronics and Communications Engineering",
-        "Computer and Systems Engineering",
-        "Structural Engineering",
-        "Water Engineering and Hydraulic Structures",
-        "Utilities and Infrastructure",
-        "Materials Engineering",
-        "Manufacturing Engineering",
-        "Mechatronics Engineering and Automation",
-        "Landscape Architecture",
-        "Environmental Architecture and Urbanism",
-        "Housing Architecture and Urban Development",
-        "Communication Systems Engineering",
-        "Energy and Renewable Energy Engineering",
-        "Computer Engineering and Software Systems",
-        "Building Engineering",
-        "Civil Infrastructure Engineering",
-    )
-
-    private val levels = arrayOf(
-        "Freshman",
-        "Sophomore",
-        "Junior",
-        "Senior-1",
-        "Senior-2"
-    )
-
     private lateinit var loginViewModel: LoginViewModel
 
     private var _binding: FragmentProfileBinding? = null
@@ -78,11 +44,11 @@ class ProfileFragment : Fragment() {
     ): View {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
 
-        val programsArrayAdapter = ArrayAdapter(requireContext(), R.layout.profile_spinner_item, programs)
+        val programsArrayAdapter = ArrayAdapter(requireContext(), R.layout.profile_spinner_item, resources.getStringArray(R.array.programs))
         programsArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.programSpinner.adapter = programsArrayAdapter
 
-        val levelsArrayAdapter = ArrayAdapter(requireContext(), R.layout.profile_spinner_item, levels)
+        val levelsArrayAdapter = ArrayAdapter(requireContext(), R.layout.profile_spinner_item, resources.getStringArray(R.array.levels))
         levelsArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.levelSpinner.adapter = levelsArrayAdapter
 
@@ -108,8 +74,15 @@ class ProfileFragment : Fragment() {
         binding.displayName.text = if (Firebase.auth.currentUser!!.displayName != "" && Firebase.auth.currentUser!!.displayName != null)
             Firebase.auth.currentUser!!.displayName else Firebase.auth.currentUser!!.email
 
-        binding.programText.text = getProgram()
+        binding.changeDisplayName.setOnClickListener {
+            showDisplayNameEditText()
+        }
 
+        binding.confirmDisplayName.setOnClickListener {
+            hideDisplayNameEditText()
+        }
+
+        binding.programText.text = getProgram()
         binding.levelText.text = getLevel()
 
         binding.emailCardview.visibility = if (Firebase.auth.currentUser!!.displayName != "" && Firebase.auth.currentUser!!.displayName != null)
@@ -256,6 +229,36 @@ class ProfileFragment : Fragment() {
             }
         }
         return "No level assigned."
+    }
+
+    private fun swapCardConstraints(edit: Boolean) {
+        val cardParams = binding.programCardview.layoutParams as ConstraintLayout.LayoutParams
+        cardParams.topToBottom = if (edit) binding.displayNameEdittext.id else binding.displayName.id
+        binding.programCardview.requestLayout()
+    }
+
+    private fun showDisplayNameEditText() {
+        binding.changeDisplayName.visibility = View.GONE
+        binding.displayNameEdittext.visibility = View.VISIBLE
+        swapCardConstraints(true)
+        binding.confirmDisplayName.visibility = View.VISIBLE
+        binding.displayName.visibility = View.GONE
+        binding.displayNameEdittext.requestFocus()
+        val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.showSoftInput(binding.displayNameEdittext, InputMethodManager.SHOW_IMPLICIT)
+    }
+
+    private fun hideDisplayNameEditText() {
+        if (binding.displayNameEdittext.isFocused) {
+            val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+            imm?.hideSoftInputFromWindow(requireView().windowToken, 0)
+        }
+        binding.confirmDisplayName.visibility = View.GONE
+        binding.displayName.visibility = View.VISIBLE
+        swapCardConstraints(false)
+        binding.changeDisplayName.visibility = View.VISIBLE
+        binding.displayNameEdittext.text.clear()
+        binding.displayNameEdittext.visibility = View.GONE
     }
 
 }

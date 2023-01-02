@@ -49,6 +49,39 @@
             android:src="@drawable/ic_baseline_edit_32"
             android:contentDescription="@string/change_program"/>
 
+
+        <EditText
+            android:id="@+id/display_name_edittext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/profile_picture"
+            app:layout_constraintBottom_toTopOf="@id/program_cardview"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            android:maxWidth="128dp"
+            android:background="@color/transparent"
+            android:textSize="16sp"
+            android:hint="@string/display_name"
+            android:autofillHints="name"
+            android:inputType="textAutoComplete"
+            android:visibility="gone"
+            style="@style/Label" />
+
+        <ImageView
+            android:id="@+id/confirm_display_name"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            app:layout_constraintTop_toTopOf="@id/display_name_edittext"
+            app:layout_constraintBottom_toBottomOf="@id/display_name_edittext"
+            app:layout_constraintStart_toEndOf="@id/display_name_edittext"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            android:layout_marginStart="8dp"
+            android:padding="2dp"
+            android:src="@drawable/ic_baseline_check_32"
+            android:visibility="gone"
+            android:contentDescription="@string/confirm_change"/>
+
         <androidx.cardview.widget.CardView
             android:id="@+id/program_cardview"
             android:layout_width="0dp"
