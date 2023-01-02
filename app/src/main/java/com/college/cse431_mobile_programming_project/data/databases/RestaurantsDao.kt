@@ -17,4 +17,8 @@ interface RestaurantsDao {
 
     @Query("SELECT * FROM restaurants WHERE id = :id")
     fun getRestaurant(id: Int): LiveData<Restaurant>
+//
+//    @Transaction
+//    @Query("SELECT * FROM restaurants")
+//    fun getDish(): LiveData<List<RestaurantWithDishes>>
 }

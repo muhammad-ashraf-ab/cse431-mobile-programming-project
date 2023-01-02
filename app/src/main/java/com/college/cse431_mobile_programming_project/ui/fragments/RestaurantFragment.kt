@@ -43,8 +43,8 @@ class RestaurantFragment : Fragment() {
                 args.restaurantId
             ))[RestaurantsViewModel::class.java]
 
-        restaurantsViewModel.restaurant.observe(viewLifecycleOwner) {
-            (activity as MainActivity).configureBars(restaurantsViewModel.restaurant.value?.name!!, true, View.GONE)
+        restaurantsViewModel.getRestaurant(args.restaurantId).observe(viewLifecycleOwner) {
+            (activity as MainActivity).configureBars(it.name!!, true, View.GONE)
             if (it.dishes!!.isNotEmpty()) {
                 dishesRecyclerAdapter.updateDishesList(it.dishes)
 

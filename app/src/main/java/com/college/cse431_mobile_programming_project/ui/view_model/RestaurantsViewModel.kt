@@ -21,12 +21,20 @@ class RestaurantsViewModel(restaurantsDao: RestaurantsDao, restaurantId: Int = -
         return repository.getAllRestaurants()
     }
 
+    fun getRestaurant(id: Int): LiveData<Restaurant> {
+        return repository.getRestaurant(id)
+    }
+
+//    fun getDish(restaurantId: Int, dishId: Int): LiveData<List<RestaurantWithDishes>> {
+//        return repository.getDish(restaurantId, dishId)
+//    }
+
     init {
         if (restaurantId == -1) {
             repository.loadRestaurants()
         }
         else if (dishId == -1){
-            repository.loadRestaurant(_restaurant, restaurantId)
+//            repository.loadRestaurant(_restaurant, restaurantId)
         }
         else {
             repository.loadDish(_dish, restaurantId, dishId)

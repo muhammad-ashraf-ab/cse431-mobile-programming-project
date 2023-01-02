@@ -55,21 +55,6 @@ class RestaurantsRepository(private val restaurantsDao: RestaurantsDao) {
         })
     }
 
-    fun loadRestaurant(restaurant: MutableLiveData<Restaurant>, restaurantId: Int) {
-        restaurantsRef.child("$restaurantId").addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                try {
-                    restaurant.value = snapshot.getValue(Restaurant::class.java)!!
-                } catch (e: Exception) {
-                    Log.d("dberr", e.toString())
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {}
-
-        })
-    }
-
     fun loadDish(dish: MutableLiveData<Dish>, restaurantId: Int, dishId: Int) {
         restaurantsRef.child("$restaurantId/dishes/$dishId").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -86,4 +71,13 @@ class RestaurantsRepository(private val restaurantsDao: RestaurantsDao) {
     fun getAllRestaurants(): LiveData<List<Restaurant>> {
         return restaurantsDao.getAllRestaurants()
     }
+
+    fun getRestaurant(id: Int): LiveData<Restaurant> {
+        return restaurantsDao.getRestaurant(id)
+    }
+
+//    fun getDish(restaurantId: Int, dishId: Int): LiveData<List<RestaurantWithDishes>> {
+////        return restaurantsDao.getDish(restaurantId, dishId)
+//        return restaurantsDao.getDish()
+//    }
 }

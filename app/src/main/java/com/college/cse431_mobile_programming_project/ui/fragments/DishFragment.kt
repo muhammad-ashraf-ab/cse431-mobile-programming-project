@@ -47,6 +47,10 @@ class DishFragment : Fragment() {
             dish = it
             updateUI()
         }
+//        restaurantsViewModel.getDish(args.restaurantId, args.dishId).observe(viewLifecycleOwner) {
+//            Log.d("dbb", it.toString())
+//            updateUI()
+//        }
         return binding.root
     }
 
