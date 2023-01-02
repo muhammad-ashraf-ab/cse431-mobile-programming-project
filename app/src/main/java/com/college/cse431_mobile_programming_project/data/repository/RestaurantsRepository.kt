@@ -2,9 +2,7 @@ package com.college.cse431_mobile_programming_project.data.repository
 
 import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.college.cse431_mobile_programming_project.data.databases.RestaurantsDao
-import com.college.cse431_mobile_programming_project.data.model.Dish
 import com.college.cse431_mobile_programming_project.data.model.Restaurant
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -55,19 +53,6 @@ class RestaurantsRepository(private val restaurantsDao: RestaurantsDao) {
         })
     }
 
-    fun loadDish(dish: MutableLiveData<Dish>, restaurantId: Int, dishId: Int) {
-        restaurantsRef.child("$restaurantId/dishes/$dishId").addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                try {
-                    dish.value = snapshot.getValue(Dish::class.java)
-                } catch (e: Exception) {
-                    Log.d("dberr", e.toString())
-                }
-            }
-            override fun onCancelled(error: DatabaseError) {}
-        })
-    }
-
     fun getAllRestaurants(): LiveData<List<Restaurant>> {
         return restaurantsDao.getAllRestaurants()
     }
@@ -76,8 +61,4 @@ class RestaurantsRepository(private val restaurantsDao: RestaurantsDao) {
         return restaurantsDao.getRestaurant(id)
     }
 
-//    fun getDish(restaurantId: Int, dishId: Int): LiveData<List<RestaurantWithDishes>> {
-////        return restaurantsDao.getDish(restaurantId, dishId)
-//        return restaurantsDao.getDish()
-//    }
 }

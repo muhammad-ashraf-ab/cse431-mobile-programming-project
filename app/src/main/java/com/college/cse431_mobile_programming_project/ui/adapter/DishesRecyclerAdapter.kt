@@ -19,19 +19,19 @@ class DishesRecyclerAdapter(private val dishesList: ArrayList<Dish>, private val
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentItem = dishesList[position]
-        holder.bind(currentItem.name,
-            currentItem.price,
-            currentItem.currency,
-            currentItem.short_description,
-            currentItem.img_path,
-            currentItem.available)
+        holder.bind(currentItem.name!!,
+            currentItem.price!!,
+            currentItem.currency!!,
+            currentItem.short_description!!,
+            currentItem.img_path!!,
+            currentItem.available!!)
     }
 
     override fun getItemCount(): Int {
         return dishesList.size
     }
 
-    fun updateDishesList(dishesList: ArrayList<Dish>) {
+    fun updateDishesList(dishesList: List<Dish>) {
         this.dishesList.clear()
         this.dishesList.addAll(dishesList)
         notifyDataSetChanged()

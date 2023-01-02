@@ -9,18 +9,18 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.college.cse431_mobile_programming_project.data.databases.RestaurantDatabase
+import com.college.cse431_mobile_programming_project.data.databases.DishesDatabase
 import com.college.cse431_mobile_programming_project.data.model.Dish
 import com.college.cse431_mobile_programming_project.databinding.FragmentDishBinding
 import com.college.cse431_mobile_programming_project.ui.MainActivity
-import com.college.cse431_mobile_programming_project.ui.view_model.RestaurantsViewModel
-import com.college.cse431_mobile_programming_project.utils.RestaurantsViewModelFactory
+import com.college.cse431_mobile_programming_project.ui.view_model.DishesViewModel
+import com.college.cse431_mobile_programming_project.utils.DishesViewModelFactory
 import com.squareup.picasso.Picasso
 
 class DishFragment : Fragment() {
 
     private var dish: Dish = Dish()
-    private lateinit var restaurantsViewModel: RestaurantsViewModel
+    private lateinit var dishesViewModel: DishesViewModel
 
     private var amount = 1
 
@@ -35,22 +35,17 @@ class DishFragment : Fragment() {
         _binding = FragmentDishBinding.inflate(inflater, container, false)
         binding.description.movementMethod = ScrollingMovementMethod()
 
-        restaurantsViewModel = ViewModelProvider(this,
-            RestaurantsViewModelFactory(
-                RestaurantDatabase.getDatabase(requireContext()).restaurantDao(),
-                args.restaurantId,
-                args.dishId
+        dishesViewModel = ViewModelProvider(this,
+            DishesViewModelFactory(
+                DishesDatabase.getDatabase(requireContext()).dishDao(),
+                -1,
             )
-        )[RestaurantsViewModel::class.java]
+        )[DishesViewModel::class.java]
 
-        restaurantsViewModel.dish.observe(viewLifecycleOwner) {
+        dishesViewModel.getDish(args.dishId).observe(viewLifecycleOwner) {
             dish = it
             updateUI()
         }
-//        restaurantsViewModel.getDish(args.restaurantId, args.dishId).observe(viewLifecycleOwner) {
-//            Log.d("dbb", it.toString())
-//            updateUI()
-//        }
         return binding.root
     }
 
@@ -61,7 +56,7 @@ class DishFragment : Fragment() {
             amount = binding.amount.text.toString().toInt()
             if (amount > 1) {
                 --amount
-                val totalPrice = "${dish.currency} ${dish.price * amount}"
+                val totalPrice = "${dish.currency} ${dish.price!! * amount}"
                 binding.totalPrice.text = totalPrice
                 binding.price.visibility = if (amount >= 2) View.VISIBLE else View.GONE
             }
@@ -75,7 +70,7 @@ class DishFragment : Fragment() {
             amount = binding.amount.text.toString().toInt()
             if (amount < 99) {
                 ++amount
-                val totalPrice = "${dish.currency} ${dish.price * amount}"
+                val totalPrice = "${dish.currency} ${dish.price!! * amount}"
                 binding.totalPrice.text = totalPrice
                 binding.price.visibility = View.VISIBLE
             }
@@ -90,13 +85,13 @@ class DishFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 
-        val dishName = restaurantsViewModel.dish.value?.name ?: ""
+        val dishName = dishesViewModel.getDish(args.dishId).value?.name ?: ""
         (activity as MainActivity).configureBars(dishName, true, View.GONE)
     }
 
     private fun updateUI() {
-        (activity as MainActivity).configureBars(dish.name, true, View.GONE)
-        val totalPrice = "${dish.currency} ${dish.price * amount}"
+        (activity as MainActivity).configureBars(dish.name!!, true, View.GONE)
+        val totalPrice = "${dish.currency} ${dish.price!! * amount}"
         val pricePerItem = "(${dish.price} per item)"
         binding.dishName.text = dish.name
         binding.totalPrice.text = totalPrice

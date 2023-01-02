@@ -21,7 +21,7 @@ class CartRecyclerAdapter(private val cart: ArrayList<DishesCart>, quantityChang
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         currentItem = cart[position]
-        holder.bind(currentItem.dish.name, currentItem.dish.price, currentItem.dish.currency, currentItem.dish.img_path, currentItem.amount)
+//        holder.bind(currentItem.dish.name, currentItem.dish.price, currentItem.dish.currency, currentItem.dish.img_path, currentItem.amount)
     }
 
     override fun getItemCount(): Int {

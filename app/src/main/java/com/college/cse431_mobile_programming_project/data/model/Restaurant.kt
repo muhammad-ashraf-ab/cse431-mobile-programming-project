@@ -12,5 +12,4 @@ data class Restaurant(
     val reviewers: Int? = 0,
     val img_path: String? = "",
     val tags: ArrayList<String>? = arrayListOf(),
-    val dishes: ArrayList<Dish>? = arrayListOf()
 )

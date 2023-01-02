@@ -1,10 +1,7 @@
 package com.college.cse431_mobile_programming_project.data.databases
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.college.cse431_mobile_programming_project.data.model.Restaurant
 
 @Dao
@@ -17,8 +14,5 @@ interface RestaurantsDao {
 
     @Query("SELECT * FROM restaurants WHERE id = :id")
     fun getRestaurant(id: Int): LiveData<Restaurant>
-//
-//    @Transaction
-//    @Query("SELECT * FROM restaurants")
-//    fun getDish(): LiveData<List<RestaurantWithDishes>>
+
 }
