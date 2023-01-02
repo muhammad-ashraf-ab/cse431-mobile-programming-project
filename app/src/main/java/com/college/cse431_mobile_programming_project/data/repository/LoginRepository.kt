@@ -1,5 +1,6 @@
 package com.college.cse431_mobile_programming_project.data.repository
 
+import android.net.Uri
 import com.college.cse431_mobile_programming_project.data.model.login.LoggedInUser
 import com.college.cse431_mobile_programming_project.utils.Result
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -7,6 +8,7 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 
 /**
  * Class that requests authentication and user information from the remote data source and
@@ -36,8 +38,8 @@ class LoginRepository {
     fun firebaseAuthWithGoogleAccount(account: GoogleSignInAccount?, resultCallback: (Result<LoggedInUser>) -> Unit) {
         val firebaseAuth = Firebase.auth
         val credential = GoogleAuthProvider.getCredential(account!!.idToken, null)
-        firebaseAuth.signInWithCredential(credential).addOnCompleteListener {
-            if (it.isSuccessful) {
+        firebaseAuth.signInWithCredential(credential).addOnCompleteListener { task ->
+            if (task.isSuccessful) {
                 val firebaseUser = firebaseAuth.currentUser
 
                 val uid = firebaseUser!!.uid
@@ -45,11 +47,11 @@ class LoginRepository {
                 val displayName = firebaseUser.displayName
                 val imgUrl = firebaseUser.photoUrl
 
-                val loggedInUser = LoggedInUser(uid, email!!, displayName!!, imgUrl.toString())
+                val loggedInUser = LoggedInUser(uid, email!!, displayName!!, imgUrl ?: Uri.EMPTY)
                 setLoggedInUser(loggedInUser)
                 resultCallback(Result.Success(loggedInUser))
             } else {
-                resultCallback(Result.Error(it.exception!!))
+                resultCallback(Result.Error(task.exception!!))
             }
         }
     }
@@ -64,7 +66,7 @@ class LoginRepository {
                         firebaseAuth.currentUser!!.uid,
                         firebaseAuth.currentUser!!.email!!,
                         firebaseAuth.currentUser!!.displayName.let { firebaseAuth.currentUser!!.displayName } ?: "",
-                        ""
+                        Uri.EMPTY
                     )
                     result = Result.Success(loggedInUser)
                     setLoggedInUser(loggedInUser)
@@ -96,7 +98,7 @@ class LoginRepository {
                         firebaseAuth.currentUser!!.uid,
                         firebaseAuth.currentUser!!.email!!,
                         firebaseAuth.currentUser!!.displayName.let { firebaseAuth.currentUser!!.displayName } ?: "",
-                        ""
+                        Uri.EMPTY
                     )
                     result = Result.Success(loggedInUser)
                     setLoggedInUser(loggedInUser)
@@ -116,6 +118,48 @@ class LoginRepository {
         this.user = loggedInUser
         // If user credentials will be cached in local storage, it is recommended it be encrypted
         // @see https://developer.android.com/training/articles/keystore
+    }
+
+    fun updateProfilePicture(imgUri: Uri, resultCallback: (Result<LoggedInUser>) -> Unit) {
+        var result: Result<LoggedInUser>
+        val storageRef = Firebase.storage.reference
+        val imgRef = storageRef.child("images/profile_pictures/${Firebase.auth.currentUser!!.uid}")
+        val uploadTask = imgRef.putFile(imgUri)
+
+        try {
+            uploadTask.continueWithTask { task ->
+                if (!task.isSuccessful) {
+                    throw task.exception!!
+                }
+                imgRef.downloadUrl
+            }.addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    setProfilePicture(task.result)
+                } else {
+                    result = Result.Error(task.exception!!)
+                    resultCallback(result as Result.Error)
+                }
+            }
+        } catch (e: Exception) {
+            result = Result.Error(e)
+            resultCallback(result as Result.Error)
+        }
+    }
+
+    private fun setProfilePicture(imgUri: Uri) {
+        // TODO: set imgUri locally
+
+        val profileUpdate = userProfileChangeRequest {
+            photoUri = imgUri
+        }
+        Firebase.auth.currentUser!!.updateProfile(profileUpdate).addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                this.user?.let {
+                    it.profile_img_path = imgUri
+                }
+            }
+        }
+
     }
 
     fun setLoggedInUserProgram(program: String) {

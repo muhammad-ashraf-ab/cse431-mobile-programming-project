@@ -1,5 +1,6 @@
 package com.college.cse431_mobile_programming_project.ui.view_model
 
+import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -103,5 +104,17 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
 
     fun setLoggedInUserLevel(level: String) {
         loginRepository.setLoggedInUserLevel(level)
+    }
+
+    fun updateProfilePicture(imgUri: Uri) {
+        loginRepository.updateProfilePicture(imgUri) { result ->
+            if (result is Result.Error) {
+                val errMessage = when (result.getException()) {
+                    else -> R.string.profile_img_change_failed
+                }
+
+                _loginResult.postValue(LoginResult(error = errMessage))
+            }
+        }
     }
 }

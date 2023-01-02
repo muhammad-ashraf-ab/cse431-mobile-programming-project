@@ -64,6 +64,7 @@
     <string name="order_placing_note">*Note: As of now, 12PM orders should be placed before 10PM and 3PM orders should be placed before 1PM.</string>
     <string name="display_name">Display Name</string>
     <string name="confirm_change">Confirm change</string>
+    <string name="profile_img_change_failed">An unexpected error occurred while updating image</string>
     <string-array name="programs">
         <item>Freshman</item>
         <item>Mechanical Engineering</item>

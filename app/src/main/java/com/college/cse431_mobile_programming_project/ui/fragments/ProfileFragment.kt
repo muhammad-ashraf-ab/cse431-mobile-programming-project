@@ -17,7 +17,9 @@ import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.StringRes
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.college.cse431_mobile_programming_project.R
@@ -26,9 +28,7 @@ import com.college.cse431_mobile_programming_project.ui.MainActivity
 import com.college.cse431_mobile_programming_project.ui.view_model.LoginViewModel
 import com.college.cse431_mobile_programming_project.utils.LoginViewModelFactory
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.ktx.storage
 import com.squareup.picasso.Picasso
 
 class ProfileFragment : Fragment() {
@@ -64,8 +64,8 @@ class ProfileFragment : Fragment() {
 
         // TODO: save user locally to use here
 //        val imgPath = loginViewModel.loginResult.value!!.success!!.profile_img_path
-        val imgPath = Firebase.auth.currentUser!!.photoUrl.toString()
-        if (imgPath != "" && imgPath != "null") {
+        val imgPath = Firebase.auth.currentUser!!.photoUrl
+        if (!Uri.EMPTY.equals(imgPath) && imgPath != null) {
             Picasso.get().load(imgPath).into(binding.profilePicture)
         } else {
             binding.profilePicture.setImageResource(R.drawable.ic_baseline_person_32)
@@ -93,6 +93,14 @@ class ProfileFragment : Fragment() {
         binding.profilePicture.setOnClickListener {
             requestPermissionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
         }
+
+        loginViewModel.loginResult.observe(viewLifecycleOwner,
+            Observer { loginResult ->
+                loginResult ?: return@Observer
+                loginResult.error?.let {
+                    showErrorToast(it)
+                }
+            })
 
         binding.changeProgram.setOnClickListener {
             binding.programText.visibility = View.GONE
@@ -169,38 +177,16 @@ class ProfileFragment : Fragment() {
         }
     }
 
-    private fun updateProfilePicture(imgUri: Uri) {
-        val storageRef = Firebase.storage.reference
-        val imgRef = storageRef.child("images/profile_pictures/${Firebase.auth.currentUser!!.uid}}")
-        val uploadTask = imgRef.putFile(imgUri)
-
-        try {
-            uploadTask.continueWithTask { task ->
-                if (!task.isSuccessful) {
-                    task.exception?.let {
-                        throw it
-                    }
-                }
-                imgRef.downloadUrl
-            }.addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    setProfilePicture(task.result)
-                }
-
-            }
-        } catch (e: Exception) {
-            Toast.makeText(requireContext(), "An unexpected error occurred while uploading image", Toast.LENGTH_SHORT).show()
-        }
+    private fun showErrorToast(@StringRes errorString: Int) {
+        Toast.makeText(requireContext(), errorString, Toast.LENGTH_LONG).show()
     }
 
-    private fun setProfilePicture(imgUri: Uri?) {
-        // TODO: set imgUri locally
+    private fun updateProfilePicture(imgUri: Uri) {
+        loginViewModel.updateProfilePicture(imgUri)
+        setProfilePicture(imgUri)
+    }
 
-        val profileUpdate = userProfileChangeRequest {
-            photoUri = imgUri
-        }
-        Firebase.auth.currentUser!!.updateProfile(profileUpdate)
-
+    private fun setProfilePicture(imgUri: Uri) {
         try {
             Picasso.get().load(imgUri).into(binding.profilePicture)
         } catch (e: Exception) {
