@@ -117,4 +117,8 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
             }
         }
     }
+
+    fun updateDisplayName(displayName: String) {
+        loginRepository.updateDisplayName(displayName)
+    }
 }

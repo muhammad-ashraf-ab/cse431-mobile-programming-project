@@ -10,11 +10,6 @@ import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 
-/**
- * Class that requests authentication and user information from the remote data source and
- * maintains an in-memory cache of login status and user credentials information.
- */
-
 class LoginRepository {
 
     // in-memory cache of the loggedInUser object
@@ -176,4 +171,13 @@ class LoginRepository {
         // TODO: Do it with Firebase and ROOM database
     }
 
+    fun updateDisplayName(displayName: String) {
+        val profileUpdates = userProfileChangeRequest {
+            this.displayName = displayName
+        }
+        Firebase.auth.currentUser!!.updateProfile(profileUpdates)
+        this.user?.let {
+            it.displayName = displayName
+        }
+    }
 }

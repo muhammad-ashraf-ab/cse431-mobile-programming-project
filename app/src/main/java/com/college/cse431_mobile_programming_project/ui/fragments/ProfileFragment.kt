@@ -74,11 +74,17 @@ class ProfileFragment : Fragment() {
         binding.displayName.text = if (Firebase.auth.currentUser!!.displayName != "" && Firebase.auth.currentUser!!.displayName != null)
             Firebase.auth.currentUser!!.displayName else Firebase.auth.currentUser!!.email
 
+        binding.displayNameEdittext.setText(binding.displayName.text)
+
         binding.changeDisplayName.setOnClickListener {
             showDisplayNameEditText()
         }
 
         binding.confirmDisplayName.setOnClickListener {
+            loginViewModel.updateDisplayName(binding.displayNameEdittext.text.toString())
+            binding.displayName.text = if (Firebase.auth.currentUser!!.displayName != "" && Firebase.auth.currentUser!!.displayName != null)
+                Firebase.auth.currentUser!!.displayName else Firebase.auth.currentUser!!.email
+            Toast.makeText(requireContext(), "It may require you to refresh page for changes to occur.", Toast.LENGTH_LONG).show()
             hideDisplayNameEditText()
         }
 
@@ -243,7 +249,6 @@ class ProfileFragment : Fragment() {
         binding.displayName.visibility = View.VISIBLE
         swapCardConstraints(false)
         binding.changeDisplayName.visibility = View.VISIBLE
-        binding.displayNameEdittext.text.clear()
         binding.displayNameEdittext.visibility = View.GONE
     }
 

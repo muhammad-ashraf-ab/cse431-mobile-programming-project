@@ -8,7 +8,7 @@ import android.net.Uri
 data class LoggedInUser(
     val user_id: String,
     val email: String,
-    val displayName: String,
+    var displayName: String,
     var profile_img_path: Uri,
     var program: String = "",
     var level: String = ""
