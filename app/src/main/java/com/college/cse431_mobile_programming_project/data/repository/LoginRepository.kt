@@ -1,6 +1,8 @@
 package com.college.cse431_mobile_programming_project.data.repository
 
 import android.net.Uri
+import androidx.lifecycle.LiveData
+import com.college.cse431_mobile_programming_project.data.databases.UserDao
 import com.college.cse431_mobile_programming_project.data.model.login.LoggedInUser
 import com.college.cse431_mobile_programming_project.utils.Result
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -9,20 +11,22 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
-class LoginRepository {
+class LoginRepository(private val userDao: UserDao) {
 
     // in-memory cache of the loggedInUser object
-    var user: LoggedInUser? = null
+    var user: LiveData<LoggedInUser>? = null
         private set
-
-    val isLoggedIn: Boolean
-        get() = user != null
 
     init {
         // If user credentials will be cached in local storage, it is recommended it be encrypted
         // @see https://developer.android.com/training/articles/keystore
-        user = null
+        user = Firebase.auth.currentUser?.let { loggedInUser ->
+            userDao.getUser(loggedInUser.uid)
+        }
     }
 
     fun logout() {
@@ -110,7 +114,10 @@ class LoginRepository {
     }
 
     private fun setLoggedInUser(loggedInUser: LoggedInUser) {
-        this.user = loggedInUser
+        CoroutineScope(Dispatchers.IO).launch {
+            userDao.addUser(loggedInUser)
+            user = userDao.getUser(loggedInUser.user_id)
+        }
         // If user credentials will be cached in local storage, it is recommended it be encrypted
         // @see https://developer.android.com/training/articles/keystore
     }
@@ -142,33 +149,42 @@ class LoginRepository {
     }
 
     private fun setProfilePicture(imgUri: Uri) {
-        // TODO: set imgUri locally
+        user?.let {
+            CoroutineScope(Dispatchers.IO).launch {
+                userDao.updateProfilePicture(it.value!!.user_id, imgUri)
+            }
+        }
 
         val profileUpdate = userProfileChangeRequest {
             photoUri = imgUri
         }
         Firebase.auth.currentUser!!.updateProfile(profileUpdate).addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                this.user?.let {
-                    it.profile_img_path = imgUri
+                user?.let {
+                    it.value!!.profile_img_path = imgUri
                 }
             }
         }
-
     }
 
     fun setLoggedInUserProgram(program: String) {
-        this.user?.let {
-            it.program = program
+        user?.let {
+            it.value!!.program = program
+            CoroutineScope(Dispatchers.IO).launch {
+                userDao.updateProgram(it.value!!.user_id, program)
+            }
         }
-        // TODO: Do it with Firebase and ROOM database
+        // TODO: Do it with Firebase
     }
 
     fun setLoggedInUserLevel(level: String) {
-        this.user?.let {
-            it.level = level
+        user?.let {
+            it.value!!.level = level
+            CoroutineScope(Dispatchers.IO).launch {
+                userDao.updateLevel(it.value!!.user_id, level)
+            }
         }
-        // TODO: Do it with Firebase and ROOM database
+        // TODO: Do it with Firebase
     }
 
     fun updateDisplayName(displayName: String) {
@@ -176,8 +192,11 @@ class LoginRepository {
             this.displayName = displayName
         }
         Firebase.auth.currentUser!!.updateProfile(profileUpdates)
-        this.user?.let {
-            it.displayName = displayName
+        user?.let {
+            it.value!!.displayName = displayName
+            CoroutineScope(Dispatchers.IO).launch {
+                userDao.updateDisplayName(it.value!!.user_id, displayName)
+            }
         }
     }
 }

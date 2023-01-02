@@ -23,17 +23,19 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.college.cse431_mobile_programming_project.R
+import com.college.cse431_mobile_programming_project.data.databases.UserDatabase
+import com.college.cse431_mobile_programming_project.data.model.login.LoggedInUser
 import com.college.cse431_mobile_programming_project.databinding.FragmentProfileBinding
 import com.college.cse431_mobile_programming_project.ui.MainActivity
 import com.college.cse431_mobile_programming_project.ui.view_model.LoginViewModel
 import com.college.cse431_mobile_programming_project.utils.LoginViewModelFactory
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 import com.squareup.picasso.Picasso
 
 class ProfileFragment : Fragment() {
 
     private lateinit var loginViewModel: LoginViewModel
+
+    private lateinit var user: LoggedInUser
 
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
@@ -58,23 +60,14 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        loginViewModel = ViewModelProvider(requireActivity(),
-            LoginViewModelFactory()
+        loginViewModel = ViewModelProvider(this,
+            LoginViewModelFactory(UserDatabase.getDatabase(requireContext()).userDao())
         )[LoginViewModel::class.java]
 
-        // TODO: save user locally to use here
-//        val imgPath = loginViewModel.loginResult.value!!.success!!.profile_img_path
-        val imgPath = Firebase.auth.currentUser!!.photoUrl
-        if (!Uri.EMPTY.equals(imgPath) && imgPath != null) {
-            Picasso.get().load(imgPath).into(binding.profilePicture)
-        } else {
-            binding.profilePicture.setImageResource(R.drawable.ic_baseline_person_32)
+        loginViewModel.getUser().observe(viewLifecycleOwner) {
+            user = it
+            updateProfileUI()
         }
-//        binding.displayName.text = loginViewModel.loginResult.value!!.success!!.displayName
-        binding.displayName.text = if (Firebase.auth.currentUser!!.displayName != "" && Firebase.auth.currentUser!!.displayName != null)
-            Firebase.auth.currentUser!!.displayName else Firebase.auth.currentUser!!.email
-
-        binding.displayNameEdittext.setText(binding.displayName.text)
 
         binding.changeDisplayName.setOnClickListener {
             showDisplayNameEditText()
@@ -82,19 +75,11 @@ class ProfileFragment : Fragment() {
 
         binding.confirmDisplayName.setOnClickListener {
             loginViewModel.updateDisplayName(binding.displayNameEdittext.text.toString())
-            binding.displayName.text = if (Firebase.auth.currentUser!!.displayName != "" && Firebase.auth.currentUser!!.displayName != null)
-                Firebase.auth.currentUser!!.displayName else Firebase.auth.currentUser!!.email
+            binding.displayName.text = if (user.displayName != "")
+                user.displayName else user.email
             Toast.makeText(requireContext(), "It may require you to refresh page for changes to occur.", Toast.LENGTH_LONG).show()
             hideDisplayNameEditText()
         }
-
-        binding.programText.text = getProgram()
-        binding.levelText.text = getLevel()
-
-        binding.emailCardview.visibility = if (Firebase.auth.currentUser!!.displayName != "" && Firebase.auth.currentUser!!.displayName != null)
-            View.VISIBLE else View.GONE
-
-        binding.email.text = Firebase.auth.currentUser!!.email
 
         binding.profilePicture.setOnClickListener {
             requestPermissionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -202,23 +187,15 @@ class ProfileFragment : Fragment() {
     }
 
     private fun getProgram(): String {
-        loginViewModel.loginResult.value?.let { loginResult ->
-            loginResult.success?.let { loggedInUser ->
-                if (loggedInUser.program != "") {
-                    return loggedInUser.program
-                }
-            }
+        if (user.program != "") {
+            return user.program
         }
         return "No program assigned."
     }
 
     private fun getLevel(): String {
-        loginViewModel.loginResult.value?.let { loginResult ->
-            loginResult.success?.let { loggedInUser ->
-                if (loggedInUser.level != "") {
-                    return loggedInUser.level
-                }
-            }
+        if (user.level != "") {
+            return user.level
         }
         return "No level assigned."
     }
@@ -250,6 +227,27 @@ class ProfileFragment : Fragment() {
         swapCardConstraints(false)
         binding.changeDisplayName.visibility = View.VISIBLE
         binding.displayNameEdittext.visibility = View.GONE
+    }
+
+    private fun updateProfileUI() {
+        val imgPath = user.profile_img_path
+        if (!Uri.EMPTY.equals(imgPath) && imgPath.toString() != "") {
+            Picasso.get().load(imgPath).into(binding.profilePicture)
+        } else {
+            binding.profilePicture.setImageResource(R.drawable.ic_baseline_person_32)
+        }
+
+        binding.displayName.text = if (user.displayName != "")
+            user.displayName else user.email
+
+        binding.displayNameEdittext.setText(binding.displayName.text)
+
+        binding.programText.text = getProgram()
+        binding.levelText.text = getLevel()
+
+        binding.emailCardview.visibility = if (user.displayName != "") View.VISIBLE else View.GONE
+
+        binding.email.text = user.email
     }
 
 }

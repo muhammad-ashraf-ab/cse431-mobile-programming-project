@@ -9,6 +9,7 @@ import com.college.cse431_mobile_programming_project.data.repository.LoginReposi
 import com.college.cse431_mobile_programming_project.utils.Result
 
 import com.college.cse431_mobile_programming_project.R
+import com.college.cse431_mobile_programming_project.data.model.login.LoggedInUser
 import com.college.cse431_mobile_programming_project.data.model.login.LoginFormState
 import com.college.cse431_mobile_programming_project.data.model.login.LoginResult
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -20,6 +21,10 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
 
     private val _loginResult = MutableLiveData<LoginResult>()
     val loginResult: LiveData<LoginResult> = _loginResult
+
+    fun getUser(): LiveData<LoggedInUser> {
+        return loginRepository.user!!
+    }
 
     fun logout() {
         loginRepository.logout()

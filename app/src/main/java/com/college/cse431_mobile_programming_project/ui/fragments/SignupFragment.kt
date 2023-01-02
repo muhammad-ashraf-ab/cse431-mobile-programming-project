@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.college.cse431_mobile_programming_project.R
+import com.college.cse431_mobile_programming_project.data.databases.UserDatabase
 import com.college.cse431_mobile_programming_project.data.model.login.LoggedInUser
 import com.college.cse431_mobile_programming_project.databinding.FragmentSignupBinding
 import com.college.cse431_mobile_programming_project.ui.MainActivity
@@ -47,8 +48,8 @@ class SignupFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        loginViewModel = ViewModelProvider(requireActivity(),
-            LoginViewModelFactory()
+        loginViewModel = ViewModelProvider(this,
+            LoginViewModelFactory(UserDatabase.getDatabase(requireContext()).userDao())
         )[LoginViewModel::class.java]
 
         firebaseAuth = FirebaseAuth.getInstance()
