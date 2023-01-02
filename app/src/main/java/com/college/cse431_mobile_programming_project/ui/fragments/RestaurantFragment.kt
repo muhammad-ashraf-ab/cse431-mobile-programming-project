@@ -16,8 +16,8 @@ import com.college.cse431_mobile_programming_project.ui.adapter.DishesRecyclerAd
 import com.college.cse431_mobile_programming_project.databinding.FragmentRestaurantBinding
 import com.college.cse431_mobile_programming_project.ui.MainActivity
 import com.college.cse431_mobile_programming_project.ui.view_model.DishesViewModel
-import com.college.cse431_mobile_programming_project.utils.DishesViewModelFactory
-import com.college.cse431_mobile_programming_project.utils.RestaurantsViewModelFactory
+import com.college.cse431_mobile_programming_project.utils.viewmodel_factory.DishesViewModelFactory
+import com.college.cse431_mobile_programming_project.utils.viewmodel_factory.RestaurantsViewModelFactory
 
 class RestaurantFragment : Fragment() {
 
@@ -45,13 +45,15 @@ class RestaurantFragment : Fragment() {
             RestaurantsViewModelFactory(
                 RestaurantDatabase.getDatabase(requireContext()).restaurantDao(),
                 args.restaurantId
-            ))[RestaurantsViewModel::class.java]
+            )
+        )[RestaurantsViewModel::class.java]
 
         dishesViewModel = ViewModelProvider(this,
             DishesViewModelFactory(
                 DishesDatabase.getDatabase(requireContext()).dishDao(),
                 args.restaurantId
-            ))[DishesViewModel::class.java]
+            )
+        )[DishesViewModel::class.java]
 
         restaurantsViewModel.getRestaurant(args.restaurantId).observe(viewLifecycleOwner) { restaurant ->
             (activity as MainActivity).configureBars(restaurant.name!!, true, View.GONE)

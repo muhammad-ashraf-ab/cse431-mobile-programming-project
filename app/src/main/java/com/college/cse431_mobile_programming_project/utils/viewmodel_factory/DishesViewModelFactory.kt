@@ -1,4 +1,4 @@
-package com.college.cse431_mobile_programming_project.utils
+package com.college.cse431_mobile_programming_project.utils.viewmodel_factory
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

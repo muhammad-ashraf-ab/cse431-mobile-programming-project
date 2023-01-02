@@ -60,4 +60,8 @@ class DishesRepository(private val dishesDao: DishesDao) {
     fun getDish(dishId: Int): LiveData<Dish> {
         return dishesDao.getDish(dishId)
     }
+
+    fun getDishes(dishIds: List<Int>): LiveData<List<Dish>> {
+        return dishesDao.getDishes(dishIds)
+    }
 }

@@ -14,7 +14,7 @@ import com.college.cse431_mobile_programming_project.ui.view_model.RestaurantsVi
 import com.college.cse431_mobile_programming_project.ui.adapter.RestaurantsRecyclerAdapter
 import com.college.cse431_mobile_programming_project.databinding.FragmentDishTypeBinding
 import com.college.cse431_mobile_programming_project.ui.MainActivity
-import com.college.cse431_mobile_programming_project.utils.RestaurantsViewModelFactory
+import com.college.cse431_mobile_programming_project.utils.viewmodel_factory.RestaurantsViewModelFactory
 
 class DishTypeFragment : Fragment() {
 

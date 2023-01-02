@@ -18,4 +18,7 @@ interface DishesDao {
 
     @Query("SELECT * FROM dishes WHERE id = :dishId")
     fun getDish(dishId: Int): LiveData<Dish>
+
+    @Query("SELECT * FROM dishes WHERE id in (:dishIds)")
+    fun getDishes(dishIds: List<Int>): LiveData<List<Dish>>
 }

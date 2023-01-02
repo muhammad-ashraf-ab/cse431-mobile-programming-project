@@ -28,7 +28,7 @@ import com.college.cse431_mobile_programming_project.data.model.login.LoggedInUs
 import com.college.cse431_mobile_programming_project.databinding.FragmentProfileBinding
 import com.college.cse431_mobile_programming_project.ui.MainActivity
 import com.college.cse431_mobile_programming_project.ui.view_model.LoginViewModel
-import com.college.cse431_mobile_programming_project.utils.LoginViewModelFactory
+import com.college.cse431_mobile_programming_project.utils.viewmodel_factory.LoginViewModelFactory
 import com.squareup.picasso.Picasso
 
 class ProfileFragment : Fragment() {

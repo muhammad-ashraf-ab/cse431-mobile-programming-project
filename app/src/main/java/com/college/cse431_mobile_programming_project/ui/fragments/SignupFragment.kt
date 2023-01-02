@@ -20,7 +20,7 @@ import com.college.cse431_mobile_programming_project.data.model.login.LoggedInUs
 import com.college.cse431_mobile_programming_project.databinding.FragmentSignupBinding
 import com.college.cse431_mobile_programming_project.ui.MainActivity
 import com.college.cse431_mobile_programming_project.ui.view_model.LoginViewModel
-import com.college.cse431_mobile_programming_project.utils.LoginViewModelFactory
+import com.college.cse431_mobile_programming_project.utils.viewmodel_factory.LoginViewModelFactory
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions

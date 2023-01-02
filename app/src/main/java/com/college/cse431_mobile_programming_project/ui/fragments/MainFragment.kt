@@ -18,7 +18,7 @@ import com.college.cse431_mobile_programming_project.ui.adapter.DishTypesRecycle
 import com.college.cse431_mobile_programming_project.ui.adapter.RestaurantsRecyclerAdapter
 import com.college.cse431_mobile_programming_project.databinding.FragmentMainBinding
 import com.college.cse431_mobile_programming_project.ui.MainActivity
-import com.college.cse431_mobile_programming_project.utils.RestaurantsViewModelFactory
+import com.college.cse431_mobile_programming_project.utils.viewmodel_factory.RestaurantsViewModelFactory
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 

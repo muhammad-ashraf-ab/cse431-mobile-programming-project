@@ -4,15 +4,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.college.cse431_mobile_programming_project.data.model.DishesCart
+import com.college.cse431_mobile_programming_project.data.model.DishCart
 import com.college.cse431_mobile_programming_project.databinding.DishCartCardviewBinding
+import com.college.cse431_mobile_programming_project.ui.view_model.CartViewModel
 import com.college.cse431_mobile_programming_project.utils.OnQuantityChangeListener
 import com.squareup.picasso.Picasso
 
-class CartRecyclerAdapter(private val cart: ArrayList<DishesCart>, quantityChangeListener: OnQuantityChangeListener)
+class CartRecyclerAdapter(private val cart: ArrayList<DishCart>, private val cartViewModel: CartViewModel, quantityChangeListener: OnQuantityChangeListener)
     : RecyclerView.Adapter<CartRecyclerAdapter.ViewHolder>() {
 
-    private lateinit var currentItem: DishesCart
+    private lateinit var currentItem: DishCart
     private var _quantityListener = quantityChangeListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -21,7 +22,7 @@ class CartRecyclerAdapter(private val cart: ArrayList<DishesCart>, quantityChang
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         currentItem = cart[position]
-//        holder.bind(currentItem.dish.name, currentItem.dish.price, currentItem.dish.currency, currentItem.dish.img_path, currentItem.amount)
+        holder.bind(currentItem.dish.name!!, currentItem.dish.price!!, currentItem.dish.currency!!, currentItem.dish.img_path!!, currentItem.amount)
     }
 
     override fun getItemCount(): Int {
@@ -30,6 +31,7 @@ class CartRecyclerAdapter(private val cart: ArrayList<DishesCart>, quantityChang
 
     fun remove(position: Int) {
         _quantityListener.onQuantityChange(position, 0)
+        cartViewModel.removeFromCart(cart[position].dish.id)
         cart.removeAt(position)
         notifyItemRemoved(position)
         notifyItemRangeChanged(position, cart.size)

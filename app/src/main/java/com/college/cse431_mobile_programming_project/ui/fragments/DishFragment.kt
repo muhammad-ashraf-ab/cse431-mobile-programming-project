@@ -9,18 +9,23 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.college.cse431_mobile_programming_project.data.databases.CartDatabase
 import com.college.cse431_mobile_programming_project.data.databases.DishesDatabase
+import com.college.cse431_mobile_programming_project.data.model.CartItem
 import com.college.cse431_mobile_programming_project.data.model.Dish
 import com.college.cse431_mobile_programming_project.databinding.FragmentDishBinding
 import com.college.cse431_mobile_programming_project.ui.MainActivity
+import com.college.cse431_mobile_programming_project.ui.view_model.CartViewModel
 import com.college.cse431_mobile_programming_project.ui.view_model.DishesViewModel
-import com.college.cse431_mobile_programming_project.utils.DishesViewModelFactory
+import com.college.cse431_mobile_programming_project.utils.viewmodel_factory.CartViewModelFactory
+import com.college.cse431_mobile_programming_project.utils.viewmodel_factory.DishesViewModelFactory
 import com.squareup.picasso.Picasso
 
 class DishFragment : Fragment() {
 
     private var dish: Dish = Dish()
     private lateinit var dishesViewModel: DishesViewModel
+    private lateinit var cartViewModel: CartViewModel
 
     private var amount = 1
 
@@ -41,6 +46,12 @@ class DishFragment : Fragment() {
                 -1,
             )
         )[DishesViewModel::class.java]
+
+        cartViewModel = ViewModelProvider(this,
+            CartViewModelFactory(
+                CartDatabase.getDatabase(requireContext()).cartDao()
+            )
+        )[CartViewModel::class.java]
 
         dishesViewModel.getDish(args.dishId).observe(viewLifecycleOwner) {
             dish = it
@@ -78,6 +89,8 @@ class DishFragment : Fragment() {
         }
 
         binding.addToCartButton.setOnClickListener {
+            val cartItem = CartItem(dish.id, binding.amount.text.toString().toInt())
+            cartViewModel.addToCart(cartItem)
             this.findNavController().popBackStack()
         }
     }

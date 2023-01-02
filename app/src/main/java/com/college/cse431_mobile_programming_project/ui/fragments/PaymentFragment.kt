@@ -8,11 +8,15 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.RadioGroup
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.college.cse431_mobile_programming_project.R
+import com.college.cse431_mobile_programming_project.data.databases.CartDatabase
 import com.college.cse431_mobile_programming_project.databinding.FragmentPaymentBinding
 import com.college.cse431_mobile_programming_project.ui.MainActivity
+import com.college.cse431_mobile_programming_project.ui.view_model.CartViewModel
+import com.college.cse431_mobile_programming_project.utils.viewmodel_factory.CartViewModelFactory
 import java.util.Calendar
 
 class PaymentFragment : Fragment() {
@@ -55,6 +59,11 @@ class PaymentFragment : Fragment() {
 
         binding.payNowButton.setOnClickListener {
             if (isFormValid()) {
+                ViewModelProvider(this,
+                    CartViewModelFactory(
+                        CartDatabase.getDatabase(requireContext()).cartDao()
+                    )
+                )[CartViewModel::class.java].clearCart()
                 findNavController().navigate(PaymentFragmentDirections.actionPaymentFragmentToOrderCompleteFragment())
             }
         }

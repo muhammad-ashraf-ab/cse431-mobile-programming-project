@@ -25,4 +25,8 @@ class DishesViewModel (
     fun getDish(dishId: Int): LiveData<Dish> {
         return repository.getDish(dishId)
     }
+
+    fun getDishes(dishIds: List<Int>): LiveData<List<Dish>> {
+        return repository.getDishes(dishIds)
+    }
 }
