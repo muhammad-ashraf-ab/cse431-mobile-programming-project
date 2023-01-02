@@ -47,44 +47,29 @@ class RestaurantsRepository {
         })
     }
 
-    fun loadRestaurant(restaurant: MutableLiveData<Restaurant>, restaurantName: String) {
-        restaurantsRef.orderByChild("name").equalTo(restaurantName).addValueEventListener(object : ValueEventListener {
+    fun loadRestaurant(restaurant: MutableLiveData<Restaurant>, restaurantId: Int) {
+        restaurantsRef.child("$restaurantId").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 try {
-                    val _restaurant : Restaurant = snapshot.children.map {
-                        it.getValue(Restaurant::class.java)!!
-                    }[0]
-                    restaurant.value = _restaurant
+                    restaurant.value = snapshot.getValue(Restaurant::class.java)!!
                 } catch (e: Exception) {
                     Log.d("dberr", e.toString())
                 }
             }
 
-            override fun onCancelled(error: DatabaseError) {
-
-            }
+            override fun onCancelled(error: DatabaseError) {}
 
         })
     }
 
-    fun loadDish(dish: MutableLiveData<Dish>, restaurantName: String, dishName: String) {
-        restaurantsRef.orderByChild("name").equalTo(restaurantName).addListenerForSingleValueEvent(object : ValueEventListener {
+    fun loadDish(dish: MutableLiveData<Dish>, restaurantId: Int, dishId: Int) {
+        restaurantsRef.child("$restaurantId/dishes/$dishId").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                val childKey : String = snapshot.children.first().key!!
-                restaurantsRef.child("$childKey/dishes").orderByChild("name").equalTo(dishName).addValueEventListener(object : ValueEventListener {
-                    override fun onDataChange(snapshot: DataSnapshot) {
-                        Log.d("livedata", "restaurantslist ${dish.hasActiveObservers()}")
-                        try {
-                            val _dish : Dish = snapshot.children.map {
-                                it.getValue(Dish::class.java)!!
-                            }[0]
-                            dish.value = _dish
-                        } catch (e: Exception) {
-                            Log.d("dberr", e.toString())
-                        }
-                    }
-                    override fun onCancelled(error: DatabaseError) {}
-                })
+                try {
+                    dish.value = snapshot.getValue(Dish::class.java)
+                } catch (e: Exception) {
+                    Log.d("dberr", e.toString())
+                }
             }
             override fun onCancelled(error: DatabaseError) {}
         })

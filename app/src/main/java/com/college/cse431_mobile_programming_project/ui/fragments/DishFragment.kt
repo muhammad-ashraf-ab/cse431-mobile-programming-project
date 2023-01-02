@@ -35,7 +35,7 @@ class DishFragment : Fragment() {
         binding.description.movementMethod = ScrollingMovementMethod()
 
         restaurantsViewModel = ViewModelProvider(this,
-            RestaurantsViewModelFactory(args.restaurantName, args.dishName))[RestaurantsViewModel::class.java]
+            RestaurantsViewModelFactory(args.restaurantId, args.dishId))[RestaurantsViewModel::class.java]
 
         restaurantsViewModel.dish.observe(viewLifecycleOwner) {
             dish = it
@@ -80,10 +80,12 @@ class DishFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 
-        (activity as MainActivity).configureBars(args.dishName, true, View.GONE)
+        val dishName = restaurantsViewModel.dish.value?.name ?: ""
+        (activity as MainActivity).configureBars(dishName, true, View.GONE)
     }
 
     private fun updateUI() {
+        (activity as MainActivity).configureBars(dish.name, true, View.GONE)
         val totalPrice = "${dish.currency} ${dish.price * amount}"
         val pricePerItem = "(${dish.price} per item)"
         binding.dishName.text = dish.name

@@ -18,7 +18,7 @@ class RestaurantsRecyclerAdapter(private val restaurantsList: ArrayList<Restaura
     : RecyclerView.Adapter<RestaurantsRecyclerAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder.create(parent)
+        return create(parent)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -40,15 +40,19 @@ class RestaurantsRecyclerAdapter(private val restaurantsList: ArrayList<Restaura
         notifyDataSetChanged()
     }
 
-    class ViewHolder(private val binding: RestaurantsCardviewBinding): RecyclerView.ViewHolder(binding.root) {
+    fun create(parent: ViewGroup): ViewHolder {
+        return ViewHolder(RestaurantsCardviewBinding
+            .inflate(LayoutInflater.from(parent.context), parent, false))
+    }
+
+    inner class ViewHolder(private val binding: RestaurantsCardviewBinding): RecyclerView.ViewHolder(binding.root) {
 
         init {
             itemView.setOnClickListener {
-                val restaurantName = binding.restaurantCardName.text.toString()
                 val navController = it.findNavController()
                 when (it.findNavController().currentDestination!!.label) {
-                    "fragment_main" -> navController.navigate(MainFragmentDirections.actionMainFragmentToRestaurantFragment(restaurantName))
-                    "fragment_dish_type" -> navController.navigate(DishTypeFragmentDirections.actionDishTypeFragmentToRestaurantFragment(restaurantName))
+                    "fragment_main" -> navController.navigate(MainFragmentDirections.actionMainFragmentToRestaurantFragment(restaurantsList[absoluteAdapterPosition].id))
+                    "fragment_dish_type" -> navController.navigate(DishTypeFragmentDirections.actionDishTypeFragmentToRestaurantFragment(restaurantsList[absoluteAdapterPosition].id))
                 }
             }
         }
@@ -64,14 +68,6 @@ class RestaurantsRecyclerAdapter(private val restaurantsList: ArrayList<Restaura
             binding.restaurantCardRating.progress = (rating * 10).toInt()
             binding.restaurantCardTags.text = tagsText
             Picasso.get().load(img_path).into(binding.restaurantCardImage)
-        }
-
-        companion object {
-            fun create(parent: ViewGroup): ViewHolder {
-
-                return ViewHolder(RestaurantsCardviewBinding
-                    .inflate(LayoutInflater.from(parent.context), parent, false))
-            }
         }
 
         private fun prettyCount(number: Number): String {

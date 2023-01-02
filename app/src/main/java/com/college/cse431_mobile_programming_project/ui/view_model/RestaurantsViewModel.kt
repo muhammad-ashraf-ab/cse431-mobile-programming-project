@@ -7,7 +7,7 @@ import com.college.cse431_mobile_programming_project.data.model.Dish
 import com.college.cse431_mobile_programming_project.data.model.Restaurant
 import com.college.cse431_mobile_programming_project.data.repository.RestaurantsRepository
 
-class RestaurantsViewModel(restaurantName: String = "", dishName : String = "") : ViewModel() {
+class RestaurantsViewModel(restaurantId: Int = -1, dishId : Int = -1) : ViewModel() {
     private val repository : RestaurantsRepository = RestaurantsRepository().getInstance()
 
     private val _restaurantsList = MutableLiveData<List<Restaurant>>()
@@ -20,14 +20,14 @@ class RestaurantsViewModel(restaurantName: String = "", dishName : String = "") 
     val dish : LiveData<Dish> = _dish
 
     init {
-        if (restaurantName == "") {
+        if (restaurantId == -1) {
             repository.loadRestaurants(_restaurantsList)
         }
-        else if (dishName == ""){
-            repository.loadRestaurant(_restaurant, restaurantName)
+        else if (dishId == -1){
+            repository.loadRestaurant(_restaurant, restaurantId)
         }
         else {
-            repository.loadDish(_dish, restaurantName, dishName)
+            repository.loadDish(_dish, restaurantId, dishId)
         }
     }
 }

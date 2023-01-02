@@ -32,13 +32,14 @@ class RestaurantFragment : Fragment() {
         val view = binding.root
 
         val dishesRecyclerView = binding.dishesRecyclerview
-        val dishesRecyclerAdapter = DishesRecyclerAdapter(dishesList, args.restaurantName)
+        val dishesRecyclerAdapter = DishesRecyclerAdapter(dishesList, args.restaurantId)
         dishesRecyclerView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         dishesRecyclerView.adapter = dishesRecyclerAdapter
 
-        restaurantsViewModel = ViewModelProvider(this, RestaurantsViewModelFactory(args.restaurantName))[RestaurantsViewModel::class.java]
+        restaurantsViewModel = ViewModelProvider(this, RestaurantsViewModelFactory(args.restaurantId))[RestaurantsViewModel::class.java]
 
         restaurantsViewModel.restaurant.observe(viewLifecycleOwner) {
+            (activity as MainActivity).configureBars(restaurantsViewModel.restaurant.value?.name!!, true, View.GONE)
             if (it.dishes.isNotEmpty()) {
                 dishesRecyclerAdapter.updateDishesList(it.dishes)
 
@@ -56,7 +57,8 @@ class RestaurantFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 
-        (activity as MainActivity).configureBars(args.restaurantName, true, View.GONE)
+        val restaurantName = restaurantsViewModel.restaurant.value?.name ?: ""
+        (activity as MainActivity).configureBars(restaurantName, true, View.GONE)
     }
 
     override fun onDestroyView() {

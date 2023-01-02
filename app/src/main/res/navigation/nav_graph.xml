@@ -123,9 +123,9 @@
         android:label="fragment_restaurant"
         tools:layout="@layout/fragment_restaurant" >
         <argument
-            android:name="restaurantName"
-            app:argType="string"
-            android:defaultValue="" />
+            android:name="restaurantId"
+            app:argType="integer"
+            android:defaultValue="-1" />
         <action
             android:id="@+id/action_restaurantFragment_to_dishFragment"
             app:destination="@id/dishFragment" />
@@ -136,12 +136,12 @@
         android:label="fragment_dish"
         tools:layout="@layout/fragment_dish" >
         <argument
-            android:name="dishName"
-            app:argType="string"
-            android:defaultValue="" />
-        <argument android:name="restaurantName"
-            app:argType="string"
-            android:defaultValue="" />
+            android:name="dishId"
+            app:argType="integer"
+            android:defaultValue="-1" />
+        <argument android:name="restaurantId"
+            app:argType="integer"
+            android:defaultValue="-1" />
     </fragment>
     <fragment
         android:id="@+id/orderCompleteFragment"
